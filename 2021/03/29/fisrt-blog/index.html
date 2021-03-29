@@ -1,3 +1,8 @@
+
+  
+    <script src="/js/cursor/love.min.js"></script>
+  
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,23 +17,23 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Times New Roman:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="fisrt second third ending">
+  <meta name="description" content="Introduction:ASIC设计流程 Design Flow：(基于Synopsys) 将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。 使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。 使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网表。 使用 Formality 对 RTL 代">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fisrt blog">
+<meta property="og:title" content="ASIC Design Flow">
 <meta property="og:url" content="http://example.com/2021/03/29/fisrt-blog/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="fisrt second third ending">
+<meta property="og:description" content="Introduction:ASIC设计流程 Design Flow：(基于Synopsys) 将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。 使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。 使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网表。 使用 Formality 对 RTL 代">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-29T03:35:33.000Z">
-<meta property="article:modified_time" content="2021-03-29T04:44:39.167Z">
+<meta property="article:modified_time" content="2021-03-29T12:00:32.987Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -45,7 +50,7 @@
   };
 </script>
 
-  <title>fisrt blog | Hexo</title>
+  <title>ASIC Design Flow | Hexo</title>
   
 
 
@@ -117,6 +122,16 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
@@ -153,7 +168,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/29/fisrt-blog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpeg">
+      <meta itemprop="image" content="/images/avatar.jpeg">
       <meta itemprop="name" content="John Doe">
       <meta itemprop="description" content="">
     </span>
@@ -163,7 +178,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          fisrt blog
+          ASIC Design Flow
         </h1>
 
         <div class="post-meta">
@@ -174,7 +189,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-03-29 11:35:33 / Modified: 12:44:39" itemprop="dateCreated datePublished" datetime="2021-03-29T11:35:33+08:00">2021-03-29</time>
+              <time title="Created: 2021-03-29 11:35:33 / Modified: 20:00:32" itemprop="dateCreated datePublished" datetime="2021-03-29T11:35:33+08:00">2021-03-29</time>
             </span>
 
           
@@ -188,7 +203,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>fisrt</p>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a>Introduction:</h2><p>ASIC设计流程</p>
+<h2 id="Design-Flow：-基于Synopsys"><a href="#Design-Flow：-基于Synopsys" class="headerlink" title="Design Flow：(基于Synopsys)"></a>Design Flow：(基于Synopsys)</h2><ol>
+<li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
+<li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
+<li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
+<li>使用 Formality 对 RTL 代码和 DC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 VCS 对 DC 网表进行输入输出关系仿真，对比 RTL 仿真的结果， 验证两者的功能一致性。</li>
+<li>使用 IC Compiler(ICC)对 DC 网表进行物理综合，获得 ICC 网表和 版图。</li>
+<li>使用 Calibre 对版图进行设计天线规则检查，规则检查(DRC)和原理 图版图一致性检查(LVS)。</li>
+<li>使用 Formality 对 DC 网表和 ICC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 StarRC 对版图进行电容电阻参数提取，获得 RC 参数，进一步获 得各网线的延迟信息。此将此延迟信息并反标至 ICC 网表。</li>
+<li>使用 PrimeTime 对反标后的 ICC 网表进行时序分析，并导出 sdf 延时文 件用于 VCS 后仿。</li>
+<li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
+<li>获得 GDSII 文档。</li>
+</ol>
 <h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>second</p>
 <p>third</p>
 <p>ending </p>
@@ -269,14 +298,14 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-Flow%EF%BC%9A-%E5%9F%BA%E4%BA%8ESynopsys"><span class="nav-number">2.</span> <span class="nav-text">Design Flow：(基于Synopsys)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text"></span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="John Doe"
-      src="/images/me.jpeg">
+      src="/images/avatar.jpeg">
   <p class="site-author-name" itemprop="name">John Doe</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -319,7 +348,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">John Doe</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -345,7 +374,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/muse.js"></script>
+<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
