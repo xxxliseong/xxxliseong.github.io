@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/03/29/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="code"><pre><span class="line"><span class="variable">$#include</span>&lt;stdio.h&gt;</span><br><span class="line">int <span class="function"><span class="title">main</span></span> ()&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello Macbook pro\n&quot;</span>);</span><br><span class="line">    <span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></div>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></div>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></div>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>ASIC Design Flow</title>
+    <url>/2021/03/29/fisrt-blog/</url>
+    <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a>Introduction:</h2><p>ASIC设计流程</p>
+<h2 id="Design-Flow：-基于Synopsys"><a href="#Design-Flow：-基于Synopsys" class="headerlink" title="Design Flow：(基于Synopsys)"></a>Design Flow：(基于Synopsys)</h2><ol>
+<li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
+<li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
+<li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
+<li>使用 Formality 对 RTL 代码和 DC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 VCS 对 DC 网表进行输入输出关系仿真，对比 RTL 仿真的结果， 验证两者的功能一致性。</li>
+<li>使用 IC Compiler(ICC)对 DC 网表进行物理综合，获得 ICC 网表和 版图。</li>
+<li>使用 Calibre 对版图进行设计天线规则检查，规则检查(DRC)和原理 图版图一致性检查(LVS)。</li>
+<li>使用 Formality 对 DC 网表和 ICC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 StarRC 对版图进行电容电阻参数提取，获得 RC 参数，进一步获 得各网线的延迟信息。此将此延迟信息并反标至 ICC 网表。</li>
+<li>使用 PrimeTime 对反标后的 ICC 网表进行时序分析，并导出 sdf 延时文 件用于 VCS 后仿。</li>
+<li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
+<li>获得 GDSII 文档。</li>
+</ol>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>second</p>
+<p>third</p>
+<p>ending </p>
+]]></content>
+  </entry>
+</search>
