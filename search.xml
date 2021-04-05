@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Note：高效同步FSM方法</title>
+    <title>Learning_Note：高效同步FSM方法</title>
     <url>/2021/04/05/Notes_FSM_coding/</url>
-    <content><![CDATA[<p>阅读笔记：《The Fundamentals of Efficient Synthesizable Finite State Machine Design using NC-Verilog and BuildGates》</p>
+    <content><![CDATA[<p>Source:《The Fundamentals of Efficient Synthesizable Finite State Machine Design using NC-Verilog and BuildGates》</p>
 <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract:"></a>Abstract:</h3><ol>
 <li>Important techniques related to one and two always block styles to code FSMs with combinational outputs are given to show why using a two always block style is preferred. </li>
 <li>An efficient Verilog-unique onehot FSM coding style is also shown. </li>
@@ -145,7 +145,7 @@
 </ul>
 ]]></content>
       <tags>
-        <tag>Verilog</tag>
+        <tag>verilog</tag>
       </tags>
   </entry>
   <entry>
@@ -246,7 +246,7 @@
 <p>3.3.3 开关级建模</p>
 ]]></content>
       <tags>
-        <tag>Verilog</tag>
+        <tag>verilog</tag>
       </tags>
   </entry>
   <entry>
