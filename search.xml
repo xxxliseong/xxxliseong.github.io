@@ -10,7 +10,10 @@
 <li>Reasons and techniques for registering FSM outputs are also detailed.</li>
 </ol>
 <h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1.Introduction:"></a>1.Introduction:</h3><h5 id="Note-利用Always语句编写组合逻辑电路和时序逻辑电路。"><a href="#Note-利用Always语句编写组合逻辑电路和时序逻辑电路。" class="headerlink" title="Note: 利用Always语句编写组合逻辑电路和时序逻辑电路。"></a>Note: 利用Always语句编写组合逻辑电路和时序逻辑电路。</h5><ol>
-<li><p>组合逻辑电路的always block编写严格（阻塞赋值），敏感列表内没有posedge or negedge 这里verilog keyword！<br>Combinational always blocks are always blocks that are used to code combinational logic functionality and are strictly coded using blocking assignments。</p>
+<li><p>组合逻辑电路的always block编写严格（阻塞赋值），敏感列表内没有posedge or negedge这些verilog keyword！</p>
+<blockquote>
+<p>Combinational always blocks are always blocks that are used to code combinational logic functionality and are strictly coded using blocking assignments。</p>
+</blockquote>
 </li>
 <li><p>时序电路always block（非阻塞赋值），有edge-based sensitivity list。</p>
 </li>
@@ -27,9 +30,15 @@
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/2.%20code%20style.png" alt="编码方式"></p>
 <p>Notes：</p>
 <ol>
-<li><p>FPGA推荐使用one-hot编码因为其内置有足够数量的FF，使用one-hot编码可以节省复杂的译码组合逻辑电路设计。<br>FPGA vendors frequently recommend using a onehot state encoding style because flip-flops are plentiful in an FPGA and the combinational logic required to implement a onehot FSM design is typically smaller than most binary encoding styles.</p>
+<li><p>FPGA推荐使用one-hot编码因为其内置有足够数量的FF，使用one-hot编码可以节省复杂的译码组合逻辑电路设计。</p>
+<blockquote>
+<p>FPGA vendors frequently recommend using a onehot state encoding style because flip-flops are plentiful in an FPGA and the combinational logic required to implement a onehot FSM design is typically smaller than most binary encoding styles.</p>
+</blockquote>
 </li>
-<li><p>FPGA的性能与FPGA中组合逻辑电路的size的决定。实现同样的功能，onehot码的用到的组合逻辑电路面积更小，可以run faster<br>Since FPGA performance is typically related to the combinational logic size of the FPGA design, onehot FSMs typically run faster than a binary encoded FSM with larger combinational logic blocks</p>
+<li><p>FPGA的性能与FPGA中组合逻辑电路的size的决定。实现同样的功能，onehot码的用到的组合逻辑电路面积更小，可以run faster。</p>
+<blockquote>
+<p>Since FPGA performance is typically related to the combinational logic size of the FPGA design, onehot FSMs typically run faster than a binary encoded FSM with larger combinational logic blocks</p>
+</blockquote>
 </li>
 </ol>
 <h3 id="4-FSM-Coding-Goals："><a href="#4-FSM-Coding-Goals：" class="headerlink" title="4. FSM Coding Goals："></a>4. FSM Coding Goals：</h3><ul>
