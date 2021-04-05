@@ -222,7 +222,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-05 11:35:33 / Modified: 18:27:39" itemprop="dateCreated datePublished" datetime="2021-04-05T11:35:33+08:00">2021-04-05</time>
+              <time title="Created: 2021-04-05 11:35:33 / Modified: 18:32:02" itemprop="dateCreated datePublished" datetime="2021-04-05T11:35:33+08:00">2021-04-05</time>
             </span>
 
           
@@ -254,7 +254,7 @@
 <p>  优点：使用触发器的个数较少，节省资源。<br>  缺点：状态跳转时可能有多个bit错误，引起毛刺，造成逻辑错误。</p>
 </li>
 <li><p>One-hot encode FSM 需要的位宽（FF的数量）为需要的状态的数量。</p>
-<p>  缺点：增加了触发器个数，寄存器资源利用效率低。<br>  优点：但是方便译码，有效化简组合逻辑电路————————————————————————</p>
+<p>  缺点：增加了触发器个数，寄存器资源利用效率低。<br>  优点：但是方便译码，有效化简组合逻辑电路</p>
 </li>
 </ul>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/2.%20code%20style.png" alt="编码方式"></p>
@@ -314,7 +314,7 @@
 </li>
 </ol>
 <h4 id="5-2-Fear-of-transitions-to-erroneous-states"><a href="#5-2-Fear-of-transitions-to-erroneous-states" class="headerlink" title="5.2 Fear of transitions to erroneous states"></a>5.2 Fear of transitions to erroneous states</h4><p>一般来说，不会发生。</p>
-<p>但在一些极端情况下，系统要求更高的robertness：如alpha粒子，高能粒子等。系统的状态可能进入到一个错误状态！<br>但是让state/next state寄存器回到想要的状态并不够！这是因为可能，剩下部分的硬件已经进入变化后的state的状态。</p>
+<p>在一些极端情况下，系统要求更高的robertness：如alpha粒子，高能粒子等。系统的状态可能进入到一个错误状态！但是让state/next state寄存器回到想要的状态并不够！这是因为可能，剩下部分的硬件已经进入变化后的state的状态。</p>
 <p>Possible bad situation：系统可能因此进入一个lockup状态，因为硬件正在等待一个不可能到来的状态转移信号。（如系统在启动后，由于高能粒子轰击，刚好回到启动state，但是外界不会再给启动的激励，因而系统会卡在此状态不动）</p>
 <p>解决办法：需要一种设计，当state寄存器进入到错误状态时：不仅下一个时刻，state能自动回到正常状态，剩下的状态也会在下一个状态过渡时候reset！</p>
 <h4 id="5-3-Making-default-next-equal-all-X’s-assignment"><a href="#5-3-Making-default-next-equal-all-X’s-assignment" class="headerlink" title="5.3  Making default next equal all X’s assignment"></a>5.3  Making default next equal all X’s assignment</h4><p>在组合逻辑always敏感列表后，直接对next进行赋初值X‘s，next会在之后的case中被赋初值。</p>
