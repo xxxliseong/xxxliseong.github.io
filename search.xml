@@ -156,14 +156,14 @@
   <entry>
     <title>ASIC Design Flow 设计流程</title>
     <url>/2021/03/29/ASIC_design_flow/</url>
-    <content><![CDATA[<h2 id="0-ASIC-Overview"><a href="#0-ASIC-Overview" class="headerlink" title="0.ASIC Overview:"></a>0.ASIC Overview:</h2><h5 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h5><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
+    <content><![CDATA[<h2 id="0-ASIC-Overview"><a href="#0-ASIC-Overview" class="headerlink" title="0.ASIC Overview:"></a>0.ASIC Overview:</h2><h5 id="0-1-概况"><a href="#0-1-概况" class="headerlink" title="0.1 概况"></a>0.1 概况</h5><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="1.asic概况"></p>
-<h4 id="标准单元库："><a href="#标准单元库：" class="headerlink" title="标准单元库："></a>标准单元库：</h4><ul>
+<h4 id="0-2-标准单元库："><a href="#0-2-标准单元库：" class="headerlink" title="0.2 标准单元库："></a>0.2 标准单元库：</h4><ul>
 <li>预先设计好的单元组成设计库</li>
 <li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
 </ul>
-<h4 id="ASIC的优势（相比于FPGA）："><a href="#ASIC的优势（相比于FPGA）：" class="headerlink" title="ASIC的优势（相比于FPGA）："></a>ASIC的优势（相比于FPGA）：</h4><p>平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
-<h4 id="电路描述抽象与设计过程："><a href="#电路描述抽象与设计过程：" class="headerlink" title="电路描述抽象与设计过程："></a>电路描述抽象与设计过程：</h4><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
+<h4 id="0-3-ASIC的优势（相比于FPGA）："><a href="#0-3-ASIC的优势（相比于FPGA）：" class="headerlink" title="0.3 ASIC的优势（相比于FPGA）："></a>0.3 ASIC的优势（相比于FPGA）：</h4><p>平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
+<h4 id="0-4-电路描述抽象与设计过程："><a href="#0-4-电路描述抽象与设计过程：" class="headerlink" title="0.4 电路描述抽象与设计过程："></a>0.4 电路描述抽象与设计过程：</h4><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="3"></p>
 <h2 id="1-ASIC设计流程"><a href="#1-ASIC设计流程" class="headerlink" title="1. ASIC设计流程"></a>1. ASIC设计流程</h2><p>1.1 确定体系结构：</p>
 <blockquote>
@@ -239,7 +239,7 @@
 </ol>
 ]]></content>
       <tags>
-        <tag>ASIC,design</tag>
+        <tag>ASIC design</tag>
       </tags>
   </entry>
 </search>
