@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Chapter 1&amp;2 Verilog基础与概念</title>
+    <url>/2021/04/02/verilog_chapter_1&amp;2/</url>
+    <content><![CDATA[<p>In this chapter, we would focus on fundamentals and core concepts of Verilog HDL. 在这一章中，主要介绍一些概念和Verlog HDL的基础知识。</p>
+<h3 id="0-模块概念："><a href="#0-模块概念：" class="headerlink" title="0.模块概念："></a>0.模块概念：</h3><ul>
+<li><p>软核 Soft core:<br>  一般指经过功能验证，可综合的Verilog HDL（VHDL）模型.</p>
+</li>
+<li><p>固核 Firm core:<br>  通知指在ASIC or FPGA 器件上，经过综合验证的电路网表文件。</p>
+</li>
+<li><p>硬核 Hard core:<br>  在ASIC器件上，经过验证正确的的电路结构版图掩膜。</p>
+</li>
+</ul>
+<h3 id="1-Verilog-HDL-基础"><a href="#1-Verilog-HDL-基础" class="headerlink" title="1.Verilog HDL 基础"></a>1.Verilog HDL 基础</h3><ul>
+<li>数值状态</li>
+</ul>
+<p><a href="https://github.com/XuLixing/Note/raw/main/images">vaule_conditions</a></p>
+<ul>
+<li>位制：二进制 b； 八进制: o；十进制：d；十六进制：h</li>
+<li>整数表示 8‘b0000_0001。 位数‘位制‘数字</li>
+</ul>
+<h3 id="2-数据类型"><a href="#2-数据类型" class="headerlink" title="2. 数据类型"></a>2. 数据类型</h3><ul>
+<li>分类：wire（tri三态门，tri0下拉电阻，tri1上拉电阻），reg，RAM</li>
+<li>reg：对应硬件电路元件具有状态保持作用；触发器，锁存器</li>
+<li>RAM：类似于二维数组的定义方式。 reg[7:0] mem1[255:0] //定义256个8位寄存器的mem。</li>
+</ul>
+<p>抽象数据类型：</p>
+<ul>
+<li>整型 integer，时间 time，实型 real ，参数型parameter.</li>
+<li>integer index //定义32位有符号数</li>
+<li>time a; // 定义两个64位的时间型变量。<br>主要用于对模拟时间的存储和计算处理，常与$time 一起使用</li>
+<li>real stime; // 定义一个实数型数据（浮点型），常用于延迟时间的计算</li>
+<li>parameter length=32, // 常量，在仿真之前就被复制，提高程序可读性。</li>
+</ul>
+<p>运算符：<br><a href="">opeartors</a></p>
+<h4 id="Note"><a href="#Note" class="headerlink" title="Note:"></a><em>Note</em>:</h4><p>赋值语句下，结果的长度是由操作左端目标长度决定。取低N位，不够补0。</p>
+<h3 id="3-条件运算符"><a href="#3-条件运算符" class="headerlink" title="3. 条件运算符"></a>3. 条件运算符</h3><p>example: (!sel)?in1:in2;</p>
+<h3 id="4-连接和复制运算符"><a href="#4-连接和复制运算符" class="headerlink" title="4. 连接和复制运算符"></a>4. 连接和复制运算符</h3><p><a href="">连接</a></p>
+<h3 id="5-模块的基本概念"><a href="#5-模块的基本概念" class="headerlink" title="5. 模块的基本概念"></a>5. 模块的基本概念</h3><p>Module是verilog HDL的基本单元</p>
+<blockquote>
+<p>组成：</p>
+</blockquote>
+<ul>
+<li>开始：NAME module；- endmodule</li>
+<li>端口定义：input output （模块引用具体）</li>
+<li>数据类型定义： wire，reg，memory，parameter</li>
+<li>逻辑功能描述：initial，always，assign，function，task</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Verilog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Chapter 3 程序设计语句和描述方式</title>
+    <url>/2021/04/02/verilog_chapter_3/</url>
+    <content><![CDATA[<h3 id="3-1-数据流建模"><a href="#3-1-数据流建模" class="headerlink" title="3.1 数据流建模"></a>3.1 数据流建模</h3><h3 id="3-11-连续赋值语句"><a href="#3-11-连续赋值语句" class="headerlink" title="3.11 连续赋值语句"></a>3.11 连续赋值语句</h3><ul>
+<li>标量，如wire a,b;</li>
+<li>向量，如wire [3:0] a, b;</li>
+</ul>
+<p>Note：</p>
+<blockquote>
+<ol>
+<li>Assign 类型 需要用 ‘=’</li>
+<li>变量需要wire类型  </li>
+<li>并行计算，没有顺序</li>
+</ol>
+</blockquote>
+<h3 id="3-2-行为级建模"><a href="#3-2-行为级建模" class="headerlink" title="3.2 行为级建模"></a>3.2 行为级建模</h3><h3 id="3-2-1-过程语句"><a href="#3-2-1-过程语句" class="headerlink" title="3.2.1 过程语句"></a>3.2.1 过程语句</h3><p>A）initial 过程语句</p>
+<p>initial 下顺序赋值，添加<code>[#100]</code>等表达式可以增加延迟。</p>
+<p>格式：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">* initial</span><br><span class="line">	begin</span><br><span class="line">	</span><br><span class="line">	end</span><br></pre></td></tr></table></figure></div>
+
+<p>B）always 过程语句:</p>
+<p>always @(敏感列表)</p>
+<p>code example：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    case()</span><br><span class="line"></span><br><span class="line">    endcase</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    begin</span><br><span class="line"></span><br><span class="line">    end</span><br></pre></td></tr></table></figure></div>
+<p>Note:</p>
+<blockquote>
+<ol>
+<li>在过程语句（initial 和 always）中，被赋值信号必须被定义为 reg 型。</li>
+<li>采用过程对组合逻辑电路进行描述时：全部输入信号需要列入敏感列表。</li>
+<li>采用过程对时序逻辑电路进行描述时：需要把时间信号和部分输入信号列入。</li>
+</ol>
+</blockquote>
+<h3 id="3-2-2-语句块"><a href="#3-2-2-语句块" class="headerlink" title="3.2.2 语句块"></a>3.2.2 语句块</h3><p>A）begin-end：语句内部按照顺序执行，可以用于可综合电路程序和仿真测试程序。</p>
+<p>B)  fork-join: 语句内部按照按照并行方式，不可以用于可综合电路，只能用于仿真程序测试。</p>
+<p>比较：<br><a href="">1.比较</a></p>
+<p>###3.2.3 过程赋值语句</p>
+<p><em>阻塞赋值语句和非阻塞赋值语句</em></p>
+<ul>
+<li>阻塞赋值语句“=” 有如下特点：<ol>
+<li>串行语句块中，各条阻塞赋值语句将按照先后排列顺序一次执行。<br>并行语句块中，各条阻塞赋值语句同时执行，没有顺序</li>
+<li>执行阻塞赋值语句的顺序是：先计算等号右端的表达式，然后立刻赋值给左边的变量，没有延时。</li>
+</ol>
+</li>
+<li>非阻塞赋值语句“&lt;=” 有如下特点：<ol>
+<li>串行语句块，各条非阻塞赋值语句的执行没有先后顺序之分。前面的语句不会影响后边语句的执行。各条语句并行执行。</li>
+<li>执行非阻塞赋值语句的顺序是，先计算右端表达式的值，然后等到延时时间结束，再将计算的值付给左边的变量。</li>
+</ol>
+</li>
+</ul>
+<p>Note:<br>    需要掌握，阻塞和非阻塞电路对应verilog程序综合的电路的情况。<br>    <a href="">阻塞非阻塞</a></p>
+<p>###3.2.4 过程连续赋值语句<br>过程性连续赋值语句有两种类型：赋值，重新赋值( assign, deasign) 和 强制、释放（force，release）</p>
+<h3 id="3-2-5-条件分支语句"><a href="#3-2-5-条件分支语句" class="headerlink" title="3.2.5 条件分支语句"></a>3.2.5 条件分支语句</h3><p>Verilog HDL的条件分支语句有两种，If条件语句和case条件分支语句</p>
+<ol>
+<li>if - else</li>
+<li>case  条件分支。<br>容易实现多路分支选择控制的语句，更加直观和方便。</li>
+</ol>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">case</span><br><span class="line">0 : </span><br><span class="line">1 :</span><br><span class="line">...: &#x2F;&#x2F; 穷尽每一种情况</span><br><span class="line">default: </span><br><span class="line">endcase</span><br></pre></td></tr></table></figure></div>
+<p>Note : 使用case语句时，case应该包含所有的状态，如果没有包含全，则缺少项回产生锁存器！！！ 这是不允许的在同步时许电路设计中。</p>
+<h3 id="3-2-6-循环语句"><a href="#3-2-6-循环语句" class="headerlink" title="3.2.6 循环语句"></a>3.2.6 循环语句</h3><ol>
+<li><p>forever<br>永久循环。在永久循环内不包含任何条件表达式，只执行无限的循环，指导遇到系统任务¥finish为止。如果需要从forever循环汇总推出，则可以使用disable语句。<br><a href="">forever</a></p>
+</li>
+<li><p>repeat<br>所引导的循环语句执行固定次数的循环。<br><a href="">repeat</a></p>
+</li>
+<li><p>while<br>仅有在while （） 括号内表达式为真才执行。<br><a href="">while</a></p>
+</li>
+<li><p>for<br><a href="">for</a></p>
+</li>
+</ol>
+<h3 id="3-3-结构化建模"><a href="#3-3-结构化建模" class="headerlink" title="3.3 结构化建模"></a>3.3 结构化建模</h3><h4 id="3-3-1-模块级建模"><a href="#3-3-1-模块级建模" class="headerlink" title="3.3.1 模块级建模"></a>3.3.1 模块级建模</h4><ol>
+<li><p>模块调用方式<br>在Verilog HDL中，模块可以被任何模块调用，这种调用实际上是将模块所描述的电路复制并连接。模块调用的基本语法格式是：<br>模块名 &lt;参数值列表&gt; 实例名 （端口名列表）：<br><a href="">实例化</a></p>
+<p> Note：</p>
+<p> A. 在同一个模块中当前模块被调用了几次，则需要用不同的实例名加以标明。</p>
+<p> B. 当需要多次调用，可以采用 阵列调用的方式对模块进行调用。<br> （下面例子是对应位相与）</p>
+</li>
+</ol>
+<p>  <a href="">实例化2</a></p>
+<ol start="2">
+<li>模块端口对应方式</li>
+</ol>
+<ul>
+<li><p>端口位置对应方式：调用时，端口一定要严格按照端口定义顺序。</p>
+</li>
+<li><p>端口名对应方式：</p>
+<p>  <a href="">实例化3</a></p>
+<p>   .clk(clock), （）内是模块定义的变量，clk是调用模块的变量。</p>
+</li>
+<li><p>不同端口位宽的匹配：从低位开始取。</p>
+</li>
+</ul>
+<ol start="3">
+<li> 模块参考值<br>有两种途径可以改变模块实例的参考值，分别是使用带有参数的模块实例语句修改参数值和使用定义参数语句（defparam）</li>
+</ol>
+<p>3.3.2 门级建模</p>
+<p>3.3.3 开关级建模</p>
+]]></content>
+      <tags>
+        <tag>Verilog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ASIC Design Flow 设计流程</title>
+    <url>/2021/03/29/ASIC_design_flow/</url>
+    <content><![CDATA[<h2 id="0-ASIC-Overview"><a href="#0-ASIC-Overview" class="headerlink" title="0.ASIC Overview:"></a>0.ASIC Overview:</h2><h5 id="0-1-概况"><a href="#0-1-概况" class="headerlink" title="0.1 概况"></a>0.1 概况</h5><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="1.asic概况"></p>
+<h4 id="0-2-标准单元库："><a href="#0-2-标准单元库：" class="headerlink" title="0.2 标准单元库："></a>0.2 标准单元库：</h4><ul>
+<li>预先设计好的单元组成设计库</li>
+<li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
+</ul>
+<h4 id="0-3-ASIC的优势（相比于FPGA）："><a href="#0-3-ASIC的优势（相比于FPGA）：" class="headerlink" title="0.3 ASIC的优势（相比于FPGA）："></a>0.3 ASIC的优势（相比于FPGA）：</h4><p>平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
+<h4 id="0-4-电路描述抽象与设计过程："><a href="#0-4-电路描述抽象与设计过程：" class="headerlink" title="0.4 电路描述抽象与设计过程："></a>0.4 电路描述抽象与设计过程：</h4><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="3"></p>
+<h2 id="1-ASIC设计流程"><a href="#1-ASIC设计流程" class="headerlink" title="1. ASIC设计流程"></a>1. ASIC设计流程</h2><p>1.1 确定体系结构：</p>
+<blockquote>
+<p>寄存器组有多少组，数量多少</p>
+</blockquote>
+<blockquote>
+<p>指令集：基本指令以及指令编码</p>
+</blockquote>
+<p>1.2 体系微架构：</p>
+<blockquote>
+<p>A. 多周期流水线结构框图</p>
+</blockquote>
+<blockquote>
+<p>B. 控制信号逻辑，控制状态机，状态转移图</p>
+</blockquote>
+<p>1.3 逻辑设计：</p>
+<blockquote>
+<p>A. 顶层接口：引脚数量，名称定义</p>
+</blockquote>
+<blockquote>
+<p>B. 确定设计层次：控制通路和数据通路确定，电路组，标准单元库等等</p>
+</blockquote>
+<blockquote>
+<p>C. 建立电路文档，包含行为级信息。使用硬件描述语言描述电路，并综合生成逻辑网表</p>
+</blockquote>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/4.%20%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1.png" alt="控制&amp;数据通路"></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/5.%20%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1.png" alt="层次"></p>
+<p>1.4. 物理设计：</p>
+<blockquote>
+<p>A：导入标准单元库（等高）</p>
+<p>B：Floorplan 平面规划</p>
+<p>C：引脚布局</p>
+</blockquote>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/6.%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1.png" alt="5"></p>
+<p>1.5. 设计验证：</p>
+<blockquote>
+<p>确保功能正确</p>
+</blockquote>
+<blockquote>
+<p>确保时钟频率满足要求</p>
+</blockquote>
+<blockquote>
+<p>确保功耗和面积满足要求</p>
+</blockquote>
+<blockquote>
+<p>确保流片成功</p>
+</blockquote>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="6"></p>
+<p>1.6 流片 （tape out）</p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="???"></p>
+<p>1.7 封装（日月光）-测试（华天）<br>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
+<h2 id="2-ASIC设计过程及其工具"><a href="#2-ASIC设计过程及其工具" class="headerlink" title="2. ASIC设计过程及其工具"></a>2. ASIC设计过程及其工具</h2><p>数字ASIC设计可分为两个阶段，均包含设计与验证。</p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="ASIC设计"></p>
+<p>基于Synosys平台各项工具及其功能：</p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="工具"></p>
+<p>设计过程中：RTL代码是通用代码，但是门级网表和版图必须是确定工艺的网表和版图。工艺对芯片的速度、面积和功耗有决定性的作用。</p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/10.%E5%B7%A5%E8%89%BA%E7%BD%91%E8%A1%A8%E5%92%8C%E7%89%88%E5%9B%BE.png" alt="基于工艺库"></p>
+<p>————————————————————————</p>
+<h3 id="appendix"><a href="#appendix" class="headerlink" title="appendix"></a>appendix</h3><p>Detailed Design Flow：(Based on Synopsys)</p>
+<ol>
+<li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
+<li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
+<li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
+<li>使用 Formality 对 RTL 代码和 DC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 VCS 对 DC 网表进行输入输出关系仿真，对比 RTL 仿真的结果， 验证两者的功能一致性。</li>
+<li>使用 IC Compiler(ICC)对 DC 网表进行物理综合，获得 ICC 网表和 版图。</li>
+<li>使用 Calibre 对版图进行设计天线规则检查，规则检查(DRC)和原理 图版图一致性检查(LVS)。</li>
+<li>使用 Formality 对 DC 网表和 ICC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 StarRC 对版图进行电容电阻参数提取，获得 RC 参数，进一步获 得各网线的延迟信息。此将此延迟信息并反标至 ICC 网表。</li>
+<li>使用 PrimeTime 对反标后的 ICC 网表进行时序分析，并导出 sdf 延时文 件用于 VCS 后仿。</li>
+<li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
+<li>获得 GDSII 文档。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>ASIC design</tag>
+      </tags>
+  </entry>
+</search>
