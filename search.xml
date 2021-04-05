@@ -155,7 +155,7 @@
   </entry>
   <entry>
     <title>ASIC Design Flow</title>
-    <url>/2021/03/29/fisrt-blog/</url>
+    <url>/2021/03/29/ASIC_design_fow/</url>
     <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a>Introduction:</h2><p>ASIC设计流程</p>
 <h2 id="Design-Flow：-基于Synopsys"><a href="#Design-Flow：-基于Synopsys" class="headerlink" title="Design Flow：(基于Synopsys)"></a>Design Flow：(基于Synopsys)</h2><ol>
 <li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
