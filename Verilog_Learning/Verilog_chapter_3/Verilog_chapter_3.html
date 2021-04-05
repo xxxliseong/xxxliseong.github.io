@@ -27,28 +27,33 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="Chapter 3 程序设计语句和描述方式 3.1 数据流建模3.11 连续赋值语句 标量，如wire a,b; 向量，如wire [3:0] a, b;  Note：   Assign 类型 需要用 ‘&#x3D;’ 变量需要wire类型   并行计算，没有顺序   3.2 行为级建模3.2.1 过程语句A）initial 过程语句 initial 下顺序赋值，添加[#100]等表达式可以增加延迟。 格式">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/Verilog_Learning/Verilog_chapter_3/Verilog_chapter_3.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Chapter 3 程序设计语句和描述方式 3.1 数据流建模3.11 连续赋值语句 标量，如wire a,b; 向量，如wire [3:0] a, b;  Note：   Assign 类型 需要用 ‘&#x3D;’ 变量需要wire类型   并行计算，没有顺序   3.2 行为级建模3.2.1 过程语句A）initial 过程语句 initial 下顺序赋值，添加[#100]等表达式可以增加延迟。 格式">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-05T03:30:14.806Z">
+<meta property="article:modified_time" content="2021-04-03T05:45:17.069Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/Verilog_Learning/Verilog_chapter_3/Verilog_chapter_3">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
+    isHome : false,
     isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>Hexo</title>
+  <title> | Hexo
+</title>
   
 
 
@@ -190,167 +195,41 @@
       <div class="main-inner">
         <div class="content-wrap">
           
+  
+  
 
-          <div class="content index posts-expand">
+          <div class="content page posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/02/verilog_chapter_1&2/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
+    
+    
+    
+    <div class="post-block" lang="en">
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta">
+  
+  <ul class="breadcrumb">
           
-            <a href="/2021/04/02/verilog_chapter_1&2/" class="post-title-link" itemprop="url">Chapter 1&2 Verilog基础与概念</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-04-02 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-02T00:00:00+08:00">2021-04-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-05 11:35:13" itemprop="dateModified" datetime="2021-04-05T11:35:13+08:00">2021-04-05</time>
-              </span>
-
+            <li><a href="/Verilog_Learning/">VERILOG_LEARNING</a></li>
+            <li><a href="/Verilog_Learning/Verilog_chapter_3/">VERILOG_CHAPTER_3</a></li>
+            <li>VERILOG_CHAPTER_3</li>
           
+  </ul>
 
-        </div>
-      </header>
+</div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
-          <p>In this chapter, we would focus on fundamentals and core concepts of Verilog HDL. 在这一章中，主要介绍一些概念和Verlog HDL的基础知识。</p>
-<h3 id="0-模块概念："><a href="#0-模块概念：" class="headerlink" title="0.模块概念："></a>0.模块概念：</h3><ul>
-<li><p>软核 Soft core:<br>  一般指经过功能验证，可综合的Verilog HDL（VHDL）模型.</p>
-</li>
-<li><p>固核 Firm core:<br>  通知指在ASIC or FPGA 器件上，经过综合验证的电路网表文件。</p>
-</li>
-<li><p>硬核 Hard core:<br>  在ASIC器件上，经过验证正确的的电路结构版图掩膜。</p>
-</li>
-</ul>
-<h3 id="1-Verilog-HDL-基础"><a href="#1-Verilog-HDL-基础" class="headerlink" title="1.Verilog HDL 基础"></a>1.Verilog HDL 基础</h3><ul>
-<li>数值状态</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://github.com/XuLixing/Note/raw/main/images">vaule_conditions</a></p>
-<ul>
-<li>位制：二进制 b； 八进制: o；十进制：d；十六进制：h</li>
-<li>整数表示 8‘b0000_0001。 位数‘位制‘数字</li>
-</ul>
-<h3 id="2-数据类型"><a href="#2-数据类型" class="headerlink" title="2. 数据类型"></a>2. 数据类型</h3><ul>
-<li>分类：wire（tri三态门，tri0下拉电阻，tri1上拉电阻），reg，RAM</li>
-<li>reg：对应硬件电路元件具有状态保持作用；触发器，锁存器</li>
-<li>RAM：类似于二维数组的定义方式。 reg[7:0] mem1[255:0] //定义256个8位寄存器的mem。</li>
-</ul>
-<p>抽象数据类型：</p>
-<ul>
-<li>整型 integer，时间 time，实型 real ，参数型parameter.</li>
-<li>integer index //定义32位有符号数</li>
-<li>time a; // 定义两个64位的时间型变量。<br>主要用于对模拟时间的存储和计算处理，常与$time 一起使用</li>
-<li>real stime; // 定义一个实数型数据（浮点型），常用于延迟时间的计算</li>
-<li>parameter length=32, // 常量，在仿真之前就被复制，提高程序可读性。</li>
-</ul>
-<p>运算符：<br><a href="">opeartors</a></p>
-<h4 id="Note"><a href="#Note" class="headerlink" title="Note:"></a><em>Note</em>:</h4><p>赋值语句下，结果的长度是由操作左端目标长度决定。取低N位，不够补0。</p>
-<h3 id="3-条件运算符"><a href="#3-条件运算符" class="headerlink" title="3. 条件运算符"></a>3. 条件运算符</h3><p>example: (!sel)?in1:in2;</p>
-<h3 id="4-连接和复制运算符"><a href="#4-连接和复制运算符" class="headerlink" title="4. 连接和复制运算符"></a>4. 连接和复制运算符</h3><p><a href="">连接</a></p>
-<h3 id="5-模块的基本概念"><a href="#5-模块的基本概念" class="headerlink" title="5. 模块的基本概念"></a>5. 模块的基本概念</h3><p>Module是verilog HDL的基本单元</p>
-<blockquote>
-<p>组成：</p>
-</blockquote>
-<ul>
-<li>开始：NAME module；- endmodule</li>
-<li>端口定义：input output （模块引用具体）</li>
-<li>数据类型定义： wire，reg，memory，parameter</li>
-<li>逻辑功能描述：initial，always，assign，function，task</li>
-</ul>
-
       
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/02/verilog_chapter_3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/02/verilog_chapter_3/" class="post-title-link" itemprop="url">Chapter 3 程序设计语句和描述方式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-04-02 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-02T00:00:00+08:00">2021-04-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-05 11:33:01" itemprop="dateModified" datetime="2021-04-05T11:33:01+08:00">2021-04-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="3-1-数据流建模"><a href="#3-1-数据流建模" class="headerlink" title="3.1 数据流建模"></a>3.1 数据流建模</h3><h3 id="3-11-连续赋值语句"><a href="#3-11-连续赋值语句" class="headerlink" title="3.11 连续赋值语句"></a>3.11 连续赋值语句</h3><ul>
+      <div class="post-body">
+          <h1 id="Chapter-3-程序设计语句和描述方式"><a href="#Chapter-3-程序设计语句和描述方式" class="headerlink" title="Chapter 3 程序设计语句和描述方式"></a>Chapter 3 程序设计语句和描述方式</h1><hr>
+<h3 id="3-1-数据流建模"><a href="#3-1-数据流建模" class="headerlink" title="3.1 数据流建模"></a>3.1 数据流建模</h3><h3 id="3-11-连续赋值语句"><a href="#3-11-连续赋值语句" class="headerlink" title="3.11 连续赋值语句"></a>3.11 连续赋值语句</h3><ul>
 <li>标量，如wire a,b;</li>
 <li>向量，如wire [3:0] a, b;</li>
 </ul>
@@ -444,170 +323,23 @@
 <p>3.3.2 门级建模</p>
 <p>3.3.3 开关级建模</p>
 
+      </div>
+      
+      
       
     </div>
-
     
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/29/fisrt-blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+  <ul class="breadcrumb">
           
-            <a href="/2021/03/29/fisrt-blog/" class="post-title-link" itemprop="url">ASIC Design Flow</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-03-29 11:35:33 / Modified: 20:00:32" itemprop="dateCreated datePublished" datetime="2021-03-29T11:35:33+08:00">2021-03-29</time>
-            </span>
-
+            <li><a href="/Verilog_Learning/">VERILOG_LEARNING</a></li>
+            <li><a href="/Verilog_Learning/Verilog_chapter_3/">VERILOG_CHAPTER_3</a></li>
+            <li>VERILOG_CHAPTER_3</li>
           
-
-        </div>
-      </header>
+  </ul>
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a>Introduction:</h2><p>ASIC设计流程</p>
-<h2 id="Design-Flow：-基于Synopsys"><a href="#Design-Flow：-基于Synopsys" class="headerlink" title="Design Flow：(基于Synopsys)"></a>Design Flow：(基于Synopsys)</h2><ol>
-<li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
-<li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
-<li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
-<li>使用 Formality 对 RTL 代码和 DC 网表进行形式验证，验证两者的结构 一致性。</li>
-<li>使用 VCS 对 DC 网表进行输入输出关系仿真，对比 RTL 仿真的结果， 验证两者的功能一致性。</li>
-<li>使用 IC Compiler(ICC)对 DC 网表进行物理综合，获得 ICC 网表和 版图。</li>
-<li>使用 Calibre 对版图进行设计天线规则检查，规则检查(DRC)和原理 图版图一致性检查(LVS)。</li>
-<li>使用 Formality 对 DC 网表和 ICC 网表进行形式验证，验证两者的结构 一致性。</li>
-<li>使用 StarRC 对版图进行电容电阻参数提取，获得 RC 参数，进一步获 得各网线的延迟信息。此将此延迟信息并反标至 ICC 网表。</li>
-<li>使用 PrimeTime 对反标后的 ICC 网表进行时序分析，并导出 sdf 延时文 件用于 VCS 后仿。</li>
-<li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
-<li>获得 GDSII 文档。</li>
-</ol>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>second</p>
-<p>third</p>
-<p>ending </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/29/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-03-29 11:16:21 / Modified: 16:33:32" itemprop="dateCreated datePublished" datetime="2021-03-29T11:16:21+08:00">2021-03-29</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$#include</span>&lt;stdio.h&gt;</span><br><span class="line">int <span class="function"><span class="title">main</span></span> ()&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello Macbook pro\n&quot;</span>);</span><br><span class="line">    <span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></div>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></div>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="BASH"><figure class="iseeu highlight /bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></div>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-
 
 
           </div>
