@@ -27,19 +27,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Chapter 3 程序设计语句和描述方式 3.1 数据流建模3.11 连续赋值语句 标量，如wire a,b; 向量，如wire [3:0] a, b;  Note：   Assign 类型 需要用 ‘&#x3D;’ 变量需要wire类型   并行计算，没有顺序   3.2 行为级建模3.2.1 过程语句A）initial 过程语句 initial 下顺序赋值，添加[#100]等表达式可以增加延迟。 格式">
-<meta property="og:type" content="website">
-<meta property="og:title" content="X‘s world">
-<meta property="og:url" content="http://example.com/verilog_learning/Verilog_chapter_3/Verilog_chapter_3.html">
+  <meta name="description" content="3.1 数据流建模3.11 连续赋值语句 标量，如wire a,b; 向量，如wire [3:0] a, b;  Note：   Assign 类型 需要用 ‘&#x3D;’ 变量需要wire类型   并行计算，没有顺序   3.2 行为级建模3.2.1 过程语句A）initial 过程语句 initial 下顺序赋值，添加[#100]等表达式可以增加延迟。 格式： 1234* initial	begin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter 3 程序设计语句和描述方式">
+<meta property="og:url" content="http://example.com/2021/04/02/verilog_chapter_3/index.html">
 <meta property="og:site_name" content="X‘s world">
-<meta property="og:description" content="Chapter 3 程序设计语句和描述方式 3.1 数据流建模3.11 连续赋值语句 标量，如wire a,b; 向量，如wire [3:0] a, b;  Note：   Assign 类型 需要用 ‘&#x3D;’ 变量需要wire类型   并行计算，没有顺序   3.2 行为级建模3.2.1 过程语句A）initial 过程语句 initial 下顺序赋值，添加[#100]等表达式可以增加延迟。 格式">
+<meta property="og:description" content="3.1 数据流建模3.11 连续赋值语句 标量，如wire a,b; 向量，如wire [3:0] a, b;  Note：   Assign 类型 需要用 ‘&#x3D;’ 变量需要wire类型   并行计算，没有顺序   3.2 行为级建模3.2.1 过程语句A）initial 过程语句 initial 下顺序赋值，添加[#100]等表达式可以增加延迟。 格式： 1234* initial	begin">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-04-05T03:30:14.806Z">
-<meta property="article:modified_time" content="2021-04-03T05:45:17.069Z">
+<meta property="article:published_time" content="2021-04-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-05T10:33:58.653Z">
 <meta property="article:author" content="XuLixing">
+<meta property="article:tag" content="verilog">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/verilog_learning/Verilog_chapter_3/Verilog_chapter_3">
+<link rel="canonical" href="http://example.com/2021/04/02/verilog_chapter_3/">
 
 
 <script id="page-configurations">
@@ -47,13 +48,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title> | X‘s world
-</title>
+  <title>Chapter 3 程序设计语句和描述方式 | X‘s world</title>
   
 
 
@@ -196,41 +196,66 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="en">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">
-</h1>
-
-<div class="post-meta">
   
-  <ul class="breadcrumb">
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/02/verilog_chapter_3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="XuLixing">
+      <meta itemprop="description" content="Lixing的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X‘s world">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Chapter 3 程序设计语句和描述方式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-04-02 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-02T00:00:00+08:00">2021-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-05 18:33:58" itemprop="dateModified" datetime="2021-04-05T18:33:58+08:00">2021-04-05</time>
+              </span>
+
           
-            <li><a href="/verilog_learning/">VERILOG_LEARNING</a></li>
-            <li><a href="/verilog_learning/Verilog_chapter_3/">VERILOG_CHAPTER_3</a></li>
-            <li>VERILOG_CHAPTER_3</li>
-          
-  </ul>
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
-</div>
+        </div>
+      </header>
 
-</header>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-      
-      
-      <div class="post-body">
-          <h1 id="Chapter-3-程序设计语句和描述方式"><a href="#Chapter-3-程序设计语句和描述方式" class="headerlink" title="Chapter 3 程序设计语句和描述方式"></a>Chapter 3 程序设计语句和描述方式</h1><hr>
-<h3 id="3-1-数据流建模"><a href="#3-1-数据流建模" class="headerlink" title="3.1 数据流建模"></a>3.1 数据流建模</h3><h3 id="3-11-连续赋值语句"><a href="#3-11-连续赋值语句" class="headerlink" title="3.11 连续赋值语句"></a>3.11 连续赋值语句</h3><ul>
+        <h3 id="3-1-数据流建模"><a href="#3-1-数据流建模" class="headerlink" title="3.1 数据流建模"></a>3.1 数据流建模</h3><h3 id="3-11-连续赋值语句"><a href="#3-11-连续赋值语句" class="headerlink" title="3.11 连续赋值语句"></a>3.11 连续赋值语句</h3><ul>
 <li>标量，如wire a,b;</li>
 <li>向量，如wire [3:0] a, b;</li>
 </ul>
@@ -324,23 +349,38 @@
 <p>3.3.2 门级建模</p>
 <p>3.3.3 开关级建模</p>
 
-      </div>
-      
-      
-      
     </div>
-    
-  <ul class="breadcrumb">
-          
-            <li><a href="/verilog_learning/">VERILOG_LEARNING</a></li>
-            <li><a href="/verilog_learning/Verilog_chapter_3/">VERILOG_CHAPTER_3</a></li>
-            <li>VERILOG_CHAPTER_3</li>
-          
-  </ul>
 
     
     
     
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/verilog/" rel="tag"><i class="fa fa-tag"></i> verilog</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/02/verilog_chapter_1&2/" rel="prev" title="Chapter 1&2 Verilog基础与概念">
+      <i class="fa fa-chevron-left"></i> Chapter 1&2 Verilog基础与概念
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/05/Notes_FSM_coding/" rel="next" title="Learning_Note：高效同步FSM方法">
+      Learning_Note：高效同步FSM方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
 
 
           </div>
@@ -391,7 +431,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-3-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E5%8F%A5%E5%92%8C%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">Chapter 3 程序设计语句和描述方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.0.1.</span> <span class="nav-text">3.1 数据流建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-11-%E8%BF%9E%E7%BB%AD%E8%B5%8B%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.0.2.</span> <span class="nav-text">3.11 连续赋值语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%A1%8C%E4%B8%BA%E7%BA%A7%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.2 行为级建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-%E8%BF%87%E7%A8%8B%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.0.4.</span> <span class="nav-text">3.2.1 过程语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-%E8%AF%AD%E5%8F%A5%E5%9D%97"><span class="nav-number">1.0.5.</span> <span class="nav-text">3.2.2 语句块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-5-%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.0.6.</span> <span class="nav-text">3.2.5 条件分支语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-6-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.0.7.</span> <span class="nav-text">3.2.6 循环语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E7%BB%93%E6%9E%84%E5%8C%96%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.0.8.</span> <span class="nav-text">3.3 结构化建模</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-%E6%A8%A1%E5%9D%97%E7%BA%A7%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.0.8.1.</span> <span class="nav-text">3.3.1 模块级建模</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.</span> <span class="nav-text">3.1 数据流建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-11-%E8%BF%9E%E7%BB%AD%E8%B5%8B%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.</span> <span class="nav-text">3.11 连续赋值语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%A1%8C%E4%B8%BA%E7%BA%A7%E5%BB%BA%E6%A8%A1"><span class="nav-number">3.</span> <span class="nav-text">3.2 行为级建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-%E8%BF%87%E7%A8%8B%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.</span> <span class="nav-text">3.2.1 过程语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-%E8%AF%AD%E5%8F%A5%E5%9D%97"><span class="nav-number">5.</span> <span class="nav-text">3.2.2 语句块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-5-%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">6.</span> <span class="nav-text">3.2.5 条件分支语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-6-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">7.</span> <span class="nav-text">3.2.6 循环语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E7%BB%93%E6%9E%84%E5%8C%96%E5%BB%BA%E6%A8%A1"><span class="nav-number">8.</span> <span class="nav-text">3.3 结构化建模</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-%E6%A8%A1%E5%9D%97%E7%BA%A7%E5%BB%BA%E6%A8%A1"><span class="nav-number">8.1.</span> <span class="nav-text">3.3.1 模块级建模</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
