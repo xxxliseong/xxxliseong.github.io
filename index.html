@@ -493,7 +493,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-05 13:34:42" itemprop="dateModified" datetime="2021-04-05T13:34:42+08:00">2021-04-05</time>
+                <time title="Modified: 2021-04-05 13:47:25" itemprop="dateModified" datetime="2021-04-05T13:47:25+08:00">2021-04-05</time>
               </span>
 
           
@@ -508,14 +508,14 @@
 
       
           <h2 id="0-ASIC-Overview"><a href="#0-ASIC-Overview" class="headerlink" title="0.ASIC Overview:"></a>0.ASIC Overview:</h2><h5 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h5><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
-<p><a href="">1.asic概况</a></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="1.asic概况"></p>
 <h4 id="标准单元库："><a href="#标准单元库：" class="headerlink" title="标准单元库："></a>标准单元库：</h4><ul>
 <li>预先设计好的单元组成设计库</li>
 <li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
 </ul>
 <h4 id="ASIC的优势（相比于FPGA）："><a href="#ASIC的优势（相比于FPGA）：" class="headerlink" title="ASIC的优势（相比于FPGA）："></a>ASIC的优势（相比于FPGA）：</h4><p>平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
-<h4 id="电路描述抽象与设计过程："><a href="#电路描述抽象与设计过程：" class="headerlink" title="电路描述抽象与设计过程："></a>电路描述抽象与设计过程：</h4><p><a href="">2.抽象</a></p>
-<p><a href="">3</a></p>
+<h4 id="电路描述抽象与设计过程："><a href="#电路描述抽象与设计过程：" class="headerlink" title="电路描述抽象与设计过程："></a>电路描述抽象与设计过程：</h4><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="3"></p>
 <h2 id="1-ASIC设计流程"><a href="#1-ASIC设计流程" class="headerlink" title="1. ASIC设计流程"></a>1. ASIC设计流程</h2><p>1.1 确定体系结构：</p>
 <blockquote>
 <p>寄存器组有多少组，数量多少</p>
@@ -540,14 +540,15 @@
 <blockquote>
 <p>C. 建立电路文档，包含行为级信息。使用硬件描述语言描述电路，并综合生成逻辑网表</p>
 </blockquote>
-<p><a href="">4</a></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/4.%20%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1.png" alt="控制&amp;数据通路"></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/5.%20%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1.png" alt="层次"></p>
 <p>1.4. 物理设计：</p>
 <blockquote>
 <p>A：导入标准单元库（等高）</p>
 <p>B：Floorplan 平面规划</p>
 <p>C：引脚布局</p>
 </blockquote>
-<p><a href="">5</a></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/6.%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1.png" alt="5"></p>
 <p>1.5. 设计验证：</p>
 <blockquote>
 <p>确保功能正确</p>
@@ -561,16 +562,19 @@
 <blockquote>
 <p>确保流片成功</p>
 </blockquote>
-<p><a href="">6</a></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="6"></p>
 <p>1.6 流片 （tape out）</p>
-<p><a href="">???</a></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="???"></p>
 <p>1.7 封装（日月光）-测试（华天）<br>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
 <h2 id="2-ASIC设计过程及其工具"><a href="#2-ASIC设计过程及其工具" class="headerlink" title="2. ASIC设计过程及其工具"></a>2. ASIC设计过程及其工具</h2><p>数字ASIC设计可分为两个阶段，均包含设计与验证。</p>
-<p><img src=""></p>
-<p><img src=""></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="ASIC设计"></p>
+<p>基于Synosys平台各项工具及其功能：</p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="工具"></p>
 <p>设计过程中：RTL代码是通用代码，但是门级网表和版图必须是确定工艺的网表和版图。工艺对芯片的速度、面积和功耗有决定性的作用。</p>
-<p><img src=""></p>
-<h2 id="Detailed-Design-Flow：-Based-on-Synopsys"><a href="#Detailed-Design-Flow：-Based-on-Synopsys" class="headerlink" title="Detailed Design Flow：(Based on Synopsys)"></a>Detailed Design Flow：(Based on Synopsys)</h2><ol>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/10.%E5%B7%A5%E8%89%BA%E7%BD%91%E8%A1%A8%E5%92%8C%E7%89%88%E5%9B%BE.png" alt="基于工艺库"></p>
+<p>————————————————————————</p>
+<h3 id="appendix"><a href="#appendix" class="headerlink" title="appendix"></a>appendix</h3><p>Detailed Design Flow：(Based on Synopsys)</p>
+<ol>
 <li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
 <li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
 <li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
@@ -584,9 +588,6 @@
 <li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
 <li>获得 GDSII 文档。</li>
 </ol>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>second</p>
-<p>third</p>
-<p>ending </p>
 
       
     </div>
