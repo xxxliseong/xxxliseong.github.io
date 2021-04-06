@@ -657,7 +657,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-05 13:52:09" itemprop="dateModified" datetime="2021-04-05T13:52:09+08:00">2021-04-05</time>
+                <time title="Modified: 2021-04-06 15:40:53" itemprop="dateModified" datetime="2021-04-06T15:40:53+08:00">2021-04-06</time>
               </span>
 
           
@@ -671,31 +671,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="0-ASIC-Overview"><a href="#0-ASIC-Overview" class="headerlink" title="0.ASIC Overview:"></a>0.ASIC Overview:</h2><h5 id="0-1-概况"><a href="#0-1-概况" class="headerlink" title="0.1 概况"></a>0.1 概况</h5><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
+          <h2 id="ASIC-Overview"><a href="#ASIC-Overview" class="headerlink" title="ASIC Overview:"></a>ASIC Overview:</h2><h5 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h5><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="1.asic概况"></p>
-<h4 id="0-2-标准单元库："><a href="#0-2-标准单元库：" class="headerlink" title="0.2 标准单元库："></a>0.2 标准单元库：</h4><ul>
+<h4 id="标准单元库："><a href="#标准单元库：" class="headerlink" title="标准单元库："></a>标准单元库：</h4><ul>
 <li>预先设计好的单元组成设计库</li>
 <li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
 </ul>
-<h4 id="0-3-ASIC的优势（相比于FPGA）："><a href="#0-3-ASIC的优势（相比于FPGA）：" class="headerlink" title="0.3 ASIC的优势（相比于FPGA）："></a>0.3 ASIC的优势（相比于FPGA）：</h4><p>平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
-<h4 id="0-4-电路描述抽象与设计过程："><a href="#0-4-电路描述抽象与设计过程：" class="headerlink" title="0.4 电路描述抽象与设计过程："></a>0.4 电路描述抽象与设计过程：</h4><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
+<h4 id="ASIC的优势（相比于FPGA）："><a href="#ASIC的优势（相比于FPGA）：" class="headerlink" title="ASIC的优势（相比于FPGA）："></a>ASIC的优势（相比于FPGA）：</h4><p>平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
+<h4 id="电路描述抽象与设计过程："><a href="#电路描述抽象与设计过程：" class="headerlink" title="电路描述抽象与设计过程："></a>电路描述抽象与设计过程：</h4><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="3"></p>
-<h2 id="1-ASIC设计流程"><a href="#1-ASIC设计流程" class="headerlink" title="1. ASIC设计流程"></a>1. ASIC设计流程</h2><p>1.1 确定体系结构：</p>
-<blockquote>
+<h2 id="ASIC设计流程"><a href="#ASIC设计流程" class="headerlink" title="ASIC设计流程"></a>ASIC设计流程</h2><h3 id="确定体系结构："><a href="#确定体系结构：" class="headerlink" title="确定体系结构："></a>确定体系结构：</h3><blockquote>
 <p>寄存器组有多少组，数量多少</p>
 </blockquote>
 <blockquote>
 <p>指令集：基本指令以及指令编码</p>
 </blockquote>
-<p>1.2 体系微架构：</p>
-<blockquote>
+<h3 id="体系微架构："><a href="#体系微架构：" class="headerlink" title="体系微架构："></a>体系微架构：</h3><blockquote>
 <p>A. 多周期流水线结构框图</p>
 </blockquote>
 <blockquote>
 <p>B. 控制信号逻辑，控制状态机，状态转移图</p>
 </blockquote>
-<p>1.3 逻辑设计：</p>
-<blockquote>
+<h3 id="逻辑设计："><a href="#逻辑设计：" class="headerlink" title="逻辑设计："></a>逻辑设计：</h3><blockquote>
 <p>A. 顶层接口：引脚数量，名称定义</p>
 </blockquote>
 <blockquote>
@@ -706,15 +703,13 @@
 </blockquote>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/4.%20%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1.png" alt="控制&amp;数据通路"></p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/5.%20%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1.png" alt="层次"></p>
-<p>1.4. 物理设计：</p>
-<blockquote>
+<h3 id="物理设计："><a href="#物理设计：" class="headerlink" title="物理设计："></a>物理设计：</h3><blockquote>
 <p>A：导入标准单元库（等高）</p>
 <p>B：Floorplan 平面规划</p>
 <p>C：引脚布局</p>
 </blockquote>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/6.%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1.png" alt="5"></p>
-<p>1.5. 设计验证：</p>
-<blockquote>
+<h3 id="设计验证："><a href="#设计验证：" class="headerlink" title="设计验证："></a>设计验证：</h3><blockquote>
 <p>确保功能正确</p>
 </blockquote>
 <blockquote>
@@ -727,9 +722,8 @@
 <p>确保流片成功</p>
 </blockquote>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="6"></p>
-<p>1.6 流片 （tape out）</p>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="???"></p>
-<p>1.7 封装（日月光）-测试（华天）<br>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
+<h3 id="流片-（tape-out）"><a href="#流片-（tape-out）" class="headerlink" title="流片 （tape out）"></a>流片 （tape out）</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="???"></p>
+<h3 id="封装（日月光）-测试（华天）"><a href="#封装（日月光）-测试（华天）" class="headerlink" title="封装（日月光）-测试（华天）"></a>封装（日月光）-测试（华天）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
 <h2 id="2-ASIC设计过程及其工具"><a href="#2-ASIC设计过程及其工具" class="headerlink" title="2. ASIC设计过程及其工具"></a>2. ASIC设计过程及其工具</h2><p>数字ASIC设计可分为两个阶段，均包含设计与验证。</p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="ASIC设计"></p>
 <p>基于Synosys平台各项工具及其功能：</p>
