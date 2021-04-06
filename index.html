@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-06 02:34:13" itemprop="dateModified" datetime="2021-04-06T02:34:13+08:00">2021-04-06</time>
+                <time title="Modified: 2021-04-06 17:46:48" itemprop="dateModified" datetime="2021-04-06T17:46:48+08:00">2021-04-06</time>
               </span>
 
           
@@ -342,7 +342,26 @@
 <p>By making a default next state assignment of X’s, pre-synthesis simulation models will cause the state machine outputs to go unknown if not all state transitions have been explicitly assigned in the case statement. This is a useful technique to debug state machine designs, plus the X’s will be treated as “don’t cares” by the synthesis tool.</p>
 </blockquote>
 <p><strong>不理解的问题：如果组合逻辑过于复杂？？？？如pcpu</strong></p>
-<h3 id="One-Always-Block-FSM-style-Avoid"><a href="#One-Always-Block-FSM-style-Avoid" class="headerlink" title="One Always Block FSM style (Avoid)"></a>One Always Block FSM style (Avoid)</h3><h3 id="Onehot-FSM-Coding-style-Good-style"><a href="#Onehot-FSM-Coding-style-Good-style" class="headerlink" title="Onehot FSM Coding style. (Good style)"></a>Onehot FSM Coding style. (Good style)</h3><h3 id="Registered-FSM-Output-Good-style"><a href="#Registered-FSM-Output-Good-style" class="headerlink" title="Registered FSM Output. (Good style)"></a>Registered FSM Output. (Good style)</h3><h3 id="Comparaing-RTL-Coding-Efforts"><a href="#Comparaing-RTL-Coding-Efforts" class="headerlink" title="Comparaing RTL Coding Efforts"></a>Comparaing RTL Coding Efforts</h3><h3 id="Synthesis-Results"><a href="#Synthesis-Results" class="headerlink" title="Synthesis Results"></a>Synthesis Results</h3><h3 id="Running-Cadence-BuildGates"><a href="#Running-Cadence-BuildGates" class="headerlink" title="Running Cadence BuildGates"></a>Running Cadence BuildGates</h3>
+<h3 id="One-Always-Block-FSM-style-Avoid"><a href="#One-Always-Block-FSM-style-Avoid" class="headerlink" title="One Always Block FSM style (Avoid)"></a>One Always Block FSM style (Avoid)</h3><h3 id="Onehot-FSM-Coding-style-Good-style"><a href="#Onehot-FSM-Coding-style-Good-style" class="headerlink" title="Onehot FSM Coding style. (Good style)"></a>Onehot FSM Coding style. (Good style)</h3><p>Onehot 编码与二进制编码的核心在于parameter不再代表state encoding，而是用来表示state向量的index。case的语句的比较则简化成单个bit的比较。</p>
+<p><a href="">onehot</a></p>
+<p>Onehot 编码与二进制编码的核心在于parameter不再代表state encoding，而是用来表示state向量的index。case的语句的比较则简化成单个bit的比较。</p>
+<p>在case语句下，比较进入分支时，本身带有优先级（即从第一种情况到default），因而这本身综合器会综合一个组合逻辑的优先级编码器电路。由于onehot编码本身不存在优先级，每一个case在逻辑上是并行，这是作者唯一推荐使用full_case 和 parallel_case 语句（告诉仿真器 1. 已经穷尽了所有case，不要生成锁存器 2.消除优先级编码器电路）</p>
+<p>This is the only coding style where I recommend using full_case and parallel_case statements. The parallel case statement tells the synthesis tool to not build a priority encoder even though in theory, more than one of the state bits could be set (as engineers, we know that this is a onehot FSM and that only one bit can be set so no priority encoder is required). The value of the full_case statement is still in question.</p>
+<p>Note：多个输出onehot编码，优先编码器</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.cburch.com/logisim/docs/2.3.0/libs/plexers/priencod.html">http://www.cburch.com/logisim/docs/2.3.0/libs/plexers/priencod.html</a></p>
+</blockquote>
+<p>关于parallel_case和full_case的使用</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/teenagerold/article/details/78022636?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&spm=1001.2101.3001.4242">https://blog.csdn.net/teenagerold/article/details/78022636?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&amp;spm=1001.2101.3001.4242</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/childbor/article/details/78633541?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&spm=1001.2101.3001.4242">https://blog.csdn.net/childbor/article/details/78633541?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&amp;spm=1001.2101.3001.4242</a></p>
+</blockquote>
+<h3 id="Registered-FSM-Output-Good-style"><a href="#Registered-FSM-Output-Good-style" class="headerlink" title="Registered FSM Output. (Good style)"></a>Registered FSM Output. (Good style)</h3><p>在输出级加一个register可以保证输出没有glitch，优化综合结果。</p>
+<p>Registering the outputs of an FSM design insures that the outputs are <strong>glitch-free</strong> and frequently improves synthesis results by standardizing the output and input delay constraints of synthesized modules.</p>
+<p><a href="">registered</a></p>
+<h3 id="System-Verilog-Enhancement"><a href="#System-Verilog-Enhancement" class="headerlink" title="System Verilog Enhancement"></a>System Verilog Enhancement</h3>
       
     </div>
 
@@ -657,7 +676,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-06 15:45:33" itemprop="dateModified" datetime="2021-04-06T15:45:33+08:00">2021-04-06</time>
+                <time title="Modified: 2021-04-06 15:48:10" itemprop="dateModified" datetime="2021-04-06T15:48:10+08:00">2021-04-06</time>
               </span>
 
           
@@ -723,8 +742,8 @@
 </blockquote>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="6"></p>
 <h3 id="流片-（tape-out）"><a href="#流片-（tape-out）" class="headerlink" title="流片 （tape out）"></a>流片 （tape out）</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="???"></p>
-<h3 id="封装（日月光）-测试（华天）"><a href="#封装（日月光）-测试（华天）" class="headerlink" title="封装（日月光）-测试（华天）"></a>封装（日月光）-测试（华天）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
-<h2 id="ASIC设计过程及其工具"><a href="#ASIC设计过程及其工具" class="headerlink" title="ASIC设计过程及其工具"></a>ASIC设计过程及其工具</h2><h3 id="数字ASIC设计可分为两个阶段，均包含设计与验证。"><a href="#数字ASIC设计可分为两个阶段，均包含设计与验证。" class="headerlink" title="数字ASIC设计可分为两个阶段，均包含设计与验证。"></a>数字ASIC设计可分为两个阶段，均包含设计与验证。</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="ASIC设计"></p>
+<h3 id="封装（日月光）"><a href="#封装（日月光）" class="headerlink" title="封装（日月光）"></a>封装（日月光）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
+<h3 id="测试（华天）"><a href="#测试（华天）" class="headerlink" title="测试（华天）"></a>测试（华天）</h3><h2 id="ASIC设计过程及其工具"><a href="#ASIC设计过程及其工具" class="headerlink" title="ASIC设计过程及其工具"></a>ASIC设计过程及其工具</h2><h3 id="数字ASIC设计可分为两个阶段，均包含设计与验证。"><a href="#数字ASIC设计可分为两个阶段，均包含设计与验证。" class="headerlink" title="数字ASIC设计可分为两个阶段，均包含设计与验证。"></a>数字ASIC设计可分为两个阶段，均包含设计与验证。</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="ASIC设计"></p>
 <h3 id="基于Synosys平台各项工具及其功能："><a href="#基于Synosys平台各项工具及其功能：" class="headerlink" title="基于Synosys平台各项工具及其功能："></a>基于Synosys平台各项工具及其功能：</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="工具"></p>
 <p>设计过程中：RTL代码是通用代码，但是门级网表和版图必须是确定工艺的网表和版图。工艺对芯片的速度、面积和功耗有决定性的作用。</p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/10.%E5%B7%A5%E8%89%BA%E7%BD%91%E8%A1%A8%E5%92%8C%E7%89%88%E5%9B%BE.png" alt="基于工艺库"></p>
