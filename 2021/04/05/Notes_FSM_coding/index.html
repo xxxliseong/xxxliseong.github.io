@@ -38,8 +38,10 @@
 <meta property="og:image" content="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/2.%20code%20style.png">
 <meta property="og:image" content="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/3.4states_FSM.png">
 <meta property="og:image" content="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/3.4states_FSM.png">
+<meta property="og:image" content="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/4.%20onehot_coding.png">
+<meta property="og:image" content="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/5.registeredFSM.png">
 <meta property="article:published_time" content="2021-04-05T03:35:33.000Z">
-<meta property="article:modified_time" content="2021-04-06T09:46:48.104Z">
+<meta property="article:modified_time" content="2021-04-06T09:49:02.026Z">
 <meta property="article:author" content="XuLixing">
 <meta property="article:tag" content="FSM">
 <meta name="twitter:card" content="summary">
@@ -239,7 +241,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-06 17:46:48" itemprop="dateModified" datetime="2021-04-06T17:46:48+08:00">2021-04-06</time>
+                <time title="Modified: 2021-04-06 17:49:02" itemprop="dateModified" datetime="2021-04-06T17:49:02+08:00">2021-04-06</time>
               </span>
 
           
@@ -358,7 +360,7 @@
 </blockquote>
 <p><strong>不理解的问题：如果组合逻辑过于复杂？？？？如pcpu</strong></p>
 <h3 id="One-Always-Block-FSM-style-Avoid"><a href="#One-Always-Block-FSM-style-Avoid" class="headerlink" title="One Always Block FSM style (Avoid)"></a>One Always Block FSM style (Avoid)</h3><h3 id="Onehot-FSM-Coding-style-Good-style"><a href="#Onehot-FSM-Coding-style-Good-style" class="headerlink" title="Onehot FSM Coding style. (Good style)"></a>Onehot FSM Coding style. (Good style)</h3><p>Onehot 编码与二进制编码的核心在于parameter不再代表state encoding，而是用来表示state向量的index。case的语句的比较则简化成单个bit的比较。</p>
-<p><a href="">onehot</a></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/4.%20onehot_coding.png" alt="onehot"></p>
 <p>Onehot 编码与二进制编码的核心在于parameter不再代表state encoding，而是用来表示state向量的index。case的语句的比较则简化成单个bit的比较。</p>
 <p>在case语句下，比较进入分支时，本身带有优先级（即从第一种情况到default），因而这本身综合器会综合一个组合逻辑的优先级编码器电路。由于onehot编码本身不存在优先级，每一个case在逻辑上是并行，这是作者唯一推荐使用full_case 和 parallel_case 语句（告诉仿真器 1. 已经穷尽了所有case，不要生成锁存器 2.消除优先级编码器电路）</p>
 <p>This is the only coding style where I recommend using full_case and parallel_case statements. The parallel case statement tells the synthesis tool to not build a priority encoder even though in theory, more than one of the state bits could be set (as engineers, we know that this is a onehot FSM and that only one bit can be set so no priority encoder is required). The value of the full_case statement is still in question.</p>
@@ -375,7 +377,7 @@
 </blockquote>
 <h3 id="Registered-FSM-Output-Good-style"><a href="#Registered-FSM-Output-Good-style" class="headerlink" title="Registered FSM Output. (Good style)"></a>Registered FSM Output. (Good style)</h3><p>在输出级加一个register可以保证输出没有glitch，优化综合结果。</p>
 <p>Registering the outputs of an FSM design insures that the outputs are <strong>glitch-free</strong> and frequently improves synthesis results by standardizing the output and input delay constraints of synthesized modules.</p>
-<p><a href="">registered</a></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/5.registeredFSM.png" alt="registered"></p>
 <h3 id="System-Verilog-Enhancement"><a href="#System-Verilog-Enhancement" class="headerlink" title="System Verilog Enhancement"></a>System Verilog Enhancement</h3>
     </div>
 
