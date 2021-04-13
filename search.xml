@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Introduction to My Blog</title>
+    <url>/2021/04/13/intro/</url>
+    <content><![CDATA[<p>This is my blog, built at March, 2021, supported by Github &amp; Hexo &amp; NexT Theme.</p>
+<p>Accumulation does matter.</p>
+<p>This blog would serve as window, where I could share my my points, output fantastic ideas and trace any change inside my mind.</p>
+<p>For Now, I would focus more on producing notes and posts from my leanrning, as many as possible.</p>
+<p>I hope that what i will write or i have wrriten would make a difference to the world.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Learning_Note：高效同步FSM方法</title>
     <url>/2021/04/05/Notes_FSM_coding/</url>
     <content><![CDATA[<p>Source:《The Fundamentals of Efficient Synthesizable Finite State Machine Design using NC-Verilog and BuildGates》</p>
