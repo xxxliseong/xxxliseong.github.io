@@ -1,85 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>ASIC Design Flow 设计流程</title>
-    <url>/2021/03/29/ASIC_design_flow/</url>
-    <content><![CDATA[<h2 id="ASIC-Overview"><a href="#ASIC-Overview" class="headerlink" title="ASIC Overview:"></a>ASIC Overview:</h2><h3 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h3><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="1.asic概况"></p>
-<h3 id="标准单元库："><a href="#标准单元库：" class="headerlink" title="标准单元库："></a>标准单元库：</h3><ul>
-<li>预先设计好的单元组成设计库</li>
-<li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
-</ul>
-<h3 id="ASIC的优势："><a href="#ASIC的优势：" class="headerlink" title="ASIC的优势："></a>ASIC的优势：</h3><p>相比于FPGA：平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
-<h3 id="电路描述与设计过程："><a href="#电路描述与设计过程：" class="headerlink" title="电路描述与设计过程："></a>电路描述与设计过程：</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="3"></p>
-<h2 id="ASIC设计流程"><a href="#ASIC设计流程" class="headerlink" title="ASIC设计流程"></a>ASIC设计流程</h2><h3 id="确定体系结构："><a href="#确定体系结构：" class="headerlink" title="确定体系结构："></a>确定体系结构：</h3><blockquote>
-<p>寄存器组有多少组，数量多少</p>
-</blockquote>
-<blockquote>
-<p>指令集：基本指令以及指令编码</p>
-</blockquote>
-<h3 id="体系微架构："><a href="#体系微架构：" class="headerlink" title="体系微架构："></a>体系微架构：</h3><blockquote>
-<p>A. 多周期流水线结构框图</p>
-</blockquote>
-<blockquote>
-<p>B. 控制信号逻辑，控制状态机，状态转移图</p>
-</blockquote>
-<h3 id="逻辑设计："><a href="#逻辑设计：" class="headerlink" title="逻辑设计："></a>逻辑设计：</h3><blockquote>
-<p>A. 顶层接口：引脚数量，名称定义</p>
-</blockquote>
-<blockquote>
-<p>B. 确定设计层次：控制通路和数据通路确定，电路组，标准单元库等等</p>
-</blockquote>
-<blockquote>
-<p>C. 建立电路文档，包含行为级信息。使用硬件描述语言描述电路，并综合生成逻辑网表</p>
-</blockquote>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/4.%20%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1.png" alt="控制&amp;数据通路"></p>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/5.%20%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1.png" alt="层次"></p>
-<h3 id="物理设计："><a href="#物理设计：" class="headerlink" title="物理设计："></a>物理设计：</h3><blockquote>
-<p>A：导入标准单元库（等高）</p>
-<p>B：Floorplan 平面规划</p>
-<p>C：引脚布局</p>
-</blockquote>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/6.%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1.png" alt="5"></p>
-<h3 id="设计验证："><a href="#设计验证：" class="headerlink" title="设计验证："></a>设计验证：</h3><blockquote>
-<p>确保功能正确</p>
-</blockquote>
-<blockquote>
-<p>确保时钟频率满足要求</p>
-</blockquote>
-<blockquote>
-<p>确保功耗和面积满足要求</p>
-</blockquote>
-<blockquote>
-<p>确保流片成功</p>
-</blockquote>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="6"></p>
-<h3 id="流片-（tape-out）"><a href="#流片-（tape-out）" class="headerlink" title="流片 （tape out）"></a>流片 （tape out）</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="???"></p>
-<h3 id="封装（日月光）"><a href="#封装（日月光）" class="headerlink" title="封装（日月光）"></a>封装（日月光）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
-<h3 id="测试（华天）"><a href="#测试（华天）" class="headerlink" title="测试（华天）"></a>测试（华天）</h3><h2 id="ASIC设计过程及其工具"><a href="#ASIC设计过程及其工具" class="headerlink" title="ASIC设计过程及其工具"></a>ASIC设计过程及其工具</h2><h3 id="数字ASIC设计可分为两个阶段，均包含设计与验证。"><a href="#数字ASIC设计可分为两个阶段，均包含设计与验证。" class="headerlink" title="数字ASIC设计可分为两个阶段，均包含设计与验证。"></a>数字ASIC设计可分为两个阶段，均包含设计与验证。</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="ASIC设计"></p>
-<h3 id="基于Synosys平台各项工具及其功能："><a href="#基于Synosys平台各项工具及其功能：" class="headerlink" title="基于Synosys平台各项工具及其功能："></a>基于Synosys平台各项工具及其功能：</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="工具"></p>
-<p>设计过程中：RTL代码是通用代码，但是门级网表和版图必须是确定工艺的网表和版图。工艺对芯片的速度、面积和功耗有决定性的作用。</p>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/10.%E5%B7%A5%E8%89%BA%E7%BD%91%E8%A1%A8%E5%92%8C%E7%89%88%E5%9B%BE.png" alt="基于工艺库"></p>
-<p>————————————————————————</p>
-<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><p>Detailed Design Flow：(Based on Synopsys)</p>
-<ol>
-<li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
-<li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
-<li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
-<li>使用 Formality 对 RTL 代码和 DC 网表进行形式验证，验证两者的结构 一致性。</li>
-<li>使用 VCS 对 DC 网表进行输入输出关系仿真，对比 RTL 仿真的结果， 验证两者的功能一致性。</li>
-<li>使用 IC Compiler(ICC)对 DC 网表进行物理综合，获得 ICC 网表和 版图。</li>
-<li>使用 Calibre 对版图进行设计天线规则检查，规则检查(DRC)和原理 图版图一致性检查(LVS)。</li>
-<li>使用 Formality 对 DC 网表和 ICC 网表进行形式验证，验证两者的结构 一致性。</li>
-<li>使用 StarRC 对版图进行电容电阻参数提取，获得 RC 参数，进一步获 得各网线的延迟信息。此将此延迟信息并反标至 ICC 网表。</li>
-<li>使用 PrimeTime 对反标后的 ICC 网表进行时序分析，并导出 sdf 延时文 件用于 VCS 后仿。</li>
-<li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
-<li>获得 GDSII 文档。</li>
-</ol>
+    <title>Introduction to My Blog</title>
+    <url>/2021/04/13/intro/</url>
+    <content><![CDATA[<p>This is my blog, built at March, 2021, supported by Github &amp; Hexo &amp; NexT Theme.</p>
+<p>Accumulation does matter.</p>
+<p>This blog would serve as window, where I could share my my points, output fantastic ideas and trace any change inside my mind.</p>
+<p>For Now, I would focus more on producing notes and posts from my leanrning, as many as possible.</p>
+<p>I hope that what i will write or i have wrriten would make a difference to the world.</p>
 ]]></content>
-      <tags>
-        <tag>ASIC design</tag>
-      </tags>
   </entry>
   <entry>
     <title>Learning_Note：高效同步FSM方法</title>
@@ -207,16 +136,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Introduction to My Blog</title>
-    <url>/2021/04/13/intro/</url>
-    <content><![CDATA[<p>This is my blog, built at March, 2021, supported by Github &amp; Hexo &amp; NexT Theme.</p>
-<p>Accumulation does matter.</p>
-<p>This blog would serve as window, where I could share my my points, output fantastic ideas and trace any change inside my mind.</p>
-<p>For Now, I would focus more on producing notes and posts from my leanrning, as many as possible.</p>
-<p>I hope that what i will write or i have wrriten would make a difference to the world.</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Chapter 1&amp;2 Verilog基础与概念</title>
     <url>/2021/04/02/verilog_chapter_1&amp;2/</url>
     <content><![CDATA[<p>In this chapter, we would focus on fundamentals and core concepts of Verilog HDL. 在这一章中，主要介绍一些概念和Verlog HDL的基础知识。</p>
@@ -286,14 +205,14 @@
 <h3 id="3-2-行为级建模"><a href="#3-2-行为级建模" class="headerlink" title="3.2 行为级建模"></a>3.2 行为级建模</h3><h3 id="3-2-1-过程语句"><a href="#3-2-1-过程语句" class="headerlink" title="3.2.1 过程语句"></a>3.2.1 过程语句</h3><p>A）initial 过程语句</p>
 <p>initial 下顺序赋值，添加<code>[#100]</code>等表达式可以增加延迟。</p>
 <p>格式：</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">* initial</span><br><span class="line">	begin</span><br><span class="line">	</span><br><span class="line">	end</span><br></pre></td></tr></table></figure></div>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* initial</span><br><span class="line">	begin</span><br><span class="line">	</span><br><span class="line">	end</span><br></pre></td></tr></table></figure>
 
 <p>B）always 过程语句:</p>
 <p>always @(敏感列表)</p>
 <p>code example：</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    case()</span><br><span class="line"></span><br><span class="line">    endcase</span><br></pre></td></tr></table></figure></div>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    case()</span><br><span class="line"></span><br><span class="line">    endcase</span><br></pre></td></tr></table></figure>
 
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    begin</span><br><span class="line"></span><br><span class="line">    end</span><br></pre></td></tr></table></figure></div>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    begin</span><br><span class="line"></span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
 <p>Note:</p>
 <blockquote>
 <ol>
@@ -326,7 +245,7 @@
 <li>if - else</li>
 <li>case  条件分支。<br>容易实现多路分支选择控制的语句，更加直观和方便。</li>
 </ol>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="code"><pre><span class="line">case</span><br><span class="line">0 : </span><br><span class="line">1 :</span><br><span class="line">...: &#x2F;&#x2F; 穷尽每一种情况</span><br><span class="line">default: </span><br><span class="line">endcase</span><br></pre></td></tr></table></figure></div>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">case</span><br><span class="line">0 : </span><br><span class="line">1 :</span><br><span class="line">...: &#x2F;&#x2F; 穷尽每一种情况</span><br><span class="line">default: </span><br><span class="line">endcase</span><br></pre></td></tr></table></figure>
 <p>Note : 使用case语句时，case应该包含所有的状态，如果没有包含全，则缺少项回产生锁存器！！！ 这是不允许的在同步时许电路设计中。</p>
 <h3 id="3-2-6-循环语句"><a href="#3-2-6-循环语句" class="headerlink" title="3.2.6 循环语句"></a>3.2.6 循环语句</h3><ol>
 <li><p>forever<br>永久循环。在永久循环内不包含任何条件表达式，只执行无限的循环，指导遇到系统任务¥finish为止。如果需要从forever循环汇总推出，则可以使用disable语句。<br><a href="">forever</a></p>
@@ -367,6 +286,87 @@
 ]]></content>
       <tags>
         <tag>verilog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ASIC Design Flow 设计流程</title>
+    <url>/2021/03/29/ASIC_design_flow/</url>
+    <content><![CDATA[<h2 id="ASIC-Overview"><a href="#ASIC-Overview" class="headerlink" title="ASIC Overview:"></a>ASIC Overview:</h2><h3 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h3><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="1.asic概况"></p>
+<h3 id="标准单元库："><a href="#标准单元库：" class="headerlink" title="标准单元库："></a>标准单元库：</h3><ul>
+<li>预先设计好的单元组成设计库</li>
+<li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
+</ul>
+<h3 id="ASIC的优势："><a href="#ASIC的优势：" class="headerlink" title="ASIC的优势："></a>ASIC的优势：</h3><p>相比于FPGA：平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
+<h3 id="电路描述与设计过程："><a href="#电路描述与设计过程：" class="headerlink" title="电路描述与设计过程："></a>电路描述与设计过程：</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="3"></p>
+<h2 id="ASIC设计流程"><a href="#ASIC设计流程" class="headerlink" title="ASIC设计流程"></a>ASIC设计流程</h2><h3 id="确定体系结构："><a href="#确定体系结构：" class="headerlink" title="确定体系结构："></a>确定体系结构：</h3><blockquote>
+<p>寄存器组有多少组，数量多少</p>
+</blockquote>
+<blockquote>
+<p>指令集：基本指令以及指令编码</p>
+</blockquote>
+<h3 id="体系微架构："><a href="#体系微架构：" class="headerlink" title="体系微架构："></a>体系微架构：</h3><blockquote>
+<p>A. 多周期流水线结构框图</p>
+</blockquote>
+<blockquote>
+<p>B. 控制信号逻辑，控制状态机，状态转移图</p>
+</blockquote>
+<h3 id="逻辑设计："><a href="#逻辑设计：" class="headerlink" title="逻辑设计："></a>逻辑设计：</h3><blockquote>
+<p>A. 顶层接口：引脚数量，名称定义</p>
+</blockquote>
+<blockquote>
+<p>B. 确定设计层次：控制通路和数据通路确定，电路组，标准单元库等等</p>
+</blockquote>
+<blockquote>
+<p>C. 建立电路文档，包含行为级信息。使用硬件描述语言描述电路，并综合生成逻辑网表</p>
+</blockquote>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/4.%20%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1.png" alt="控制&amp;数据通路"></p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/5.%20%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1.png" alt="层次"></p>
+<h3 id="物理设计："><a href="#物理设计：" class="headerlink" title="物理设计："></a>物理设计：</h3><blockquote>
+<p>A：导入标准单元库（等高）</p>
+<p>B：Floorplan 平面规划</p>
+<p>C：引脚布局</p>
+</blockquote>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/6.%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1.png" alt="5"></p>
+<h3 id="设计验证："><a href="#设计验证：" class="headerlink" title="设计验证："></a>设计验证：</h3><blockquote>
+<p>确保功能正确</p>
+</blockquote>
+<blockquote>
+<p>确保时钟频率满足要求</p>
+</blockquote>
+<blockquote>
+<p>确保功耗和面积满足要求</p>
+</blockquote>
+<blockquote>
+<p>确保流片成功</p>
+</blockquote>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="6"></p>
+<h3 id="流片-（tape-out）"><a href="#流片-（tape-out）" class="headerlink" title="流片 （tape out）"></a>流片 （tape out）</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="???"></p>
+<h3 id="封装（日月光）"><a href="#封装（日月光）" class="headerlink" title="封装（日月光）"></a>封装（日月光）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
+<h3 id="测试（华天）"><a href="#测试（华天）" class="headerlink" title="测试（华天）"></a>测试（华天）</h3><h2 id="ASIC设计过程及其工具"><a href="#ASIC设计过程及其工具" class="headerlink" title="ASIC设计过程及其工具"></a>ASIC设计过程及其工具</h2><h3 id="数字ASIC设计可分为两个阶段，均包含设计与验证。"><a href="#数字ASIC设计可分为两个阶段，均包含设计与验证。" class="headerlink" title="数字ASIC设计可分为两个阶段，均包含设计与验证。"></a>数字ASIC设计可分为两个阶段，均包含设计与验证。</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="ASIC设计"></p>
+<h3 id="基于Synosys平台各项工具及其功能："><a href="#基于Synosys平台各项工具及其功能：" class="headerlink" title="基于Synosys平台各项工具及其功能："></a>基于Synosys平台各项工具及其功能：</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="工具"></p>
+<p>设计过程中：RTL代码是通用代码，但是门级网表和版图必须是确定工艺的网表和版图。工艺对芯片的速度、面积和功耗有决定性的作用。</p>
+<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/10.%E5%B7%A5%E8%89%BA%E7%BD%91%E8%A1%A8%E5%92%8C%E7%89%88%E5%9B%BE.png" alt="基于工艺库"></p>
+<p>————————————————————————</p>
+<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><p>Detailed Design Flow：(Based on Synopsys)</p>
+<ol>
+<li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
+<li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
+<li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
+<li>使用 Formality 对 RTL 代码和 DC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 VCS 对 DC 网表进行输入输出关系仿真，对比 RTL 仿真的结果， 验证两者的功能一致性。</li>
+<li>使用 IC Compiler(ICC)对 DC 网表进行物理综合，获得 ICC 网表和 版图。</li>
+<li>使用 Calibre 对版图进行设计天线规则检查，规则检查(DRC)和原理 图版图一致性检查(LVS)。</li>
+<li>使用 Formality 对 DC 网表和 ICC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 StarRC 对版图进行电容电阻参数提取，获得 RC 参数，进一步获 得各网线的延迟信息。此将此延迟信息并反标至 ICC 网表。</li>
+<li>使用 PrimeTime 对反标后的 ICC 网表进行时序分析，并导出 sdf 延时文 件用于 VCS 后仿。</li>
+<li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
+<li>获得 GDSII 文档。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>ASIC design</tag>
       </tags>
   </entry>
 </search>
