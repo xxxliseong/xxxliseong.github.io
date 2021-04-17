@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Category: FSM_verilog, X‘s world">
+    <meta name="keywords" content="Category: verilog_basic, X‘s world">
     <meta name="description" content="Accumulation matters">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Category: FSM_verilog | X‘s world</title>
+    <title>Category: verilog_basic | X‘s world</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -268,9 +268,9 @@
                             
                         ],
                         startDelay: 300,
-                        typeSpeed: 5,
+                        typeSpeed: 10,
                         loop: true,
-                        backSpeed: 5,
+                        backSpeed: 10,
                         showCursor: true
                     });
                 </script>
@@ -305,19 +305,10 @@
                 
                 
                 
-                <a href="/categories/FSM-verilog/" title="FSM_verilog: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            style="background-color: #F9EBEA;">FSM_verilog
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/categories/ASIC-Design/" title="ASIC_Design: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">ASIC_Design
+                            style="background-color: #F9EBEA;">ASIC_Design
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -325,9 +316,18 @@
                 
                 <a href="/categories/verilog-basic/" title="verilog_basic: 2">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D5F5E3;">verilog_basic
+                             chip-active "
+                            style="background-color: #F5EEF8;">verilog_basic
                         <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/FSM-verilog/" title="FSM_verilog: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #D5F5E3;">FSM_verilog
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
@@ -345,32 +345,43 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/05/Notes_FSM_coding/">
+                    <a href="/2021/04/02/verilog_chapter_3/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Efficient FSM coding in verilog">
+                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Chapter 3 程序设计语句和描述方式">
                             
-                            <span class="card-title">Efficient FSM coding in verilog</span>
+                            <span class="card-title">Chapter 3 程序设计语句和描述方式</span>
                         </div>
                     </a>
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                Source:《The Fundamentals of Efficient Synthesizable Finite State Machine Design using NC-Verilog and BuildGates》
-Abstrac
+                                3.1 数据流建模3.11 连续赋值语句
+标量，如wire a,b;
+向量，如wire [3:0] a, b;
+
+Note：
+
+
+Assign 类型 需要用 ‘=’
+变量需要wire类型  
+并行计算，没有顺序
+
+
+3.2 行为级建模3.2
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-02
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/FSM-verilog/" class="post-category">
-                                    FSM_verilog
+                                <a href="/categories/verilog-basic/" class="post-category">
+                                    verilog_basic
                                 </a>
                                 
                                 
@@ -381,8 +392,55 @@ Abstrac
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/FSM/">
-                            <span class="chip bg-color">FSM</span>
+                        <a href="/tags/verilog/">
+                            <span class="chip bg-color">verilog</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2021/04/02/verilog_chapter_1&2/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Chapter 1&amp;2 Verilog基础与概念">
+                            
+                            <span class="card-title">Chapter 1&amp;2 Verilog基础与概念</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                In this chapter, we would focus on fundamentals and core concepts of Verilog HDL. 在这一章中，主要介绍一些概念和Verlog HDL的基础知识。
+0.模块概念
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-02
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/verilog-basic/" class="post-category">
+                                    verilog_basic
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/verilog/">
+                            <span class="chip bg-color">verilog</span>
                         </a>
                         
                     </div>
