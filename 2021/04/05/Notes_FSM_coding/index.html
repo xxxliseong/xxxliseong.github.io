@@ -521,13 +521,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Source:《The Fundamentals of Efficient Synthesizable Finite State Machine Design using NC-Verilog and BuildGates》</p>
+                <p>Learning Source:《The Fundamentals of Efficient Synthesizable Finite State Machine Design using NC-Verilog and BuildGates》</p>
 <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract:"></a>Abstract:</h3><ol>
 <li>Important techniques related to one and two always block styles to code FSMs with combinational outputs are given to show why using a two always block style is preferred. </li>
 <li>An efficient Verilog-unique onehot FSM coding style is also shown. </li>
 <li>Reasons and techniques for registering FSM outputs are also detailed.</li>
 </ol>
-<p>&lt;!–more–&gt;</p>
 <h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction:"></a>1. Introduction:</h3><h4 id="Note-利用Always语句编写组合逻辑电路和时序逻辑电路。"><a href="#Note-利用Always语句编写组合逻辑电路和时序逻辑电路。" class="headerlink" title="Note: 利用Always语句编写组合逻辑电路和时序逻辑电路。"></a>Note: 利用Always语句编写组合逻辑电路和时序逻辑电路。</h4><ol>
 <li><p>组合逻辑电路的always block编写严格（阻塞赋值），敏感列表内没有posedge or negedge这些verilog keyword！</p>
 <blockquote>
@@ -537,7 +536,7 @@
 <li><p>时序电路always block（非阻塞赋值），有edge-based sensitivity list。</p>
 </li>
 </ol>
-<h3 id="2-Mearly-and-moore-FSM"><a href="#2-Mearly-and-moore-FSM" class="headerlink" title="2. Mearly and moore FSM"></a>2. Mearly and moore FSM</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/1.%20FSM%E7%B1%BB%E5%9E%8B.png" alt="FSM_type"></p>
+<h3 id="2-Mearly-and-moore-FSM"><a href="#2-Mearly-and-moore-FSM" class="headerlink" title="2. Mearly and moore FSM"></a>2. Mearly and moore FSM</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/Learning_Notes/FSM/images/1.%20FSM%E7%B1%BB%E5%9E%8B.png" alt="Figure 1.FSM_type"></p>
 <h3 id="3-Binary-or-Onehot-Encoded"><a href="#3-Binary-or-Onehot-Encoded" class="headerlink" title="3. Binary or Onehot Encoded?"></a>3. Binary or Onehot Encoded?</h3><ul>
 <li><p>Binary-encode FSM 需要的位宽（FF的数量）仅是需要状态的log2（#states）</p>
 <p>  优点：使用触发器的个数较少，节省资源。<br>  缺点：状态跳转时可能有多个bit错误，引起毛刺，造成逻辑错误。</p>
@@ -546,7 +545,7 @@
 <p>  缺点：增加了触发器个数，寄存器资源利用效率低。<br>  优点：但是方便译码，有效化简组合逻辑电路</p>
 </li>
 </ul>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/2.%20code%20style.png" alt="编码方式"></p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Learning_Notes/FSM/images/2.%20code%20style.png" alt="Figure 2.编码方式"></p>
 <p>Notes：</p>
 <ol>
 <li><p>FPGA推荐使用one-hot编码因为其内置有足够数量的FF，使用one-hot编码可以节省复杂的译码组合逻辑电路设计。</p>
@@ -573,7 +572,7 @@
 <li>时序always block定义时序电路（状态转移），非阻塞赋值。</li>
 <li>组合always block定义组合逻辑电路，敏感列表为输入，没有时钟clk和复位信号，使用阻塞赋值。</li>
 </ol>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/3.4states_FSM.png" alt="example_4state"></p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Learning_Notes/FSM/images/3.4states_FSM.png" alt="Figure 3.Four-states FSM"></p>
 <p>Important notes:</p>
 <ol>
 <li><p>Parameter 定义state类型（binary还是onehot）和名称（state的名字）：方便修改，如果需要换coding style的话就只需要更改parameter的定义就行。</p>
@@ -613,14 +612,14 @@
 <p>Possible bad situation：系统可能因此进入一个lockup状态，因为硬件正在等待一个不可能到来的状态转移信号。（如系统在启动后，由于高能粒子轰击，刚好回到启动state，但是外界不会再给启动的激励，因而系统会卡在此状态不动）</p>
 <p>解决办法：需要一种设计，当state寄存器进入到错误状态时：不仅下一个时刻，state能自动回到正常状态，剩下的状态也会在下一个状态过渡时候reset！</p>
 <h4 id="5-3-Making-default-next-equal-all-X’s-assignment"><a href="#5-3-Making-default-next-equal-all-X’s-assignment" class="headerlink" title="5.3 Making default next equal all X’s assignment"></a>5.3 Making default next equal all X’s assignment</h4><p>在组合逻辑always敏感列表后，直接对next进行赋初值X‘s，next会在之后的case中被赋初值。</p>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/3.4states_FSM.png" alt="example_4state"></p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Learning_Notes/FSM/images/3.4states_FSM.png" alt="Figure 4.Four-states FSM"></p>
 <p>如果我们给全X给next，如果某一状态转移可能没有在case语句中被描述到，state的预综合仿真模型会产生一个未知的输出的状态。这是一个有效debug FSM设计的方法。X在综合工具里认为是don’t care. </p>
 <blockquote>
 <p>By making a default next state assignment of X’s, pre-synthesis simulation models will cause the state machine outputs to go unknown if not all state transitions have been explicitly assigned in the case statement. This is a useful technique to debug state machine designs, plus the X’s will be treated as “don’t cares” by the synthesis tool.</p>
 </blockquote>
 <p><strong>不理解的问题：如果组合逻辑过于复杂？？？？如pcpu</strong></p>
 <h3 id="6-One-Always-Block-FSM-style-Avoid"><a href="#6-One-Always-Block-FSM-style-Avoid" class="headerlink" title="6 One Always Block FSM style (Avoid)"></a>6 One Always Block FSM style (Avoid)</h3><h3 id="7-Onehot-FSM-Coding-style-Good-style"><a href="#7-Onehot-FSM-Coding-style-Good-style" class="headerlink" title="7 Onehot FSM Coding style. (Good style)"></a>7 Onehot FSM Coding style. (Good style)</h3><p>Onehot 编码与二进制编码的核心在于parameter不再代表state encoding，而是用来表示state向量的index。case的语句的比较则简化成单个bit的比较。</p>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/4.%20onehot_coding.png" alt="onehot"></p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Learning_Notes/FSM/images/4.%20onehot_coding.png" alt="Figure 5.Onehot FSM"></p>
 <p>Onehot 编码与二进制编码的核心在于parameter不再代表state encoding，而是用来表示state向量的index。case的语句的比较则简化成单个bit的比较。</p>
 <p>在case语句下，比较进入分支时，本身带有优先级（即从第一种情况到default），因而这本身综合器会综合一个组合逻辑的优先级编码器电路。由于onehot编码本身不存在优先级，每一个case在逻辑上是并行，这是作者唯一推荐使用full_case 和 parallel_case 语句（告诉仿真器 1. 已经穷尽了所有case，不要生成锁存器 2.消除优先级编码器电路）</p>
 <p>This is the only coding style where I recommend using full_case and parallel_case statements. The parallel case statement tells the synthesis tool to not build a priority encoder even though in theory, more than one of the state bits could be set (as engineers, we know that this is a onehot FSM and that only one bit can be set so no priority encoder is required). The value of the full_case statement is still in question.</p>
@@ -637,7 +636,7 @@
 </blockquote>
 <h3 id="8-Registered-FSM-Output-Good-style"><a href="#8-Registered-FSM-Output-Good-style" class="headerlink" title="8 Registered FSM Output. (Good style)"></a>8 Registered FSM Output. (Good style)</h3><p>在输出级加一个register可以保证输出没有glitch，优化综合结果。</p>
 <p>Registering the outputs of an FSM design insures that the outputs are <strong>glitch-free</strong> and frequently improves synthesis results by standardizing the output and input delay constraints of synthesized modules.</p>
-<p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/5.registeredFSM.png" alt="registered"></p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Learning_Notes/FSM/images/5.registeredFSM.png" alt="Figure 6.Registered FSM"></p>
 <h3 id="9-System-Verilog-Enhancement"><a href="#9-System-Verilog-Enhancement" class="headerlink" title="9 System Verilog Enhancement"></a>9 System Verilog Enhancement</h3>
                 
             </div>
@@ -813,8 +812,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/verilog-basic/" class="post-category">
-                                    verilog_basic
+                            <a href="/categories/verilog/" class="post-category">
+                                    verilog
                                 </a>
                             
                             
