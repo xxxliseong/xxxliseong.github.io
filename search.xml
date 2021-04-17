@@ -11,7 +11,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Learning_Note：高效同步FSM方法</title>
+    <title>Efficient FSM coding in verilog</title>
     <url>/2021/04/05/Notes_FSM_coding/</url>
     <content><![CDATA[<p>Source:《The Fundamentals of Efficient Synthesizable Finite State Machine Design using NC-Verilog and BuildGates》</p>
 <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract:"></a>Abstract:</h3><ol>
@@ -20,7 +20,7 @@
 <li>Reasons and techniques for registering FSM outputs are also detailed.</li>
 </ol>
 <p>&lt;!–more–&gt;</p>
-<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a>Introduction:</h3><h4 id="Note-利用Always语句编写组合逻辑电路和时序逻辑电路。"><a href="#Note-利用Always语句编写组合逻辑电路和时序逻辑电路。" class="headerlink" title="Note: 利用Always语句编写组合逻辑电路和时序逻辑电路。"></a>Note: 利用Always语句编写组合逻辑电路和时序逻辑电路。</h4><ol>
+<h3 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction:"></a>1. Introduction:</h3><h4 id="Note-利用Always语句编写组合逻辑电路和时序逻辑电路。"><a href="#Note-利用Always语句编写组合逻辑电路和时序逻辑电路。" class="headerlink" title="Note: 利用Always语句编写组合逻辑电路和时序逻辑电路。"></a>Note: 利用Always语句编写组合逻辑电路和时序逻辑电路。</h4><ol>
 <li><p>组合逻辑电路的always block编写严格（阻塞赋值），敏感列表内没有posedge or negedge这些verilog keyword！</p>
 <blockquote>
 <p>Combinational always blocks are always blocks that are used to code combinational logic functionality and are strictly coded using blocking assignments。</p>
@@ -29,8 +29,8 @@
 <li><p>时序电路always block（非阻塞赋值），有edge-based sensitivity list。</p>
 </li>
 </ol>
-<h3 id="Mearly-and-moore-FSM"><a href="#Mearly-and-moore-FSM" class="headerlink" title="Mearly and moore FSM"></a>Mearly and moore FSM</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/1.%20FSM%E7%B1%BB%E5%9E%8B.png" alt="FSM_type"></p>
-<h3 id="Binary-or-Onehot-Encoded"><a href="#Binary-or-Onehot-Encoded" class="headerlink" title="Binary or Onehot Encoded?"></a>Binary or Onehot Encoded?</h3><ul>
+<h3 id="2-Mearly-and-moore-FSM"><a href="#2-Mearly-and-moore-FSM" class="headerlink" title="2. Mearly and moore FSM"></a>2. Mearly and moore FSM</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/1.%20FSM%E7%B1%BB%E5%9E%8B.png" alt="FSM_type"></p>
+<h3 id="3-Binary-or-Onehot-Encoded"><a href="#3-Binary-or-Onehot-Encoded" class="headerlink" title="3. Binary or Onehot Encoded?"></a>3. Binary or Onehot Encoded?</h3><ul>
 <li><p>Binary-encode FSM 需要的位宽（FF的数量）仅是需要状态的log2（#states）</p>
 <p>  优点：使用触发器的个数较少，节省资源。<br>  缺点：状态跳转时可能有多个bit错误，引起毛刺，造成逻辑错误。</p>
 </li>
@@ -52,14 +52,14 @@
 </blockquote>
 </li>
 </ol>
-<h3 id="FSM-Coding-Goals："><a href="#FSM-Coding-Goals：" class="headerlink" title="FSM Coding Goals："></a>FSM Coding Goals：</h3><ul>
+<h3 id="4-FSM-Coding-Goals："><a href="#4-FSM-Coding-Goals：" class="headerlink" title="4. FSM Coding Goals："></a>4. FSM Coding Goals：</h3><ul>
 <li>The FSM coding style should be easily modified to change state encodings and FSM styles.</li>
 <li>The coding style should be compact.</li>
 <li>The coding style should be easy to code and understand.</li>
 <li>The coding style should facilitate debugging.</li>
 <li>The coding style should yield efficient synthesis results.</li>
 </ul>
-<h3 id="Two-Always-Block-FSM-style-Good"><a href="#Two-Always-Block-FSM-style-Good" class="headerlink" title="Two Always Block FSM style (Good)"></a>Two Always Block FSM style (Good)</h3><h4 id="Exapmle-Code"><a href="#Exapmle-Code" class="headerlink" title="Exapmle_Code"></a>Exapmle_Code</h4><p>用两个always block编写，一个写时序逻辑，一个写组合逻辑。</p>
+<h3 id="5-Two-Always-Block-FSM-style-Good"><a href="#5-Two-Always-Block-FSM-style-Good" class="headerlink" title="5. Two Always Block FSM style (Good)"></a>5. Two Always Block FSM style (Good)</h3><h4 id="5-1-Exapmle-Code"><a href="#5-1-Exapmle-Code" class="headerlink" title="5.1 Exapmle_Code"></a>5.1 Exapmle_Code</h4><p>用两个always block编写，一个写时序逻辑，一个写组合逻辑。</p>
 <p>Note：</p>
 <ol>
 <li>时序always block定义时序电路（状态转移），非阻塞赋值。</li>
@@ -100,18 +100,18 @@
 <li><p>方便查看，next的赋值都放在同一列。</p>
 </li>
 </ol>
-<h4 id="Fear-of-transitions-to-erroneous-states"><a href="#Fear-of-transitions-to-erroneous-states" class="headerlink" title="Fear of transitions to erroneous states"></a>Fear of transitions to erroneous states</h4><p>一般来说，不会发生。</p>
+<h4 id="5-2-Fear-of-transitions-to-erroneous-states"><a href="#5-2-Fear-of-transitions-to-erroneous-states" class="headerlink" title="5.2 Fear of transitions to erroneous states"></a>5.2 Fear of transitions to erroneous states</h4><p>一般来说，不会发生。</p>
 <p>在一些极端情况下，系统要求更高的robertness：如alpha粒子，高能粒子等。系统的状态可能进入到一个错误状态！但是让state/next state寄存器回到想要的状态并不够！这是因为可能，剩下部分的硬件已经进入变化后的state的状态。</p>
 <p>Possible bad situation：系统可能因此进入一个lockup状态，因为硬件正在等待一个不可能到来的状态转移信号。（如系统在启动后，由于高能粒子轰击，刚好回到启动state，但是外界不会再给启动的激励，因而系统会卡在此状态不动）</p>
 <p>解决办法：需要一种设计，当state寄存器进入到错误状态时：不仅下一个时刻，state能自动回到正常状态，剩下的状态也会在下一个状态过渡时候reset！</p>
-<h4 id="Making-default-next-equal-all-X’s-assignment"><a href="#Making-default-next-equal-all-X’s-assignment" class="headerlink" title="Making default next equal all X’s assignment"></a>Making default next equal all X’s assignment</h4><p>在组合逻辑always敏感列表后，直接对next进行赋初值X‘s，next会在之后的case中被赋初值。</p>
+<h4 id="5-3-Making-default-next-equal-all-X’s-assignment"><a href="#5-3-Making-default-next-equal-all-X’s-assignment" class="headerlink" title="5.3 Making default next equal all X’s assignment"></a>5.3 Making default next equal all X’s assignment</h4><p>在组合逻辑always敏感列表后，直接对next进行赋初值X‘s，next会在之后的case中被赋初值。</p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/3.4states_FSM.png" alt="example_4state"></p>
 <p>如果我们给全X给next，如果某一状态转移可能没有在case语句中被描述到，state的预综合仿真模型会产生一个未知的输出的状态。这是一个有效debug FSM设计的方法。X在综合工具里认为是don’t care. </p>
 <blockquote>
 <p>By making a default next state assignment of X’s, pre-synthesis simulation models will cause the state machine outputs to go unknown if not all state transitions have been explicitly assigned in the case statement. This is a useful technique to debug state machine designs, plus the X’s will be treated as “don’t cares” by the synthesis tool.</p>
 </blockquote>
 <p><strong>不理解的问题：如果组合逻辑过于复杂？？？？如pcpu</strong></p>
-<h3 id="One-Always-Block-FSM-style-Avoid"><a href="#One-Always-Block-FSM-style-Avoid" class="headerlink" title="One Always Block FSM style (Avoid)"></a>One Always Block FSM style (Avoid)</h3><h3 id="Onehot-FSM-Coding-style-Good-style"><a href="#Onehot-FSM-Coding-style-Good-style" class="headerlink" title="Onehot FSM Coding style. (Good style)"></a>Onehot FSM Coding style. (Good style)</h3><p>Onehot 编码与二进制编码的核心在于parameter不再代表state encoding，而是用来表示state向量的index。case的语句的比较则简化成单个bit的比较。</p>
+<h3 id="6-One-Always-Block-FSM-style-Avoid"><a href="#6-One-Always-Block-FSM-style-Avoid" class="headerlink" title="6 One Always Block FSM style (Avoid)"></a>6 One Always Block FSM style (Avoid)</h3><h3 id="7-Onehot-FSM-Coding-style-Good-style"><a href="#7-Onehot-FSM-Coding-style-Good-style" class="headerlink" title="7 Onehot FSM Coding style. (Good style)"></a>7 Onehot FSM Coding style. (Good style)</h3><p>Onehot 编码与二进制编码的核心在于parameter不再代表state encoding，而是用来表示state向量的index。case的语句的比较则简化成单个bit的比较。</p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/4.%20onehot_coding.png" alt="onehot"></p>
 <p>Onehot 编码与二进制编码的核心在于parameter不再代表state encoding，而是用来表示state向量的index。case的语句的比较则简化成单个bit的比较。</p>
 <p>在case语句下，比较进入分支时，本身带有优先级（即从第一种情况到default），因而这本身综合器会综合一个组合逻辑的优先级编码器电路。由于onehot编码本身不存在优先级，每一个case在逻辑上是并行，这是作者唯一推荐使用full_case 和 parallel_case 语句（告诉仿真器 1. 已经穷尽了所有case，不要生成锁存器 2.消除优先级编码器电路）</p>
@@ -127,10 +127,13 @@
 <blockquote>
 <p><a href="https://blog.csdn.net/childbor/article/details/78633541?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&spm=1001.2101.3001.4242">https://blog.csdn.net/childbor/article/details/78633541?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&amp;spm=1001.2101.3001.4242</a></p>
 </blockquote>
-<h3 id="Registered-FSM-Output-Good-style"><a href="#Registered-FSM-Output-Good-style" class="headerlink" title="Registered FSM Output. (Good style)"></a>Registered FSM Output. (Good style)</h3><p>在输出级加一个register可以保证输出没有glitch，优化综合结果。</p>
+<h3 id="8-Registered-FSM-Output-Good-style"><a href="#8-Registered-FSM-Output-Good-style" class="headerlink" title="8 Registered FSM Output. (Good style)"></a>8 Registered FSM Output. (Good style)</h3><p>在输出级加一个register可以保证输出没有glitch，优化综合结果。</p>
 <p>Registering the outputs of an FSM design insures that the outputs are <strong>glitch-free</strong> and frequently improves synthesis results by standardizing the output and input delay constraints of synthesized modules.</p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/learning_notes_%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/FSM%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/images/5.registeredFSM.png" alt="registered"></p>
-<h3 id="System-Verilog-Enhancement"><a href="#System-Verilog-Enhancement" class="headerlink" title="System Verilog Enhancement"></a>System Verilog Enhancement</h3>]]></content>
+<h3 id="9-System-Verilog-Enhancement"><a href="#9-System-Verilog-Enhancement" class="headerlink" title="9 System Verilog Enhancement"></a>9 System Verilog Enhancement</h3>]]></content>
+      <categories>
+        <category>FSM_verilog</category>
+      </categories>
       <tags>
         <tag>FSM</tag>
       </tags>
@@ -183,6 +186,9 @@
 <li>逻辑功能描述：initial，always，assign，function，task</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>verilog_basic</category>
+      </categories>
       <tags>
         <tag>verilog</tag>
       </tags>
@@ -284,6 +290,9 @@
 <p>3.3.2 门级建模</p>
 <p>3.3.3 开关级建模</p>
 ]]></content>
+      <categories>
+        <category>verilog_basic</category>
+      </categories>
       <tags>
         <tag>verilog</tag>
       </tags>
@@ -291,28 +300,28 @@
   <entry>
     <title>ASIC Design Flow 设计流程</title>
     <url>/2021/03/29/ASIC_design_flow/</url>
-    <content><![CDATA[<h2 id="ASIC-Overview"><a href="#ASIC-Overview" class="headerlink" title="ASIC Overview:"></a>ASIC Overview:</h2><h3 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h3><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
+    <content><![CDATA[<h2 id="0-ASIC-Overview"><a href="#0-ASIC-Overview" class="headerlink" title="0.ASIC Overview:"></a>0.ASIC Overview:</h2><h3 id="0-1-概况"><a href="#0-1-概况" class="headerlink" title="0.1 概况"></a>0.1 概况</h3><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
 <p><img src="https://github.com/XuLixing/blog_images/raw/main/__VLSI%20Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="1.asic概况"></p>
-<h3 id="标准单元库："><a href="#标准单元库：" class="headerlink" title="标准单元库："></a>标准单元库：</h3><ul>
+<h3 id="0-2-标准单元库："><a href="#0-2-标准单元库：" class="headerlink" title="0.2 标准单元库："></a>0.2 标准单元库：</h3><ul>
 <li>预先设计好的单元组成设计库</li>
 <li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
 </ul>
-<h3 id="ASIC的优势："><a href="#ASIC的优势：" class="headerlink" title="ASIC的优势："></a>ASIC的优势：</h3><p>相比于FPGA：平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
-<h3 id="电路描述与设计过程："><a href="#电路描述与设计过程：" class="headerlink" title="电路描述与设计过程："></a>电路描述与设计过程：</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/__VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
+<h3 id="0-3-ASIC的优势："><a href="#0-3-ASIC的优势：" class="headerlink" title="0.3 ASIC的优势："></a>0.3 ASIC的优势：</h3><p>相比于FPGA：平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
+<h3 id="0-4-电路描述与设计过程："><a href="#0-4-电路描述与设计过程：" class="headerlink" title="0.4 电路描述与设计过程："></a>0.4 电路描述与设计过程：</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/__VLSI%20Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="2.抽象"></p>
 <p><img src="https://github.com/XuLixing/blog_images/raw/main/__VLSI%20Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="3"></p>
-<h2 id="ASIC设计流程"><a href="#ASIC设计流程" class="headerlink" title="ASIC设计流程"></a>ASIC设计流程</h2><h3 id="确定体系结构："><a href="#确定体系结构：" class="headerlink" title="确定体系结构："></a>确定体系结构：</h3><blockquote>
+<h2 id="1-ASIC设计流程"><a href="#1-ASIC设计流程" class="headerlink" title="1. ASIC设计流程"></a>1. ASIC设计流程</h2><h3 id="1-1-确定体系结构："><a href="#1-1-确定体系结构：" class="headerlink" title="1.1 确定体系结构："></a>1.1 确定体系结构：</h3><blockquote>
 <p>寄存器组有多少组，数量多少</p>
 </blockquote>
 <blockquote>
 <p>指令集：基本指令以及指令编码</p>
 </blockquote>
-<h3 id="体系微架构："><a href="#体系微架构：" class="headerlink" title="体系微架构："></a>体系微架构：</h3><blockquote>
+<h3 id="1-2-体系微架构："><a href="#1-2-体系微架构：" class="headerlink" title="1.2 体系微架构："></a>1.2 体系微架构：</h3><blockquote>
 <p>A. 多周期流水线结构框图</p>
 </blockquote>
 <blockquote>
 <p>B. 控制信号逻辑，控制状态机，状态转移图</p>
 </blockquote>
-<h3 id="逻辑设计："><a href="#逻辑设计：" class="headerlink" title="逻辑设计："></a>逻辑设计：</h3><blockquote>
+<h3 id="1-3-逻辑设计："><a href="#1-3-逻辑设计：" class="headerlink" title="1.3 逻辑设计："></a>1.3 逻辑设计：</h3><blockquote>
 <p>A. 顶层接口：引脚数量，名称定义</p>
 </blockquote>
 <blockquote>
@@ -323,13 +332,13 @@
 </blockquote>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/4.%20%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1.png" alt="控制&amp;数据通路"></p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/5.%20%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1.png" alt="层次"></p>
-<h3 id="物理设计："><a href="#物理设计：" class="headerlink" title="物理设计："></a>物理设计：</h3><blockquote>
+<h3 id="1-4-物理设计："><a href="#1-4-物理设计：" class="headerlink" title="1.4 物理设计："></a>1.4 物理设计：</h3><blockquote>
 <p>A：导入标准单元库（等高）</p>
 <p>B：Floorplan 平面规划</p>
 <p>C：引脚布局</p>
 </blockquote>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/6.%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1.png" alt="5"></p>
-<h3 id="设计验证："><a href="#设计验证：" class="headerlink" title="设计验证："></a>设计验证：</h3><blockquote>
+<h3 id="1-5-设计验证："><a href="#1-5-设计验证：" class="headerlink" title="1.5 设计验证："></a>1.5 设计验证：</h3><blockquote>
 <p>确保功能正确</p>
 </blockquote>
 <blockquote>
@@ -342,14 +351,14 @@
 <p>确保流片成功</p>
 </blockquote>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="6"></p>
-<h3 id="流片-（tape-out）"><a href="#流片-（tape-out）" class="headerlink" title="流片 （tape out）"></a>流片 （tape out）</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="???"></p>
-<h3 id="封装（日月光）"><a href="#封装（日月光）" class="headerlink" title="封装（日月光）"></a>封装（日月光）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
-<h3 id="测试（华天）"><a href="#测试（华天）" class="headerlink" title="测试（华天）"></a>测试（华天）</h3><h2 id="ASIC设计过程及其工具"><a href="#ASIC设计过程及其工具" class="headerlink" title="ASIC设计过程及其工具"></a>ASIC设计过程及其工具</h2><h3 id="数字ASIC设计可分为两个阶段，均包含设计与验证。"><a href="#数字ASIC设计可分为两个阶段，均包含设计与验证。" class="headerlink" title="数字ASIC设计可分为两个阶段，均包含设计与验证。"></a>数字ASIC设计可分为两个阶段，均包含设计与验证。</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="ASIC设计"></p>
-<h3 id="基于Synosys平台各项工具及其功能："><a href="#基于Synosys平台各项工具及其功能：" class="headerlink" title="基于Synosys平台各项工具及其功能："></a>基于Synosys平台各项工具及其功能：</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="工具"></p>
+<h3 id="1-6-流片-（tape-out）"><a href="#1-6-流片-（tape-out）" class="headerlink" title="1.6 流片 （tape out）"></a>1.6 流片 （tape out）</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="???"></p>
+<h3 id="1-7-封装（日月光）"><a href="#1-7-封装（日月光）" class="headerlink" title="1.7 封装（日月光）"></a>1.7 封装（日月光）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
+<h3 id="1-9-测试（华天）"><a href="#1-9-测试（华天）" class="headerlink" title="1.9 测试（华天）"></a>1.9 测试（华天）</h3><h2 id="2-ASIC设计过程及其工具"><a href="#2-ASIC设计过程及其工具" class="headerlink" title="2 ASIC设计过程及其工具"></a>2 ASIC设计过程及其工具</h2><h3 id="2-1-数字ASIC设计可分为两个阶段，均包含设计与验证。"><a href="#2-1-数字ASIC设计可分为两个阶段，均包含设计与验证。" class="headerlink" title="2.1 数字ASIC设计可分为两个阶段，均包含设计与验证。"></a>2.1 数字ASIC设计可分为两个阶段，均包含设计与验证。</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="ASIC设计"></p>
+<h3 id="2-2-基于Synosys平台各项工具及其功能："><a href="#2-2-基于Synosys平台各项工具及其功能：" class="headerlink" title="2.2 基于Synosys平台各项工具及其功能："></a>2.2 基于Synosys平台各项工具及其功能：</h3><p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="工具"></p>
 <p>设计过程中：RTL代码是通用代码，但是门级网表和版图必须是确定工艺的网表和版图。工艺对芯片的速度、面积和功耗有决定性的作用。</p>
 <p><img src="https://github.com/XuLixing/XuLixing.github.io/raw/master/VLSI%20Design/1.VLSI_design_flow/images/10.%E5%B7%A5%E8%89%BA%E7%BD%91%E8%A1%A8%E5%92%8C%E7%89%88%E5%9B%BE.png" alt="基于工艺库"></p>
 <p>————————————————————————</p>
-<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><p>Detailed Design Flow：(Based on Synopsys)</p>
+<h2 id="3-Appendix"><a href="#3-Appendix" class="headerlink" title="3 Appendix"></a>3 Appendix</h2><p>Detailed Design Flow：(Based on Synopsys)</p>
 <ol>
 <li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
 <li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
