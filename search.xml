@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Introduction to My Blog</title>
-    <url>/2021/04/13/intro/</url>
+    <url>/2021/04/13/Blog_Inro/</url>
     <content><![CDATA[<p>This is my blog, built at March, 2021, supported by Github &amp; Hexo &amp; NexT Theme.</p>
 <p>Accumulation does matter.</p>
 <p>This blog would serve as window, where I could share my my points, output fantastic ideas and trace any change inside my mind.</p>
@@ -139,8 +139,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Chapter 1&amp;2 Verilog基础与概念</title>
-    <url>/2021/04/02/verilog_chapter_1&amp;2/</url>
+    <title>Verilog Ch1&amp;2</title>
+    <url>/2021/04/02/Verilog%20Ch1&amp;2/</url>
     <content><![CDATA[<p>In this chapter, we would focus on fundamentals and core concepts of Verilog HDL. 在这一章中，主要介绍一些概念和Verlog HDL的基础知识。</p>
 <h3 id="0-模块概念："><a href="#0-模块概念：" class="headerlink" title="0.模块概念："></a>0.模块概念：</h3><ul>
 <li><p>软核 Soft core:<br>  一般指经过功能验证，可综合的Verilog HDL（VHDL）模型.</p>
@@ -194,8 +194,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Chapter 3 程序设计语句和描述方式</title>
-    <url>/2021/04/02/verilog_chapter_3/</url>
+    <title>Verilog Ch3</title>
+    <url>/2021/04/02/Verilog%20Ch3/</url>
     <content><![CDATA[<h3 id="3-1-数据流建模"><a href="#3-1-数据流建模" class="headerlink" title="3.1 数据流建模"></a>3.1 数据流建模</h3><h3 id="3-11-连续赋值语句"><a href="#3-11-连续赋值语句" class="headerlink" title="3.11 连续赋值语句"></a>3.11 连续赋值语句</h3><ul>
 <li>标量，如wire a,b;</li>
 <li>向量，如wire [3:0] a, b;</li>
@@ -291,7 +291,7 @@
 <p>3.3.3 开关级建模</p>
 ]]></content>
       <categories>
-        <category>verilog_basic</category>
+        <category>verilog</category>
       </categories>
       <tags>
         <tag>verilog</tag>
