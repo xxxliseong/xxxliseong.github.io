@@ -380,7 +380,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-04-06
+                    2021-04-17
                 </div>
                 
 
@@ -401,18 +401,51 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Theme-NexT-Canvas-Nest"><a href="#Theme-NexT-Canvas-Nest" class="headerlink" title="Theme NexT Canvas Nest"></a>Theme NexT Canvas Nest</h1><p><img src="https://img.shields.io/badge/NexT-v7.3.0+-blue?style=flat-square" alt="Theme Version"></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hustcc/canvas-nest.js">canvas-nest.js</a> for <a target="_blank" rel="noopener" href="https://github.com/theme-next">NexT</a>.</p>
-<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><h3 id="Step-1-rarr-Go-to-Hexo-dir"><a href="#Step-1-rarr-Go-to-Hexo-dir" class="headerlink" title="Step 1 &rarr; Go to Hexo dir"></a>Step 1 &rarr; Go to Hexo dir</h3><p>Change dir to <strong>Hexo</strong> directory. There must be <code>scaffolds</code>, <code>source</code>, <code>themes</code> and other directories:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> hexo</span><br><span class="line">$ ls</span><br><span class="line">scaffolds  <span class="built_in">source</span>  themes  _config.yml  package.json</span><br></pre></td></tr></table></figure>
-
-<h3 id="Step-2-rarr-Create-footer-swig"><a href="#Step-2-rarr-Create-footer-swig" class="headerlink" title="Step 2 &rarr; Create footer.swig"></a>Step 2 &rarr; Create <code>footer.swig</code></h3><p>Create a file named <code>footer.swig</code> in <code>hexo/source/_data</code> directory (create <code>_data</code> directory if it does not exist).</p>
-<p>Edit this file and add the following content:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">color</span>=<span class="string">&quot;0,0,255&quot;</span> <span class="attr">opacity</span>=<span class="string">&quot;0.5&quot;</span> <span class="attr">zIndex</span>=<span class="string">&quot;-1&quot;</span> <span class="attr">count</span>=<span class="string">&quot;99&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>You can customize these options.</p>
-<h3 id="Step-3-rarr-Set-it-up"><a href="#Step-3-rarr-Set-it-up" class="headerlink" title="Step 3 &rarr; Set it up"></a>Step 3 &rarr; Set it up</h3><p>In the NexT <code>_config.yml</code>, uncomment <code>footer</code> under the <code>custom_file_path</code> section.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.swig</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.swig</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.swig</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.swig</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.swig</span></span><br><span class="line">  <span class="attr">footer:</span> <span class="string">source/_data/footer.swig</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.swig</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="comment">#style: source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+                <h1 id="Verilog-Learning-Chapter-1-amp-2"><a href="#Verilog-Learning-Chapter-1-amp-2" class="headerlink" title="Verilog Learning Chapter 1&amp;2"></a>Verilog Learning Chapter 1&amp;2</h1><hr>
+<p>In this chapter, we would focus on fundamentals and core concepts of Verilog HDL. 在这一章中，主要介绍一些概念和Verlog HDL的基础知识。</p>
+<h3 id="0-模块概念："><a href="#0-模块概念：" class="headerlink" title="0.模块概念："></a>0.模块概念：</h3><ul>
+<li><p>软核 Soft core:<br>  一般指经过功能验证，可综合的Verilog HDL（VHDL）模型.</p>
+</li>
+<li><p>固核 Firm core:<br>  通知指在ASIC or FPGA 器件上，经过综合验证的电路网表文件。</p>
+</li>
+<li><p>硬核 Hard core:<br>  在ASIC器件上，经过验证正确的的电路结构版图掩膜。</p>
+</li>
+</ul>
+<h3 id="1-Verilog-HDL-基础"><a href="#1-Verilog-HDL-基础" class="headerlink" title="1.Verilog HDL 基础"></a>1.Verilog HDL 基础</h3><ul>
+<li>数值状态</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/XuLixing/Note/raw/main/images">vaule_conditions</a></p>
+<ul>
+<li>位制：二进制 b； 八进制: o；十进制：d；十六进制：h</li>
+<li>整数表示 8‘b0000_0001。 位数‘位制‘数字</li>
+</ul>
+<h3 id="2-数据类型"><a href="#2-数据类型" class="headerlink" title="2. 数据类型"></a>2. 数据类型</h3><ul>
+<li>分类：wire（tri三态门，tri0下拉电阻，tri1上拉电阻），reg，RAM</li>
+<li>reg：对应硬件电路元件具有状态保持作用；触发器，锁存器</li>
+<li>RAM：类似于二维数组的定义方式。 reg[7:0] mem1[255:0] //定义256个8位寄存器的mem。</li>
+</ul>
+<p>抽象数据类型：</p>
+<ul>
+<li>整型 integer，时间 time，实型 real ，参数型parameter.</li>
+<li>integer index //定义32位有符号数</li>
+<li>time a; // 定义两个64位的时间型变量。<br>主要用于对模拟时间的存储和计算处理，常与$time 一起使用</li>
+<li>real stime; // 定义一个实数型数据（浮点型），常用于延迟时间的计算</li>
+<li>parameter length=32, // 常量，在仿真之前就被复制，提高程序可读性。</li>
+</ul>
+<p>运算符：<br><a href="">opeartors</a></p>
+<h4 id="Note"><a href="#Note" class="headerlink" title="Note:"></a><em>Note</em>:</h4><p>赋值语句下，结果的长度是由操作左端目标长度决定。取低N位，不够补0。</p>
+<h3 id="3-条件运算符"><a href="#3-条件运算符" class="headerlink" title="3. 条件运算符"></a>3. 条件运算符</h3><p>example: (!sel)?in1:in2;</p>
+<h3 id="4-连接和复制运算符"><a href="#4-连接和复制运算符" class="headerlink" title="4. 连接和复制运算符"></a>4. 连接和复制运算符</h3><p><a href="">连接</a></p>
+<h3 id="5-模块的基本概念"><a href="#5-模块的基本概念" class="headerlink" title="5. 模块的基本概念"></a>5. 模块的基本概念</h3><p>Module是verilog HDL的基本单元</p>
+<blockquote>
+<p>组成：</p>
+</blockquote>
+<ul>
+<li>开始：NAME module；- endmodule</li>
+<li>端口定义：input output （模块引用具体）</li>
+<li>数据类型定义： wire，reg，memory，parameter</li>
+<li>逻辑功能描述：initial，always，assign，function，task</li>
+</ul>
 
                 
             </div>
@@ -439,7 +472,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://username.github.io/lib/canvas-nest/README.html">https://username.github.io/lib/canvas-nest/README.html</a>
+                    <a href="https://username.github.io/blog_note/Verilog_learning/Verilog_chapter_1&2/verilog_chapter_1&2.html">https://username.github.io/blog_note/Verilog_learning/Verilog_chapter_1&2/verilog_chapter_1&2.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -651,7 +684,7 @@
                 <i class="far fa-dot-circle"></i>&nbsp;Current
             </div>
             <div class="card">
-                <a href="/lib/canvas-nest/README.html">
+                <a href="/blog_note/Verilog_learning/Verilog_chapter_1&2/verilog_chapter_1&2.html">
                     <div class="card-image">
                         
                         
@@ -668,7 +701,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-17
                             </span>
                         <span class="publish-author">
                             
@@ -689,7 +722,7 @@
                 Current&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/lib/canvas-nest/README.html">
+                <a href="/blog_note/Verilog_learning/Verilog_chapter_1&2/verilog_chapter_1&2.html">
                     <div class="card-image">
                         
                         
@@ -706,7 +739,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-17
                             </span>
                         <span class="publish-author">
                             

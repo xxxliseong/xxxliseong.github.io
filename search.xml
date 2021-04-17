@@ -365,6 +365,9 @@
 <li>获得 GDSII 文档。</li>
 </ol>
 ]]></content>
+      <categories>
+        <category>ASIC_Design</category>
+      </categories>
       <tags>
         <tag>ASIC design</tag>
       </tags>

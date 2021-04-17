@@ -380,7 +380,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-04-06
+                    2021-04-17
                 </div>
                 
 
@@ -401,18 +401,100 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Theme-NexT-Canvas-Nest"><a href="#Theme-NexT-Canvas-Nest" class="headerlink" title="Theme NexT Canvas Nest"></a>Theme NexT Canvas Nest</h1><p><img src="https://img.shields.io/badge/NexT-v7.3.0+-blue?style=flat-square" alt="Theme Version"></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hustcc/canvas-nest.js">canvas-nest.js</a> for <a target="_blank" rel="noopener" href="https://github.com/theme-next">NexT</a>.</p>
-<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><h3 id="Step-1-rarr-Go-to-Hexo-dir"><a href="#Step-1-rarr-Go-to-Hexo-dir" class="headerlink" title="Step 1 &rarr; Go to Hexo dir"></a>Step 1 &rarr; Go to Hexo dir</h3><p>Change dir to <strong>Hexo</strong> directory. There must be <code>scaffolds</code>, <code>source</code>, <code>themes</code> and other directories:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> hexo</span><br><span class="line">$ ls</span><br><span class="line">scaffolds  <span class="built_in">source</span>  themes  _config.yml  package.json</span><br></pre></td></tr></table></figure>
+                <h1 id="Chapter-3-程序设计语句和描述方式"><a href="#Chapter-3-程序设计语句和描述方式" class="headerlink" title="Chapter 3 程序设计语句和描述方式"></a>Chapter 3 程序设计语句和描述方式</h1><hr>
+<h3 id="3-1-数据流建模"><a href="#3-1-数据流建模" class="headerlink" title="3.1 数据流建模"></a>3.1 数据流建模</h3><h3 id="3-11-连续赋值语句"><a href="#3-11-连续赋值语句" class="headerlink" title="3.11 连续赋值语句"></a>3.11 连续赋值语句</h3><ul>
+<li>标量，如wire a,b;</li>
+<li>向量，如wire [3:0] a, b;</li>
+</ul>
+<p>Note：</p>
+<blockquote>
+<ol>
+<li>Assign 类型 需要用 ‘=’</li>
+<li>变量需要wire类型  </li>
+<li>并行计算，没有顺序</li>
+</ol>
+</blockquote>
+<h3 id="3-2-行为级建模"><a href="#3-2-行为级建模" class="headerlink" title="3.2 行为级建模"></a>3.2 行为级建模</h3><h3 id="3-2-1-过程语句"><a href="#3-2-1-过程语句" class="headerlink" title="3.2.1 过程语句"></a>3.2.1 过程语句</h3><p>A）initial 过程语句</p>
+<p>initial 下顺序赋值，添加<code>[#100]</code>等表达式可以增加延迟。</p>
+<p>格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* initial</span><br><span class="line">	begin</span><br><span class="line">	</span><br><span class="line">	end</span><br></pre></td></tr></table></figure>
 
-<h3 id="Step-2-rarr-Create-footer-swig"><a href="#Step-2-rarr-Create-footer-swig" class="headerlink" title="Step 2 &rarr; Create footer.swig"></a>Step 2 &rarr; Create <code>footer.swig</code></h3><p>Create a file named <code>footer.swig</code> in <code>hexo/source/_data</code> directory (create <code>_data</code> directory if it does not exist).</p>
-<p>Edit this file and add the following content:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">color</span>=<span class="string">&quot;0,0,255&quot;</span> <span class="attr">opacity</span>=<span class="string">&quot;0.5&quot;</span> <span class="attr">zIndex</span>=<span class="string">&quot;-1&quot;</span> <span class="attr">count</span>=<span class="string">&quot;99&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>B）always 过程语句:</p>
+<p>always @(敏感列表)</p>
+<p>code example：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    case()</span><br><span class="line"></span><br><span class="line">    endcase</span><br></pre></td></tr></table></figure>
 
-<p>You can customize these options.</p>
-<h3 id="Step-3-rarr-Set-it-up"><a href="#Step-3-rarr-Set-it-up" class="headerlink" title="Step 3 &rarr; Set it up"></a>Step 3 &rarr; Set it up</h3><p>In the NexT <code>_config.yml</code>, uncomment <code>footer</code> under the <code>custom_file_path</code> section.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.swig</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.swig</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.swig</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.swig</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.swig</span></span><br><span class="line">  <span class="attr">footer:</span> <span class="string">source/_data/footer.swig</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.swig</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="comment">#style: source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    begin</span><br><span class="line"></span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<p>Note:</p>
+<blockquote>
+<ol>
+<li>在过程语句（initial 和 always）中，被赋值信号必须被定义为 reg 型。</li>
+<li>采用过程对组合逻辑电路进行描述时：全部输入信号需要列入敏感列表。</li>
+<li>采用过程对时序逻辑电路进行描述时：需要把时间信号和部分输入信号列入。</li>
+</ol>
+</blockquote>
+<h3 id="3-2-2-语句块"><a href="#3-2-2-语句块" class="headerlink" title="3.2.2 语句块"></a>3.2.2 语句块</h3><p>A）begin-end：语句内部按照顺序执行，可以用于可综合电路程序和仿真测试程序。</p>
+<p>B)  fork-join: 语句内部按照按照并行方式，不可以用于可综合电路，只能用于仿真程序测试。</p>
+<p>比较：<br><a href="">1.比较</a></p>
+<p>###3.2.3 过程赋值语句</p>
+<p><em>阻塞赋值语句和非阻塞赋值语句</em></p>
+<ul>
+<li>阻塞赋值语句“=” 有如下特点：<ol>
+<li>串行语句块中，各条阻塞赋值语句将按照先后排列顺序一次执行。<br>并行语句块中，各条阻塞赋值语句同时执行，没有顺序</li>
+<li>执行阻塞赋值语句的顺序是：先计算等号右端的表达式，然后立刻赋值给左边的变量，没有延时。</li>
+</ol>
+</li>
+<li>非阻塞赋值语句“&lt;=” 有如下特点：<ol>
+<li>串行语句块，各条非阻塞赋值语句的执行没有先后顺序之分。前面的语句不会影响后边语句的执行。各条语句并行执行。</li>
+<li>执行非阻塞赋值语句的顺序是，先计算右端表达式的值，然后等到延时时间结束，再将计算的值付给左边的变量。</li>
+</ol>
+</li>
+</ul>
+<p>Note:<br>    需要掌握，阻塞和非阻塞电路对应verilog程序综合的电路的情况。<br>    <a href="">阻塞非阻塞</a></p>
+<p>###3.2.4 过程连续赋值语句<br>过程性连续赋值语句有两种类型：赋值，重新赋值( assign, deasign) 和 强制、释放（force，release）</p>
+<h3 id="3-2-5-条件分支语句"><a href="#3-2-5-条件分支语句" class="headerlink" title="3.2.5 条件分支语句"></a>3.2.5 条件分支语句</h3><p>Verilog HDL的条件分支语句有两种，If条件语句和case条件分支语句</p>
+<ol>
+<li>if - else</li>
+<li>case  条件分支。<br>容易实现多路分支选择控制的语句，更加直观和方便。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">case</span><br><span class="line">0 : </span><br><span class="line">1 :</span><br><span class="line">...: &#x2F;&#x2F; 穷尽每一种情况</span><br><span class="line">default: </span><br><span class="line">endcase</span><br></pre></td></tr></table></figure>
+<p>Note : 使用case语句时，case应该包含所有的状态，如果没有包含全，则缺少项回产生锁存器！！！ 这是不允许的在同步时许电路设计中。</p>
+<h3 id="3-2-6-循环语句"><a href="#3-2-6-循环语句" class="headerlink" title="3.2.6 循环语句"></a>3.2.6 循环语句</h3><ol>
+<li><p>forever<br>永久循环。在永久循环内不包含任何条件表达式，只执行无限的循环，指导遇到系统任务¥finish为止。如果需要从forever循环汇总推出，则可以使用disable语句。<br><a href="">forever</a></p>
+</li>
+<li><p>repeat<br>所引导的循环语句执行固定次数的循环。<br><a href="">repeat</a></p>
+</li>
+<li><p>while<br>仅有在while （） 括号内表达式为真才执行。<br><a href="">while</a></p>
+</li>
+<li><p>for<br><a href="">for</a></p>
+</li>
+</ol>
+<h3 id="3-3-结构化建模"><a href="#3-3-结构化建模" class="headerlink" title="3.3 结构化建模"></a>3.3 结构化建模</h3><h4 id="3-3-1-模块级建模"><a href="#3-3-1-模块级建模" class="headerlink" title="3.3.1 模块级建模"></a>3.3.1 模块级建模</h4><ol>
+<li><p>模块调用方式<br>在Verilog HDL中，模块可以被任何模块调用，这种调用实际上是将模块所描述的电路复制并连接。模块调用的基本语法格式是：<br>模块名 &lt;参数值列表&gt; 实例名 （端口名列表）：<br><a href="">实例化</a></p>
+<p> Note：</p>
+<p> A. 在同一个模块中当前模块被调用了几次，则需要用不同的实例名加以标明。</p>
+<p> B. 当需要多次调用，可以采用 阵列调用的方式对模块进行调用。<br> （下面例子是对应位相与）</p>
+</li>
+</ol>
+<p>  <a href="">实例化2</a></p>
+<ol start="2">
+<li>模块端口对应方式</li>
+</ol>
+<ul>
+<li><p>端口位置对应方式：调用时，端口一定要严格按照端口定义顺序。</p>
+</li>
+<li><p>端口名对应方式：</p>
+<p>  <a href="">实例化3</a></p>
+<p>   .clk(clock), （）内是模块定义的变量，clk是调用模块的变量。</p>
+</li>
+<li><p>不同端口位宽的匹配：从低位开始取。</p>
+</li>
+</ul>
+<ol start="3">
+<li> 模块参考值<br>有两种途径可以改变模块实例的参考值，分别是使用带有参数的模块实例语句修改参数值和使用定义参数语句（defparam）</li>
+</ol>
+<p>3.3.2 门级建模</p>
+<p>3.3.3 开关级建模</p>
 
                 
             </div>
@@ -439,7 +521,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://username.github.io/lib/canvas-nest/README.html">https://username.github.io/lib/canvas-nest/README.html</a>
+                    <a href="https://username.github.io/blog_note/Verilog_learning/Verilog_chapter_3/Verilog_chapter_3.html">https://username.github.io/blog_note/Verilog_learning/Verilog_chapter_3/Verilog_chapter_3.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -651,7 +733,7 @@
                 <i class="far fa-dot-circle"></i>&nbsp;Current
             </div>
             <div class="card">
-                <a href="/lib/canvas-nest/README.html">
+                <a href="/blog_note/Verilog_learning/Verilog_chapter_3/Verilog_chapter_3.html">
                     <div class="card-image">
                         
                         
@@ -668,7 +750,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-17
                             </span>
                         <span class="publish-author">
                             
@@ -689,7 +771,7 @@
                 Current&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/lib/canvas-nest/README.html">
+                <a href="/blog_note/Verilog_learning/Verilog_chapter_3/Verilog_chapter_3.html">
                     <div class="card-image">
                         
                         
@@ -706,7 +788,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-17
                             </span>
                         <span class="publish-author">
                             
