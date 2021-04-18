@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -536,14 +536,27 @@
 <h3 id="3-2-行为级建模"><a href="#3-2-行为级建模" class="headerlink" title="3.2 行为级建模"></a>3.2 行为级建模</h3><h3 id="3-2-1-过程语句"><a href="#3-2-1-过程语句" class="headerlink" title="3.2.1 过程语句"></a>3.2.1 过程语句</h3><p>A）initial 过程语句</p>
 <p>initial 下顺序赋值，添加<code>[#100]</code>等表达式可以增加延迟。</p>
 <p>格式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* initial</span><br><span class="line">	begin</span><br><span class="line">	</span><br><span class="line">	end</span><br></pre></td></tr></table></figure>
-
+<pre><code>initial
+    
+    begin
+    
+    end
+</code></pre>
 <p>B）always 过程语句:</p>
 <p>always @(敏感列表)</p>
 <p>code example：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    case()</span><br><span class="line"></span><br><span class="line">    endcase</span><br></pre></td></tr></table></figure>
+<pre><code>always @()
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">always @( )</span><br><span class="line"></span><br><span class="line">    begin</span><br><span class="line"></span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+    case()
+
+    endcase
+</code></pre>
+<pre><code>always @( )
+
+    begin
+
+    end
+</code></pre>
 <p>Note:</p>
 <blockquote>
 <ol>
@@ -576,8 +589,13 @@
 <li>if - else</li>
 <li>case  条件分支。<br>容易实现多路分支选择控制的语句，更加直观和方便。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">case</span><br><span class="line">0 : </span><br><span class="line">1 :</span><br><span class="line">...: &#x2F;&#x2F; 穷尽每一种情况</span><br><span class="line">default: </span><br><span class="line">endcase</span><br></pre></td></tr></table></figure>
-
+<pre><code>    case
+    0 : 
+    1 :
+    ...: // 穷尽每一种情况
+    default: 
+    endcase
+</code></pre>
 <p><img src="https://github.com/XuLixing/blog_images/blob/main/Verilog_Learning/Verilog_chapter_3/images_3/3.%E6%95%B0%E7%A0%81%E7%AE%A1%E8%AF%91%E7%A0%81.png" alt="Figure 4.数码管译码"></p>
 <p>Note : 使用case语句时，case应该包含所有的状态，如果没有包含全，则缺少项回产生锁存器！！！ 这是不允许的在同步时许电路设计中。</p>
 <h3 id="3-2-6-循环语句"><a href="#3-2-6-循环语句" class="headerlink" title="3.2.6 循环语句"></a>3.2.6 循环语句</h3><ol>
@@ -780,13 +798,13 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/02/System_Verilog/SV_1.1%20Data%20Type/">
+                <a href="/2021/03/29/ASIC/ASIC_design_flow/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="SV_1.1 Data Type">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="ASIC Design Flow 设计流程">
                         
-                        <span class="card-title">SV_1.1 Data Type</span>
+                        <span class="card-title">ASIC Design Flow 设计流程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -797,14 +815,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/SV/" class="post-category">
-                                    SV
+                            <a href="/categories/ASIC-Design/" class="post-category">
+                                    ASIC_Design
                                 </a>
                             
                             
@@ -814,8 +832,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/SV/">
-                        <span class="chip bg-color">SV</span>
+                    <a href="/tags/ASIC-design/">
+                        <span class="chip bg-color">ASIC design</span>
                     </a>
                     
                 </div>
@@ -828,24 +846,6 @@
 
 </div>
 
-
-
-<!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
-
-<!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
-
-<!-- 代码块复制 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
-
-
-<!-- 代码块收缩 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
     </div>
@@ -946,6 +946,19 @@
 
 </main>
 
+
+
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
 
 
 

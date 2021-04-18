@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -528,7 +528,7 @@
 <li><p>《System Verilog验证》- Chapter 2</p>
 </li>
 </ol>
-<h2 id="1-数据类型-内建数据类型："><a href="#1-数据类型-内建数据类型：" class="headerlink" title="1. 数据类型-内建数据类型："></a>1. 数据类型-内建数据类型：</h2><h3 id="logic-类型"><a href="#logic-类型" class="headerlink" title="logic 类型"></a>logic 类型</h3><p>SV中引入一个新的数据类型logic（还有net &amp; wire）</p>
+<h2 id="1-数据类型-内建数据类型："><a href="#1-数据类型-内建数据类型：" class="headerlink" title="1. 数据类型-内建数据类型："></a>1. 数据类型-内建数据类型：</h2><h3 id="1-1-logic-类型"><a href="#1-1-logic-类型" class="headerlink" title="1.1 logic 类型"></a>1.1 logic 类型</h3><p>SV中引入一个新的数据类型logic（还有net &amp; wire）</p>
 <p>SV作为侧重于验证的语言，并不关切logic对应的逻辑应该被综合为寄存器还是线网，因为logic被使用的场景如果是验证环境，呢么它只会作为单纯的变量进行赋值操作，而这些变量也只属于软件环境构建。</p>
 <p>原因：方便验证人员节省考虑是线网还是寄存器变量的时间和精力。</p>
 <p>Note：</p>
@@ -543,7 +543,7 @@
 <li><p>logic 是四值逻辑（0，1，X，Z）</p>
 </li>
 </ul>
-<h3 id="双状态数据类型"><a href="#双状态数据类型" class="headerlink" title="双状态数据类型"></a>双状态数据类型</h3><p>引入二状态数据类型（0 or 1）的原因：</p>
+<h3 id="1-2-双状态数据类型"><a href="#1-2-双状态数据类型" class="headerlink" title="1.2 双状态数据类型"></a>1.2 双状态数据类型</h3><p>引入二状态数据类型（0 or 1）的原因：</p>
 <ol>
 <li>软硬scope区分：</li>
 </ol>
@@ -593,8 +593,11 @@
 <li>符号类型</li>
 <li>矢量位宽</li>
 </ul>
-<h2 id="2-定宽数组"><a href="#2-定宽数组" class="headerlink" title="2. 定宽数组"></a>2. 定宽数组</h2><h3 id="2-1-数组声明-amp-初始化："><a href="#2-1-数组声明-amp-初始化：" class="headerlink" title="2.1 数组声明&amp;初始化："></a>2.1 数组声明&amp;初始化：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a [16] </span><br><span class="line">int a [0:15]</span><br><span class="line">int array [8][4] ; &#x2F;&#x2F; 创建一个8行4列的矩阵</span><br><span class="line">array [7][3] &#x3D; 1;  &#x2F;&#x2F; 设置最后一个元素</span><br></pre></td></tr></table></figure>
-
+<h2 id="2-定宽数组"><a href="#2-定宽数组" class="headerlink" title="2. 定宽数组"></a>2. 定宽数组</h2><h3 id="2-1-数组声明-amp-初始化："><a href="#2-1-数组声明-amp-初始化：" class="headerlink" title="2.1 数组声明&amp;初始化："></a>2.1 数组声明&amp;初始化：</h3><pre><code>int a [16] 
+int a [0:15]
+int array [8][4] ; // 创建一个8行4列的矩阵
+array [7][3] = 1;  // 设置最后一个元素
+</code></pre>
 <p>Note：</p>
 <ul>
 <li><p>当你的程序试图读取一个超越定义范围的地址中读取数据，SV则会返回<strong>数组元素类型</strong>的缺省值。对于四状态类型的数组如logic，返回的是X；对于双状态类型例如int or bit 则返回0。</p>
@@ -612,7 +615,7 @@
 <li><p>N {1} : 重复符号</p>
 </li>
 </ol>
-<h3 id="存储空间考量（合并与非合并）"><a href="#存储空间考量（合并与非合并）" class="headerlink" title="存储空间考量（合并与非合并）"></a>存储空间考量（合并与非合并）</h3><p>SV仿真器在存放数组元素时候时，使用32bit（4 byte=1 word）的字边界。因此byte，shortint，int都是存在一个字。longint放在两个字。</p>
+<h3 id="2-2-存储空间考量（合并与非合并）"><a href="#2-2-存储空间考量（合并与非合并）" class="headerlink" title="2.2 存储空间考量（合并与非合并）"></a>2.2 存储空间考量（合并与非合并）</h3><p>SV仿真器在存放数组元素时候时，使用32bit（4 byte=1 word）的字边界。因此byte，shortint，int都是存在一个字。longint放在两个字。</p>
 <ul>
 <li><p>合并：</p>
 <p>  bit [3][7:0] b_pack; // 维度声明放在了变量名左边，占用1个word</p>
@@ -627,17 +630,19 @@
 <p>ans: logic 是4值逻辑，软件上需要两位来存储。</p>
 <p>第一种是合并存储：3<em>8</em>2/32=1.5  需要两个word</p>
 <p>第二种是非合并存储：每一个word 足够存储一个数值，需要三个word。</p>
-<h3 id="基本数组操作"><a href="#基本数组操作" class="headerlink" title="基本数组操作"></a>基本数组操作</h3><h4 id="for和foreach循环"><a href="#for和foreach循环" class="headerlink" title="for和foreach循环"></a>for和foreach循环</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$size(Array Name); 返回数组的宽度</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-基本数组操作"><a href="#2-3-基本数组操作" class="headerlink" title="2.3 基本数组操作"></a>2.3 基本数组操作</h3><h4 id="2-3-1-for和foreach循环"><a href="#2-3-1-for和foreach循环" class="headerlink" title="2.3.1 for和foreach循环"></a>2.3.1 for和foreach循环</h4><pre><code>$size(Array Name); 返回数组的宽度
+</code></pre>
 <p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/8.png" alt="Figure 8. Foreach使用范例"></p>
 <p>foreach 赋值多维数组的的语法，不是 [i][j]，而是[i,j]。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foreach (md[i,j])</span><br><span class="line">$display (&quot;md[%0d][%0d]&#x3D;%0d&quot;, i , j, md[i][j]);</span><br></pre></td></tr></table></figure>
-
-<h4 id="赋值-与-比较"><a href="#赋值-与-比较" class="headerlink" title="赋值 与 比较"></a>赋值 与 比较</h4><p>赋值可以直接采用 = 传递</p>
+<pre><code>foreach (md[i,j])
+$display (&quot;md[%0d][%0d]=%0d&quot;, i , j, md[i][j]);
+</code></pre>
+<h4 id="2-3-2-赋值与比较"><a href="#2-3-2-赋值与比较" class="headerlink" title="2.3.2 赋值与比较"></a>2.3.2 赋值与比较</h4><p>赋值可以直接采用 = 传递</p>
 <p>比较可以直接采用 == 进行两个数组的比较，不需要用for比较每个元素</p>
 <p>还可以进行数组片段比较：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$display(&quot;src[1:4] %s dst[1:4]&quot;, (src[1:4] &#x3D;&#x3D; dst[1:4)? &quot;&#x3D;&#x3D;&quot; : &quot;!&#x3D;&quot;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="合并数组与非合并数组"><a href="#合并数组与非合并数组" class="headerlink" title="合并数组与非合并数组"></a>合并数组与非合并数组</h3><p>合并数组的声明：必须是[msb:lsb] 不能是[size]</p>
+<pre><code>$display(&quot;src[1:4] %s dst[1:4]&quot;, (src[1:4] == dst[1:4)? &quot;==&quot; : &quot;!=&quot;);
+</code></pre>
+<h3 id="2-4-合并数组与非合并数组"><a href="#2-4-合并数组与非合并数组" class="headerlink" title="2.4 合并数组与非合并数组"></a>2.4 合并数组与非合并数组</h3><p>合并数组的声明：必须是[msb:lsb] 不能是[size]</p>
 <p>使用合并数组后，可以单独访问数组中的一部分。</p>
 <p>关于合并数组的选择：</p>
 <ul>
@@ -646,14 +651,14 @@
 <li><p>当需要等待数组的值的变化（敏感列表）必须使用合并数组。</p>
 </li>
 </ul>
-<h1 id="3-动态数组"><a href="#3-动态数组" class="headerlink" title="3. 动态数组"></a>3. 动态数组</h1><p>数组的大小可以灵活调整宽度，可在仿真时灵活调节数组的大小即存储量。可以开辟新的存储空间。</p>
+<h2 id="3-动态数组"><a href="#3-动态数组" class="headerlink" title="3. 动态数组"></a>3. 动态数组</h2><p>数组的大小可以灵活调整宽度，可在仿真时灵活调节数组的大小即存储量。可以开辟新的存储空间。</p>
 <p>Dyn数组的各种操作，赋值，拓展，删除。</p>
 <p>int dyn[]</p>
 <p>dyn= new [宽度]</p>
 <p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/9.png" alt="Figure 9. 动态数组使用"></p>
 <p>可以用一个常量数组给动态数组赋值。</p>
 <p>int 的默认值是0， integer的默认值是1。</p>
-<h1 id="4-队列"><a href="#4-队列" class="headerlink" title="4. 队列"></a>4. 队列</h1><p>结合了链表和数组；可以在任何一个地方添加，删除元素并且可以通过索引的方式实现对任一元素的访问。</p>
+<h2 id="4-队列"><a href="#4-队列" class="headerlink" title="4. 队列"></a>4. 队列</h2><p>结合了链表和数组；可以在任何一个地方添加，删除元素并且可以通过索引的方式实现对任一元素的访问。</p>
 <p>优点：执行插入元素这种操作时，使用队列比使用动态数组带来的性能损失少（动态数组需要开辟新的存储空间，并复制原有的数组的数据）</p>
 <p>队列的声明：</p>
 <ol>
@@ -665,13 +670,17 @@
 </li>
 </ol>
 <p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/10.png" alt="Figure 10.队列使用"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">push_back() and pop_front() 的结合实现一个FIFO的用法</span><br></pre></td></tr></table></figure>
-
+<pre><code> push_back() and pop_front() 的结合实现一个FIFO的用法
+</code></pre>
 <p>Note: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">q.size() 		&#x2F;&#x2F;查找q的队列长度, </span><br><span class="line">[$:2]: [0:2] 		&#x2F;&#x2F;使用$可以表示最大值或者最小值：</span><br><span class="line">[2:$]: [2:最大值]</span><br><span class="line">j &#x3D;q[$]  &#x2F;&#x2F;队列的最高位赋给j</span><br></pre></td></tr></table></figure>
-<h1 id="5-关联数组"><a href="#5-关联数组" class="headerlink" title="5. 关联数组"></a>5. 关联数组</h1><p>如果需要一个超大容量的数组（模拟存储器），若利用动态数组建立，一旦创建时就被固定下来，对于超大容量的数组则是浪费资源。</p>
+<pre><code>q.size()         //查找q的队列长度, 
+[$:2]: [0:2]         //使用$可以表示最大值或者最小值：
+[2:$]: [2:最大值]
+j =q[$]  //队列的最高位赋给j
+</code></pre>
+<h2 id="5-关联数组"><a href="#5-关联数组" class="headerlink" title="5. 关联数组"></a>5. 关联数组</h2><p>如果需要一个超大容量的数组（模拟存储器），若利用动态数组建立，一旦创建时就被固定下来，对于超大容量的数组则是浪费资源。</p>
 <p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/11.png" alt="Figure 11.关联数组使用"></p>
-<h1 id="6-结构体"><a href="#6-结构体" class="headerlink" title="6. 结构体"></a>6. 结构体</h1><p>verilog中无数据结构，SV可以使用struct语句创建结构，跟C语言相似。</p>
+<h2 id="6-结构体"><a href="#6-结构体" class="headerlink" title="6. 结构体"></a>6. 结构体</h2><p>verilog中无数据结构，SV可以使用struct语句创建结构，跟C语言相似。</p>
 
                 
             </div>
@@ -787,13 +796,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2021/04/02/Verilog/Verilog%20Ch3/">
+                <a href="/2021/04/05/FSM_coding/Notes_FSM_coding/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Verilog Ch3">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Efficient FSM coding in verilog">
                         
-                        <span class="card-title">Verilog Ch3</span>
+                        <span class="card-title">Efficient FSM coding in verilog</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -804,8 +813,57 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-05
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/FSM-verilog/" class="post-category">
+                                    FSM_verilog
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/FSM/">
+                        <span class="chip bg-color">FSM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/04/02/Verilog/Verilog%20Ch1&2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Verilog Ch1&amp;2">
+                        
+                        <span class="card-title">Verilog Ch1&amp;2</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -830,78 +888,11 @@
             </div>
         </div>
         
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/03/29/ASIC/ASIC_design_flow/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="ASIC Design Flow 设计流程">
-                        
-                        <span class="card-title">ASIC Design Flow 设计流程</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-29
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/ASIC-Design/" class="post-category">
-                                    ASIC_Design
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/ASIC-design/">
-                        <span class="chip bg-color">ASIC design</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
     </div>
 </article>
 
 </div>
 
-
-
-<!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
-
-<!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
-
-<!-- 代码块复制 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
-
-
-<!-- 代码块收缩 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
     </div>
@@ -1002,6 +993,19 @@
 
 </main>
 
+
+
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
 
 
 
