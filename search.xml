@@ -11,91 +11,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>ASIC Design Flow 设计流程</title>
-    <url>/2021/03/29/ASIC/ASIC_design_flow/</url>
-    <content><![CDATA[<p>An ASIC (application-specific integrated circuit) is an IC customized for a particular use, rather than intended for general-purpose use</p>
-<h2 id="0-ASIC-Overview"><a href="#0-ASIC-Overview" class="headerlink" title="0.ASIC Overview:"></a>0.ASIC Overview:</h2><h3 id="0-1-概况"><a href="#0-1-概况" class="headerlink" title="0.1 概况"></a>0.1 概况</h3><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="Figure 1.ASIC概况"></p>
-<h3 id="0-2-标准单元库："><a href="#0-2-标准单元库：" class="headerlink" title="0.2 标准单元库："></a>0.2 标准单元库：</h3><ul>
-<li>预先设计好的单元组成设计库</li>
-<li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
-</ul>
-<h3 id="0-3-ASIC的优势："><a href="#0-3-ASIC的优势：" class="headerlink" title="0.3 ASIC的优势："></a>0.3 ASIC的优势：</h3><p>相比于FPGA：平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
-<h3 id="0-4-电路描述与设计过程："><a href="#0-4-电路描述与设计过程：" class="headerlink" title="0.4 电路描述与设计过程："></a>0.4 电路描述与设计过程：</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="Figure 2.不同层次描述"></p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="Figure 3.前段/后端"></p>
-<h2 id="1-ASIC设计流程"><a href="#1-ASIC设计流程" class="headerlink" title="1. ASIC设计流程"></a>1. ASIC设计流程</h2><h3 id="1-1-确定体系结构："><a href="#1-1-确定体系结构：" class="headerlink" title="1.1 确定体系结构："></a>1.1 确定体系结构：</h3><blockquote>
-<p>寄存器组有多少组，数量多少</p>
-</blockquote>
-<blockquote>
-<p>指令集：基本指令以及指令编码</p>
-</blockquote>
-<h3 id="1-2-体系微架构："><a href="#1-2-体系微架构：" class="headerlink" title="1.2 体系微架构："></a>1.2 体系微架构：</h3><blockquote>
-<p>A. 多周期流水线结构框图</p>
-</blockquote>
-<blockquote>
-<p>B. 控制信号逻辑，控制状态机，状态转移图</p>
-</blockquote>
-<h3 id="1-3-逻辑设计："><a href="#1-3-逻辑设计：" class="headerlink" title="1.3 逻辑设计："></a>1.3 逻辑设计：</h3><blockquote>
-<p>A. 顶层接口：引脚数量，名称定义</p>
-</blockquote>
-<blockquote>
-<p>B. 确定设计层次：控制通路和数据通路确定，电路组，标准单元库等等</p>
-</blockquote>
-<blockquote>
-<p>C. 建立电路文档，包含行为级信息。使用硬件描述语言描述电路，并综合生成逻辑网表</p>
-</blockquote>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/4.%20%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1.png" alt="Figure 4.控制&amp;数据通路"></p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/5.%20%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1.png" alt="Figure 5.硬件的层次化描述"></p>
-<h3 id="1-4-物理设计："><a href="#1-4-物理设计：" class="headerlink" title="1.4 物理设计："></a>1.4 物理设计：</h3><blockquote>
-<p>A：导入标准单元库（等高）</p>
-<p>B：Floorplan 平面规划</p>
-<p>C：引脚布局</p>
-</blockquote>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/6.%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1.png" alt="Figure 6.物理设计"></p>
-<h3 id="1-5-设计验证："><a href="#1-5-设计验证：" class="headerlink" title="1.5 设计验证："></a>1.5 设计验证：</h3><blockquote>
-<p>确保功能正确</p>
-</blockquote>
-<blockquote>
-<p>确保时钟频率满足要求</p>
-</blockquote>
-<blockquote>
-<p>确保功耗和面积满足要求</p>
-</blockquote>
-<blockquote>
-<p>确保流片成功</p>
-</blockquote>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="Figure 7.设计过程"></p>
-<h3 id="1-6-流片-（tape-out）"><a href="#1-6-流片-（tape-out）" class="headerlink" title="1.6 流片 （tape out）"></a>1.6 流片 （tape out）</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="Figure 8.MPW 服务"></p>
-<h3 id="1-7-封装（日月光）"><a href="#1-7-封装（日月光）" class="headerlink" title="1.7 封装（日月光）"></a>1.7 封装（日月光）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
-<h3 id="1-9-测试（华天）"><a href="#1-9-测试（华天）" class="headerlink" title="1.9 测试（华天）"></a>1.9 测试（华天）</h3><h2 id="2-ASIC设计过程及其工具"><a href="#2-ASIC设计过程及其工具" class="headerlink" title="2 ASIC设计过程及其工具"></a>2 ASIC设计过程及其工具</h2><h3 id="2-1-数字ASIC设计可分为两个阶段，均包含设计与验证。"><a href="#2-1-数字ASIC设计可分为两个阶段，均包含设计与验证。" class="headerlink" title="2.1 数字ASIC设计可分为两个阶段，均包含设计与验证。"></a>2.1 数字ASIC设计可分为两个阶段，均包含设计与验证。</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="Figure 9.ASIC粗略可分为两个阶段"></p>
-<h3 id="2-2-基于Synosys平台各项工具及其功能："><a href="#2-2-基于Synosys平台各项工具及其功能：" class="headerlink" title="2.2 基于Synosys平台各项工具及其功能："></a>2.2 基于Synosys平台各项工具及其功能：</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="Figure 10.ASIC设计工具"></p>
-<p>设计过程中：RTL代码是通用代码，但是门级网表和版图必须是确定工艺的网表和版图。工艺对芯片的速度、面积和功耗有决定性的作用。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/10.%E5%B7%A5%E8%89%BA%E7%BD%91%E8%A1%A8%E5%92%8C%E7%89%88%E5%9B%BE.png" alt="Figure 11.逻辑/物理综合的原理"></p>
-<p>————————————————————————</p>
-<h2 id="3-Appendix"><a href="#3-Appendix" class="headerlink" title="3 Appendix"></a>3 Appendix</h2><p>Detailed Design Flow：(Based on Synopsys)</p>
-<ol>
-<li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
-<li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
-<li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
-<li>使用 Formality 对 RTL 代码和 DC 网表进行形式验证，验证两者的结构 一致性。</li>
-<li>使用 VCS 对 DC 网表进行输入输出关系仿真，对比 RTL 仿真的结果， 验证两者的功能一致性。</li>
-<li>使用 IC Compiler(ICC)对 DC 网表进行物理综合，获得 ICC 网表和 版图。</li>
-<li>使用 Calibre 对版图进行设计天线规则检查，规则检查(DRC)和原理 图版图一致性检查(LVS)。</li>
-<li>使用 Formality 对 DC 网表和 ICC 网表进行形式验证，验证两者的结构 一致性。</li>
-<li>使用 StarRC 对版图进行电容电阻参数提取，获得 RC 参数，进一步获 得各网线的延迟信息。此将此延迟信息并反标至 ICC 网表。</li>
-<li>使用 PrimeTime 对反标后的 ICC 网表进行时序分析，并导出 sdf 延时文 件用于 VCS 后仿。</li>
-<li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
-<li>获得 GDSII 文档。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>ASIC_Design</category>
-      </categories>
-      <tags>
-        <tag>ASIC design</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Efficient FSM coding in verilog</title>
     <url>/2021/04/05/FSM_coding/Notes_FSM_coding/</url>
     <content><![CDATA[<p>Learning Source:《The Fundamentals of Efficient Synthesizable Finite State Machine Design using NC-Verilog and BuildGates》</p>
@@ -570,6 +485,91 @@ j =q[$]  //队列的最高位赋给j
       </categories>
       <tags>
         <tag>verilog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ASIC Design Flow 设计流程</title>
+    <url>/2021/03/29/ASIC/ASIC_design_flow/</url>
+    <content><![CDATA[<p>An ASIC (application-specific integrated circuit) is an IC customized for a particular use, rather than intended for general-purpose use</p>
+<h2 id="0-ASIC-Overview"><a href="#0-ASIC-Overview" class="headerlink" title="0.ASIC Overview:"></a>0.ASIC Overview:</h2><h3 id="0-1-概况"><a href="#0-1-概况" class="headerlink" title="0.1 概况"></a>0.1 概况</h3><p>芯片结构基于基本单元，芯片内部网络网格化，等高单元在芯片内部整齐排列</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/1.VLSI_overviwe.png" alt="Figure 1.ASIC概况"></p>
+<h3 id="0-2-标准单元库："><a href="#0-2-标准单元库：" class="headerlink" title="0.2 标准单元库："></a>0.2 标准单元库：</h3><ul>
+<li>预先设计好的单元组成设计库</li>
+<li>综合工具自动选取单元构建电路实现逻辑 ——— link2综合原理</li>
+</ul>
+<h3 id="0-3-ASIC的优势："><a href="#0-3-ASIC的优势：" class="headerlink" title="0.3 ASIC的优势："></a>0.3 ASIC的优势：</h3><p>相比于FPGA：平均而言，相同功能的电路， FPGA芯片所需的硅片面积是ASIC的35倍。 FPFA芯片的关键路径延时是ASIC的3.5倍。 FPGA芯片的动态功耗是ASIC的14倍。</p>
+<h3 id="0-4-电路描述与设计过程："><a href="#0-4-电路描述与设计过程：" class="headerlink" title="0.4 电路描述与设计过程："></a>0.4 电路描述与设计过程：</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/2.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="Figure 2.不同层次描述"></p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/3.%E7%94%B5%E8%B7%AF%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1.png" alt="Figure 3.前段/后端"></p>
+<h2 id="1-ASIC设计流程"><a href="#1-ASIC设计流程" class="headerlink" title="1. ASIC设计流程"></a>1. ASIC设计流程</h2><h3 id="1-1-确定体系结构："><a href="#1-1-确定体系结构：" class="headerlink" title="1.1 确定体系结构："></a>1.1 确定体系结构：</h3><blockquote>
+<p>寄存器组有多少组，数量多少</p>
+</blockquote>
+<blockquote>
+<p>指令集：基本指令以及指令编码</p>
+</blockquote>
+<h3 id="1-2-体系微架构："><a href="#1-2-体系微架构：" class="headerlink" title="1.2 体系微架构："></a>1.2 体系微架构：</h3><blockquote>
+<p>A. 多周期流水线结构框图</p>
+</blockquote>
+<blockquote>
+<p>B. 控制信号逻辑，控制状态机，状态转移图</p>
+</blockquote>
+<h3 id="1-3-逻辑设计："><a href="#1-3-逻辑设计：" class="headerlink" title="1.3 逻辑设计："></a>1.3 逻辑设计：</h3><blockquote>
+<p>A. 顶层接口：引脚数量，名称定义</p>
+</blockquote>
+<blockquote>
+<p>B. 确定设计层次：控制通路和数据通路确定，电路组，标准单元库等等</p>
+</blockquote>
+<blockquote>
+<p>C. 建立电路文档，包含行为级信息。使用硬件描述语言描述电路，并综合生成逻辑网表</p>
+</blockquote>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/4.%20%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1.png" alt="Figure 4.控制&amp;数据通路"></p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/5.%20%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1.png" alt="Figure 5.硬件的层次化描述"></p>
+<h3 id="1-4-物理设计："><a href="#1-4-物理设计：" class="headerlink" title="1.4 物理设计："></a>1.4 物理设计：</h3><blockquote>
+<p>A：导入标准单元库（等高）</p>
+<p>B：Floorplan 平面规划</p>
+<p>C：引脚布局</p>
+</blockquote>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/6.%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1.png" alt="Figure 6.物理设计"></p>
+<h3 id="1-5-设计验证："><a href="#1-5-设计验证：" class="headerlink" title="1.5 设计验证："></a>1.5 设计验证：</h3><blockquote>
+<p>确保功能正确</p>
+</blockquote>
+<blockquote>
+<p>确保时钟频率满足要求</p>
+</blockquote>
+<blockquote>
+<p>确保功耗和面积满足要求</p>
+</blockquote>
+<blockquote>
+<p>确保流片成功</p>
+</blockquote>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/7.%E8%AE%BE%E8%AE%A1%E9%AA%8C%E8%AF%81.png" alt="Figure 7.设计过程"></p>
+<h3 id="1-6-流片-（tape-out）"><a href="#1-6-流片-（tape-out）" class="headerlink" title="1.6 流片 （tape out）"></a>1.6 流片 （tape out）</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/11.%E6%B5%81%E7%89%87.png" alt="Figure 8.MPW 服务"></p>
+<h3 id="1-7-封装（日月光）"><a href="#1-7-封装（日月光）" class="headerlink" title="1.7 封装（日月光）"></a>1.7 封装（日月光）</h3><p>封装有多种类型。引脚数量，封装材料，封装方式不同。</p>
+<h3 id="1-9-测试（华天）"><a href="#1-9-测试（华天）" class="headerlink" title="1.9 测试（华天）"></a>1.9 测试（华天）</h3><h2 id="2-ASIC设计过程及其工具"><a href="#2-ASIC设计过程及其工具" class="headerlink" title="2 ASIC设计过程及其工具"></a>2 ASIC设计过程及其工具</h2><h3 id="2-1-数字ASIC设计可分为两个阶段，均包含设计与验证。"><a href="#2-1-数字ASIC设计可分为两个阶段，均包含设计与验证。" class="headerlink" title="2.1 数字ASIC设计可分为两个阶段，均包含设计与验证。"></a>2.1 数字ASIC设计可分为两个阶段，均包含设计与验证。</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/8.ASIC%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B.png" alt="Figure 9.ASIC粗略可分为两个阶段"></p>
+<h3 id="2-2-基于Synosys平台各项工具及其功能："><a href="#2-2-基于Synosys平台各项工具及其功能：" class="headerlink" title="2.2 基于Synosys平台各项工具及其功能："></a>2.2 基于Synosys平台各项工具及其功能：</h3><p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/9.ASIC%E5%B7%A5%E5%85%B7.png" alt="Figure 10.ASIC设计工具"></p>
+<p>设计过程中：RTL代码是通用代码，但是门级网表和版图必须是确定工艺的网表和版图。工艺对芯片的速度、面积和功耗有决定性的作用。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/VLSI_Design/1.VLSI_design_flow/images/10.%E5%B7%A5%E8%89%BA%E7%BD%91%E8%A1%A8%E5%92%8C%E7%89%88%E5%9B%BE.png" alt="Figure 11.逻辑/物理综合的原理"></p>
+<p>————————————————————————</p>
+<h2 id="3-Appendix"><a href="#3-Appendix" class="headerlink" title="3 Appendix"></a>3 Appendix</h2><p>Detailed Design Flow：(Based on Synopsys)</p>
+<ol>
+<li>将已经在 FPGA 上验证过的代码(Verilog)修改为不依赖于 FPGA 资源 的 RTL 代码。</li>
+<li>使用 VCS 对 RTL 代码进行输入输出关系仿真，进行功能验证。</li>
+<li>使用 Design Compiler(DC)对 RTL 代码进行逻辑综合，获得 DC 网<br>表。</li>
+<li>使用 Formality 对 RTL 代码和 DC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 VCS 对 DC 网表进行输入输出关系仿真，对比 RTL 仿真的结果， 验证两者的功能一致性。</li>
+<li>使用 IC Compiler(ICC)对 DC 网表进行物理综合，获得 ICC 网表和 版图。</li>
+<li>使用 Calibre 对版图进行设计天线规则检查，规则检查(DRC)和原理 图版图一致性检查(LVS)。</li>
+<li>使用 Formality 对 DC 网表和 ICC 网表进行形式验证，验证两者的结构 一致性。</li>
+<li>使用 StarRC 对版图进行电容电阻参数提取，获得 RC 参数，进一步获 得各网线的延迟信息。此将此延迟信息并反标至 ICC 网表。</li>
+<li>使用 PrimeTime 对反标后的 ICC 网表进行时序分析，并导出 sdf 延时文 件用于 VCS 后仿。</li>
+<li>使用 VCS 对反标后的 ICC 网表进行输入输出关系仿真，对比 RTL 仿真 的结果，验证两者的功能一致性。</li>
+<li>获得 GDSII 文档。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>ASIC_Design</category>
+      </categories>
+      <tags>
+        <tag>ASIC design</tag>
       </tags>
   </entry>
 </search>
