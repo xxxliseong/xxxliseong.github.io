@@ -11,12 +11,9 @@
 ]]></content>
   </entry>
   <entry>
-    <title></title>
+    <title>Clock Domain Crossing (CDC) Part 1</title>
     <url>/2021/05/29/CDC/CDC_1/</url>
-    <content><![CDATA[<hr>
-<p>title: Clock Domain Crossing (CDC) Part 1<br>date: 2021-04-5 11:35:33<br>tags:<br>    - VLSI<br>    - CDC<br>categories:<br>    - VLSI<br>    - CDC</p>
-<hr>
-<p>Reference：</p>
+    <content><![CDATA[<p>Reference：</p>
 <ol>
 <li><p>《The Study of Synchronizer Design in Asynchronous Clock Domain System》-蒲田</p>
 </li>
@@ -69,6 +66,14 @@
 <p>对于大多数同步应用，两级FF同步器已经足够移除所有亚稳态。</p>
 <h2 id="2-3-Three-flip-flop-synchronizer"><a href="#2-3-Three-flip-flop-synchronizer" class="headerlink" title="2.3 Three flip-flop synchronizer"></a>2.3 Three flip-flop synchronizer</h2><p>对于一些极其高速的应用，MTBF在两级同步器之间太短。因此可以添加第三级FF以增加MTBF到一个满意的时间范围。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/5.png" alt="三级同步器"></p>
 ]]></content>
+      <categories>
+        <category>VLSI</category>
+        <category>CDC</category>
+      </categories>
+      <tags>
+        <tag>VLSI</tag>
+        <tag>CDC</tag>
+      </tags>
   </entry>
   <entry>
     <title>Efficient FSM coding in verilog</title>
@@ -195,177 +200,6 @@
       </categories>
       <tags>
         <tag>FSM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SV_1.1 Data Type</title>
-    <url>/2021/04/02/System_Verilog/SV_1.1%20Data%20Type/</url>
-    <content><![CDATA[<p>Source from :</p>
-<ol>
-<li><p>《芯片验证漫游指南》- Page 108-111</p>
-</li>
-<li><p>《System Verilog验证》- Chapter 2</p>
-</li>
-</ol>
-<h2 id="1-数据类型-内建数据类型："><a href="#1-数据类型-内建数据类型：" class="headerlink" title="1. 数据类型-内建数据类型："></a>1. 数据类型-内建数据类型：</h2><h3 id="1-1-logic-类型"><a href="#1-1-logic-类型" class="headerlink" title="1.1 logic 类型"></a>1.1 logic 类型</h3><p>SV中引入一个新的数据类型logic（还有net &amp; wire）</p>
-<p>SV作为侧重于验证的语言，并不关切logic对应的逻辑应该被综合为寄存器还是线网，因为logic被使用的场景如果是验证环境，呢么它只会作为单纯的变量进行赋值操作，而这些变量也只属于软件环境构建。</p>
-<p>原因：方便验证人员节省考虑是线网还是寄存器变量的时间和精力。</p>
-<p>Note：</p>
-<ul>
-<li>logic 声明的变量可以被连续赋值，门单位和模块所驱动</li>
-<li>使用net类型的地方均可以使用logic，但是要求logic不能有通过多个结构性的驱动（如双向总线建模），此时需要用net类型。</li>
-</ul>
-<p>Note:</p>
-<ul>
-<li><p>可以将所有类型（reg&amp;wire）都定义成logic，在多个驱动的地方会发生编译错误（编译器期待为wire类型）</p>
-</li>
-<li><p>logic 是四值逻辑（0，1，X，Z）</p>
-</li>
-</ul>
-<h3 id="1-2-双状态数据类型"><a href="#1-2-双状态数据类型" class="headerlink" title="1.2 双状态数据类型"></a>1.2 双状态数据类型</h3><p>引入二状态数据类型（0 or 1）的原因：</p>
-<ol>
-<li>软硬scope区分：</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/1.png" alt="Figure 1.二值逻辑"></p>
-<ol start="2">
-<li>仿真器的内存使用减少，提高仿真器的精度。</li>
-</ol>
-<p>四值逻辑类型，二值逻辑类型变量划分</p>
-<ul>
-<li><p>四值：integer（32位）, logic, reg, net-type(wire)</p>
-</li>
-<li><p>二值：byte (类比C的char，8位), shortint（16位）, int（32位）, longint（64位）, bit (1 位)</p>
-</li>
-</ul>
-<p>有符号类型，无符号类型变量划分</p>
-<ul>
-<li><p>有符号类型：byte，shortint，int，longint，integer</p>
-</li>
-<li><p>无符号类型：bit, logic, reg, net-type(wire &amp; tri)</p>
-</li>
-</ul>
-<p>Case：</p>
-<ol>
-<li>不同数据类型的变量之间的赋值：</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/2.png"></p>
-<p>ans：128，128，-128</p>
-<ol start="2">
-<li>不同位宽的数据转换 是 补0还是补1：</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/3.png"></p>
-<p>ans：有符号数转换，先拓展了一位符号位。<code>h180。           无符号数转化，拓展补0。 </code>h080。</p>
-<p>细节：在双状态变量连接DUT，尤其被测设计输出产生X or Z时候，这些值会被转换成0或者1，而测试代码可能永远检测不到X or Z。使用（$isunkown）操作符可以检查在任意位出现X还是Z时候，返回1。</p>
-<p>数据转换：编码时一定要注意操作符左右两侧的符号类型是否一致，如果不一致，应该首先将其转换为同一类型再转换。</p>
-<ul>
-<li>静态转换<br>需要转换的表达式前加上单引号即可。编译时候检查。</li>
-<li>动态转换</li>
-</ul>
-<p>$cast(tgt,src)。 仿真时候检查。</p>
-<p>静态转化或者动态转换都需要操作符或者系统函数的介入，称为显式转换。</p>
-<p>下面介绍隐式转换：</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/4.png" alt="Figure 4.隐式转换"></p>
-<p>四值逻辑转换成二值逻辑。（<strong>X只会变成0</strong>）：ans：111x，110</p>
-<p>在操作不同变量时，除去变量的数值：需要考虑变量的以下性质：</p>
-<ul>
-<li>逻辑数值类型</li>
-<li>符号类型</li>
-<li>矢量位宽</li>
-</ul>
-<h2 id="2-定宽数组"><a href="#2-定宽数组" class="headerlink" title="2. 定宽数组"></a>2. 定宽数组</h2><h3 id="2-1-数组声明-amp-初始化："><a href="#2-1-数组声明-amp-初始化：" class="headerlink" title="2.1 数组声明&amp;初始化："></a>2.1 数组声明&amp;初始化：</h3><pre><code>int a [16] 
-int a [0:15]
-int array [8][4] ; // 创建一个8行4列的矩阵
-array [7][3] = 1;  // 设置最后一个元素
-</code></pre>
-<p>Note：</p>
-<ul>
-<li><p>当你的程序试图读取一个超越定义范围的地址中读取数据，SV则会返回<strong>数组元素类型</strong>的缺省值。对于四状态类型的数组如logic，返回的是X；对于双状态类型例如int or bit 则返回0。</p>
-</li>
-<li><p>线网在没有驱动的时候输出是Z</p>
-</li>
-</ul>
-<p>Note: </p>
-<p>数组声明放在数组名字右边。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/5.png" alt="Figure 5. 数组初始化"></p>
-<p>Note: </p>
-<ol>
-<li><p><code>&#123;&#125; 赋值；Name = </code>{0, 1, 2, 3};</p>
-</li>
-<li><p>N {1} : 重复符号</p>
-</li>
-</ol>
-<h3 id="2-2-存储空间考量（合并与非合并）"><a href="#2-2-存储空间考量（合并与非合并）" class="headerlink" title="2.2 存储空间考量（合并与非合并）"></a>2.2 存储空间考量（合并与非合并）</h3><p>SV仿真器在存放数组元素时候时，使用32bit（4 byte=1 word）的字边界。因此byte，shortint，int都是存在一个字。longint放在两个字。</p>
-<ul>
-<li><p>合并：</p>
-<p>  bit [3][7:0] b_pack; // 维度声明放在了变量名左边，占用1个word</p>
-</li>
-<li><p>非合并：</p>
-<p>  bit [7:0] b_unpack [3] // 如下，占用3个word.</p>
-</li>
-</ul>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/6.png" alt="Figure 6.非合并space"></p>
-<p>exercise</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/7.png" alt="Figure 7."></p>
-<p>ans: logic 是4值逻辑，软件上需要两位来存储。</p>
-<p>第一种是合并存储：3<em>8</em>2/32=1.5  需要两个word</p>
-<p>第二种是非合并存储：每一个word 足够存储一个数值，需要三个word。</p>
-<h3 id="2-3-基本数组操作"><a href="#2-3-基本数组操作" class="headerlink" title="2.3 基本数组操作"></a>2.3 基本数组操作</h3><h4 id="2-3-1-for和foreach循环"><a href="#2-3-1-for和foreach循环" class="headerlink" title="2.3.1 for和foreach循环"></a>2.3.1 for和foreach循环</h4><pre><code>$size(Array Name); 返回数组的宽度
-</code></pre>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/8.png" alt="Figure 8. Foreach使用范例"></p>
-<p>foreach 赋值多维数组的的语法，不是 [i][j]，而是[i,j]。</p>
-<pre><code>foreach (md[i,j])
-$display (&quot;md[%0d][%0d]=%0d&quot;, i , j, md[i][j]);
-</code></pre>
-<h4 id="2-3-2-赋值与比较"><a href="#2-3-2-赋值与比较" class="headerlink" title="2.3.2 赋值与比较"></a>2.3.2 赋值与比较</h4><p>赋值可以直接采用 = 传递</p>
-<p>比较可以直接采用 == 进行两个数组的比较，不需要用for比较每个元素</p>
-<p>还可以进行数组片段比较：</p>
-<pre><code>$display(&quot;src[1:4] %s dst[1:4]&quot;, (src[1:4] == dst[1:4)? &quot;==&quot; : &quot;!=&quot;);
-</code></pre>
-<h3 id="2-4-合并数组与非合并数组"><a href="#2-4-合并数组与非合并数组" class="headerlink" title="2.4 合并数组与非合并数组"></a>2.4 合并数组与非合并数组</h3><p>合并数组的声明：必须是[msb:lsb] 不能是[size]</p>
-<p>使用合并数组后，可以单独访问数组中的一部分。</p>
-<p>关于合并数组的选择：</p>
-<ul>
-<li><p>需要以Byte或者word为单位进行对存储单位进行重复读写的需求</p>
-</li>
-<li><p>当需要等待数组的值的变化（敏感列表）必须使用合并数组。</p>
-</li>
-</ul>
-<h2 id="3-动态数组"><a href="#3-动态数组" class="headerlink" title="3. 动态数组"></a>3. 动态数组</h2><p>数组的大小可以灵活调整宽度，可在仿真时灵活调节数组的大小即存储量。可以开辟新的存储空间。</p>
-<p>Dyn数组的各种操作，赋值，拓展，删除。</p>
-<p>int dyn[]</p>
-<p>dyn= new [宽度]</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/9.png" alt="Figure 9. 动态数组使用"></p>
-<p>可以用一个常量数组给动态数组赋值。</p>
-<p>int 的默认值是0， integer的默认值是1。</p>
-<h2 id="4-队列"><a href="#4-队列" class="headerlink" title="4. 队列"></a>4. 队列</h2><p>结合了链表和数组；可以在任何一个地方添加，删除元素并且可以通过索引的方式实现对任一元素的访问。</p>
-<p>优点：执行插入元素这种操作时，使用队列比使用动态数组带来的性能损失少（动态数组需要开辟新的存储空间，并复制原有的数组的数据）</p>
-<p>队列的声明：</p>
-<ol>
-<li><p>Name[$]={0,1} // 不需要在前面加“ ` ”</p>
-</li>
-<li><p>name.insert(index, 内容) //在队列的某一位前插入一位或者一个队列</p>
-</li>
-<li><p>name.delete(index) //删除队列某一位数据</p>
-</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/10.png" alt="Figure 10.队列使用"></p>
-<pre><code> push_back() and pop_front() 的结合实现一个FIFO的用法
-</code></pre>
-<p>Note: </p>
-<pre><code>q.size()         //查找q的队列长度, 
-[$:2]: [0:2]         //使用$可以表示最大值或者最小值：
-[2:$]: [2:最大值]
-j =q[$]  //队列的最高位赋给j
-</code></pre>
-<h2 id="5-关联数组"><a href="#5-关联数组" class="headerlink" title="5. 关联数组"></a>5. 关联数组</h2><p>如果需要一个超大容量的数组（模拟存储器），若利用动态数组建立，一旦创建时就被固定下来，对于超大容量的数组则是浪费资源。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/11.png" alt="Figure 11.关联数组使用"></p>
-<h2 id="6-结构体"><a href="#6-结构体" class="headerlink" title="6. 结构体"></a>6. 结构体</h2><p>verilog中无数据结构，SV可以使用struct语句创建结构，跟C语言相似。</p>
-]]></content>
-      <categories>
-        <category>SV</category>
-      </categories>
-      <tags>
-        <tag>SV</tag>
       </tags>
   </entry>
   <entry>
@@ -545,6 +379,177 @@ j =q[$]  //队列的最高位赋给j
       </categories>
       <tags>
         <tag>verilog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SV_1.1 Data Type</title>
+    <url>/2021/04/02/System_Verilog/SV_1.1%20Data%20Type/</url>
+    <content><![CDATA[<p>Source from :</p>
+<ol>
+<li><p>《芯片验证漫游指南》- Page 108-111</p>
+</li>
+<li><p>《System Verilog验证》- Chapter 2</p>
+</li>
+</ol>
+<h2 id="1-数据类型-内建数据类型："><a href="#1-数据类型-内建数据类型：" class="headerlink" title="1. 数据类型-内建数据类型："></a>1. 数据类型-内建数据类型：</h2><h3 id="1-1-logic-类型"><a href="#1-1-logic-类型" class="headerlink" title="1.1 logic 类型"></a>1.1 logic 类型</h3><p>SV中引入一个新的数据类型logic（还有net &amp; wire）</p>
+<p>SV作为侧重于验证的语言，并不关切logic对应的逻辑应该被综合为寄存器还是线网，因为logic被使用的场景如果是验证环境，呢么它只会作为单纯的变量进行赋值操作，而这些变量也只属于软件环境构建。</p>
+<p>原因：方便验证人员节省考虑是线网还是寄存器变量的时间和精力。</p>
+<p>Note：</p>
+<ul>
+<li>logic 声明的变量可以被连续赋值，门单位和模块所驱动</li>
+<li>使用net类型的地方均可以使用logic，但是要求logic不能有通过多个结构性的驱动（如双向总线建模），此时需要用net类型。</li>
+</ul>
+<p>Note:</p>
+<ul>
+<li><p>可以将所有类型（reg&amp;wire）都定义成logic，在多个驱动的地方会发生编译错误（编译器期待为wire类型）</p>
+</li>
+<li><p>logic 是四值逻辑（0，1，X，Z）</p>
+</li>
+</ul>
+<h3 id="1-2-双状态数据类型"><a href="#1-2-双状态数据类型" class="headerlink" title="1.2 双状态数据类型"></a>1.2 双状态数据类型</h3><p>引入二状态数据类型（0 or 1）的原因：</p>
+<ol>
+<li>软硬scope区分：</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/1.png" alt="Figure 1.二值逻辑"></p>
+<ol start="2">
+<li>仿真器的内存使用减少，提高仿真器的精度。</li>
+</ol>
+<p>四值逻辑类型，二值逻辑类型变量划分</p>
+<ul>
+<li><p>四值：integer（32位）, logic, reg, net-type(wire)</p>
+</li>
+<li><p>二值：byte (类比C的char，8位), shortint（16位）, int（32位）, longint（64位）, bit (1 位)</p>
+</li>
+</ul>
+<p>有符号类型，无符号类型变量划分</p>
+<ul>
+<li><p>有符号类型：byte，shortint，int，longint，integer</p>
+</li>
+<li><p>无符号类型：bit, logic, reg, net-type(wire &amp; tri)</p>
+</li>
+</ul>
+<p>Case：</p>
+<ol>
+<li>不同数据类型的变量之间的赋值：</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/2.png"></p>
+<p>ans：128，128，-128</p>
+<ol start="2">
+<li>不同位宽的数据转换 是 补0还是补1：</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/3.png"></p>
+<p>ans：有符号数转换，先拓展了一位符号位。<code>h180。           无符号数转化，拓展补0。 </code>h080。</p>
+<p>细节：在双状态变量连接DUT，尤其被测设计输出产生X or Z时候，这些值会被转换成0或者1，而测试代码可能永远检测不到X or Z。使用（$isunkown）操作符可以检查在任意位出现X还是Z时候，返回1。</p>
+<p>数据转换：编码时一定要注意操作符左右两侧的符号类型是否一致，如果不一致，应该首先将其转换为同一类型再转换。</p>
+<ul>
+<li>静态转换<br>需要转换的表达式前加上单引号即可。编译时候检查。</li>
+<li>动态转换</li>
+</ul>
+<p>$cast(tgt,src)。 仿真时候检查。</p>
+<p>静态转化或者动态转换都需要操作符或者系统函数的介入，称为显式转换。</p>
+<p>下面介绍隐式转换：</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/4.png" alt="Figure 4.隐式转换"></p>
+<p>四值逻辑转换成二值逻辑。（<strong>X只会变成0</strong>）：ans：111x，110</p>
+<p>在操作不同变量时，除去变量的数值：需要考虑变量的以下性质：</p>
+<ul>
+<li>逻辑数值类型</li>
+<li>符号类型</li>
+<li>矢量位宽</li>
+</ul>
+<h2 id="2-定宽数组"><a href="#2-定宽数组" class="headerlink" title="2. 定宽数组"></a>2. 定宽数组</h2><h3 id="2-1-数组声明-amp-初始化："><a href="#2-1-数组声明-amp-初始化：" class="headerlink" title="2.1 数组声明&amp;初始化："></a>2.1 数组声明&amp;初始化：</h3><pre><code>int a [16] 
+int a [0:15]
+int array [8][4] ; // 创建一个8行4列的矩阵
+array [7][3] = 1;  // 设置最后一个元素
+</code></pre>
+<p>Note：</p>
+<ul>
+<li><p>当你的程序试图读取一个超越定义范围的地址中读取数据，SV则会返回<strong>数组元素类型</strong>的缺省值。对于四状态类型的数组如logic，返回的是X；对于双状态类型例如int or bit 则返回0。</p>
+</li>
+<li><p>线网在没有驱动的时候输出是Z</p>
+</li>
+</ul>
+<p>Note: </p>
+<p>数组声明放在数组名字右边。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/5.png" alt="Figure 5. 数组初始化"></p>
+<p>Note: </p>
+<ol>
+<li><p><code>&#123;&#125; 赋值；Name = </code>{0, 1, 2, 3};</p>
+</li>
+<li><p>N {1} : 重复符号</p>
+</li>
+</ol>
+<h3 id="2-2-存储空间考量（合并与非合并）"><a href="#2-2-存储空间考量（合并与非合并）" class="headerlink" title="2.2 存储空间考量（合并与非合并）"></a>2.2 存储空间考量（合并与非合并）</h3><p>SV仿真器在存放数组元素时候时，使用32bit（4 byte=1 word）的字边界。因此byte，shortint，int都是存在一个字。longint放在两个字。</p>
+<ul>
+<li><p>合并：</p>
+<p>  bit [3][7:0] b_pack; // 维度声明放在了变量名左边，占用1个word</p>
+</li>
+<li><p>非合并：</p>
+<p>  bit [7:0] b_unpack [3] // 如下，占用3个word.</p>
+</li>
+</ul>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/6.png" alt="Figure 6.非合并space"></p>
+<p>exercise</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/7.png" alt="Figure 7."></p>
+<p>ans: logic 是4值逻辑，软件上需要两位来存储。</p>
+<p>第一种是合并存储：3<em>8</em>2/32=1.5  需要两个word</p>
+<p>第二种是非合并存储：每一个word 足够存储一个数值，需要三个word。</p>
+<h3 id="2-3-基本数组操作"><a href="#2-3-基本数组操作" class="headerlink" title="2.3 基本数组操作"></a>2.3 基本数组操作</h3><h4 id="2-3-1-for和foreach循环"><a href="#2-3-1-for和foreach循环" class="headerlink" title="2.3.1 for和foreach循环"></a>2.3.1 for和foreach循环</h4><pre><code>$size(Array Name); 返回数组的宽度
+</code></pre>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/8.png" alt="Figure 8. Foreach使用范例"></p>
+<p>foreach 赋值多维数组的的语法，不是 [i][j]，而是[i,j]。</p>
+<pre><code>foreach (md[i,j])
+$display (&quot;md[%0d][%0d]=%0d&quot;, i , j, md[i][j]);
+</code></pre>
+<h4 id="2-3-2-赋值与比较"><a href="#2-3-2-赋值与比较" class="headerlink" title="2.3.2 赋值与比较"></a>2.3.2 赋值与比较</h4><p>赋值可以直接采用 = 传递</p>
+<p>比较可以直接采用 == 进行两个数组的比较，不需要用for比较每个元素</p>
+<p>还可以进行数组片段比较：</p>
+<pre><code>$display(&quot;src[1:4] %s dst[1:4]&quot;, (src[1:4] == dst[1:4)? &quot;==&quot; : &quot;!=&quot;);
+</code></pre>
+<h3 id="2-4-合并数组与非合并数组"><a href="#2-4-合并数组与非合并数组" class="headerlink" title="2.4 合并数组与非合并数组"></a>2.4 合并数组与非合并数组</h3><p>合并数组的声明：必须是[msb:lsb] 不能是[size]</p>
+<p>使用合并数组后，可以单独访问数组中的一部分。</p>
+<p>关于合并数组的选择：</p>
+<ul>
+<li><p>需要以Byte或者word为单位进行对存储单位进行重复读写的需求</p>
+</li>
+<li><p>当需要等待数组的值的变化（敏感列表）必须使用合并数组。</p>
+</li>
+</ul>
+<h2 id="3-动态数组"><a href="#3-动态数组" class="headerlink" title="3. 动态数组"></a>3. 动态数组</h2><p>数组的大小可以灵活调整宽度，可在仿真时灵活调节数组的大小即存储量。可以开辟新的存储空间。</p>
+<p>Dyn数组的各种操作，赋值，拓展，删除。</p>
+<p>int dyn[]</p>
+<p>dyn= new [宽度]</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/9.png" alt="Figure 9. 动态数组使用"></p>
+<p>可以用一个常量数组给动态数组赋值。</p>
+<p>int 的默认值是0， integer的默认值是1。</p>
+<h2 id="4-队列"><a href="#4-队列" class="headerlink" title="4. 队列"></a>4. 队列</h2><p>结合了链表和数组；可以在任何一个地方添加，删除元素并且可以通过索引的方式实现对任一元素的访问。</p>
+<p>优点：执行插入元素这种操作时，使用队列比使用动态数组带来的性能损失少（动态数组需要开辟新的存储空间，并复制原有的数组的数据）</p>
+<p>队列的声明：</p>
+<ol>
+<li><p>Name[$]={0,1} // 不需要在前面加“ ` ”</p>
+</li>
+<li><p>name.insert(index, 内容) //在队列的某一位前插入一位或者一个队列</p>
+</li>
+<li><p>name.delete(index) //删除队列某一位数据</p>
+</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/10.png" alt="Figure 10.队列使用"></p>
+<pre><code> push_back() and pop_front() 的结合实现一个FIFO的用法
+</code></pre>
+<p>Note: </p>
+<pre><code>q.size()         //查找q的队列长度, 
+[$:2]: [0:2]         //使用$可以表示最大值或者最小值：
+[2:$]: [2:最大值]
+j =q[$]  //队列的最高位赋给j
+</code></pre>
+<h2 id="5-关联数组"><a href="#5-关联数组" class="headerlink" title="5. 关联数组"></a>5. 关联数组</h2><p>如果需要一个超大容量的数组（模拟存储器），若利用动态数组建立，一旦创建时就被固定下来，对于超大容量的数组则是浪费资源。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/11.png" alt="Figure 11.关联数组使用"></p>
+<h2 id="6-结构体"><a href="#6-结构体" class="headerlink" title="6. 结构体"></a>6. 结构体</h2><p>verilog中无数据结构，SV可以使用struct语句创建结构，跟C语言相似。</p>
+]]></content>
+      <categories>
+        <category>SV</category>
+      </categories>
+      <tags>
+        <tag>SV</tag>
       </tags>
   </entry>
   <entry>
