@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Introduction to My Blog, X‘s world">
+    <meta name="keywords" content="X‘s world">
     <meta name="description" content="Accumulation matters">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Introduction to My Blog | X‘s world</title>
+    <title>X‘s world</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -354,12 +354,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Introduction to My Blog</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -487,7 +487,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-04-13
+                    2021-05-29
                 </div>
                 
 
@@ -508,11 +508,61 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>This is my blog, built at March, 2021, supported by Github &amp; Hexo &amp; NexT Theme.</p>
-<p>Accumulation does matter.</p>
-<p>This blog would serve as window, where I could share my my points, output fantastic ideas and trace any change inside my mind.</p>
-<p>For Now, I would focus more on producing notes and posts from my leanrning, as many as possible.</p>
-<p>I hope that what i will write or i have wrriten would make a difference to the world.</p>
+                <hr>
+<p>title: Clock Domain Crossing (CDC) Part 1<br>date: 2021-04-5 11:35:33<br>tags:<br>    - VLSI<br>    - CDC<br>categories:<br>    - VLSI<br>    - CDC</p>
+<hr>
+<p>Reference：</p>
+<ol>
+<li><p>《The Study of Synchronizer Design in Asynchronous Clock Domain System》-蒲田</p>
+</li>
+<li><p>《Clock Domain Crossing (CDC) Design &amp; Verification Techniques Using SystemVerilog》-Clifford E. Cummings</p>
+</li>
+</ol>
+<h1 id="1-Metastability"><a href="#1-Metastability" class="headerlink" title="1. Metastability:"></a>1. Metastability:</h1><p>亚稳态指信号在一段时间内不再稳定在0或者1，原因在于存储元件并非理想元件，对于寄存器信号需要在时钟边沿前后保持不变（setup&amp;holding约束），否则可能产生不稳定的输出。在多时钟域设计中，亚稳态不能被避免但有害效应可以被中和抵消。</p>
+<h2 id="1-1-Synchronization-failure"><a href="#1-1-Synchronization-failure" class="headerlink" title="1.1 Synchronization failure"></a>1.1 Synchronization failure</h2><p>下图展示两级FF，但是两级的CLK不同步，第二级FF在第一级输出未达到稳定时进行了采样，产生synchronization failure. 如下图，采样信号无法在bclk的下一个上升沿保持稳定，亚稳态会被传递。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/1.png" alt="同步错误"></p>
+<p>“When sampling a changing data signal with a clock … the order of the events determines the outcome. The smaller the time difference between the events, the longer it takes to determine which came first. When two events occur very close together, the decision process can take longer than the time allotted, and a synchronization failure occurs.”</p>
+<h2 id="1-2-Consideration"><a href="#1-2-Consideration" class="headerlink" title="1.2 Consideration"></a>1.2 Consideration</h2><p>每一级的FF都要一个具体的setup time 和 hold time，即要求input的数据在clock 上升沿前保持一段时间（setup）和之后保持一段时间（hold）。对于一个具体的设计而言，这个时间窗口（亚稳态窗口）可以视为一个design parameter，当这个时间窗口输入数据发生变化，输出就可能产生亚稳态。</p>
+<h2 id="1-3-MTBF-Mean-Time-Before-Failure"><a href="#1-3-MTBF-Mean-Time-Before-Failure" class="headerlink" title="1.3 MTBF (Mean Time Before Failure)"></a>1.3 MTBF (Mean Time Before Failure)</h2><p>对于大多数应用，尤其是跨时钟域计算MTBF（Mean Time Before Failure）非常重要。Failure指的是信号通过通过一个同步寄存器进入亚稳态，持续保持亚稳态直到被下一级寄存器采样。MTBF表示两个failure之间的时间（希望大到几天，几年）。</p>
+<p>MTBF表示触发器采样失败的时间间隔。MTBF的计算公式如下：MTBF的数值越大越好；大MTBF表明潜在失效发生在更长的时间范围内；小的MTBF表明亚稳态更可能发生。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/2.png" alt="MTBF相关"></p>
+<p>定量计算公式如下：<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/3.png" alt="MTBF定量计算公式"><br>其中：</p>
+<ul>
+<li>tr = 分辨时间（时钟沿开始）// resolution time (start from clk edge)</li>
+<li>𝜏,𝑇0 = 触发器参数 // parameters releated to FF</li>
+<li>𝑓 = 采样时钟频率 // sampling frequency</li>
+<li>a = 异步事件触发频率 <a target="_blank" rel="noopener" href="//asynchronous">//</a> asynchronized events activated frequency</li>
+</ul>
+<p>对于一个典型的 0.25µm 工艺的 ASIC 库中的一个触发器，我们取如下的参数：tr = 2.3ns, τ = 0.31ns, T0 = 9.6as, f=100MHZ, a = 10MHZ, MTBF = <strong>2.01 days</strong></p>
+<h2 id="1-4-Approaches-to-reduce-metastability-减少亚稳态的方法"><a href="#1-4-Approaches-to-reduce-metastability-减少亚稳态的方法" class="headerlink" title="1.4 Approaches to reduce metastability 减少亚稳态的方法"></a>1.4 Approaches to reduce metastability 减少亚稳态的方法</h2><p>减少亚稳态的方法有以下几种</p>
+<ol>
+<li><p>使用同步器：也就是我们常用的2级或者多级FF打拍的方法;同步器后面会专门论述；</p>
+</li>
+<li><p>降低频率：如果能满足功能要求，那么降低频率能够减少亚稳态的产生;</p>
+</li>
+<li><p>避免变化过快或者过于频繁的信号进行跨时钟采样</p>
+</li>
+<li><p>采用更快的触发器：更快的触发器，也可以减少亚稳态的产生。</p>
+</li>
+</ol>
+<h1 id="2-Synchronizers"><a href="#2-Synchronizers" class="headerlink" title="2. Synchronizers"></a>2. Synchronizers</h1><p>当信号跨时钟域时候，最容易忽视的一个问题是，这个信号需要每个时钟都被采样，不能漏掉每一个值吗？这是新手最容易忽视的一个问题。当考虑到信号穿过CDC边界时，</p>
+<p>我们考虑两种情况：</p>
+<ul>
+<li>有一些信号不需要sample 可以miss </li>
+</ul>
+<p>// some signals are not required to be sampled and could be missed.</p>
+<ul>
+<li>每一个信号都需要被sample 并且跨CDC </li>
+</ul>
+<p>// every signals are required to be sampled.</p>
+<p>在这两种情况下：CDC信号都需要某种形式的同步在接收时钟域内<br>In both of these scenarios, the CDC signals will require some form of <strong>synchronization</strong> into the receiving clock domain.</p>
+<p>同步器：是采样一个异步时钟信号，并将其过渡成与一个在本地或者采样时钟的输出信号。“A synchronizer is a device that samples an asynchronous signal and outputs a version of the signal that has transitions synchronized to a local or sample clock”</p>
+<h2 id="2-1-Two-flip-flop-synchronizer"><a href="#2-1-Two-flip-flop-synchronizer" class="headerlink" title="2.1 Two flip-flop synchronizer"></a>2.1 Two flip-flop synchronizer</h2><p>最简单和最常用的同步器，是两级FF同步器.</p>
+<p>第一级FF采样一个异步信号，极端情况（采样一个变化信号）则第一级FF输出为亚稳态；保持一个时钟周期（亚稳态recover），信号被重新采样为有效的输出。</p>
+<p>Note：双寄存器并不能消除亚稳态，它只是减少出现亚稳态的概率，减少到一个可以几乎忽略不计的程度。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/4.png" alt="两级同步器"></p>
+<p>在这个过程，需要保证的这个保持时间，否则会产生synchronization failure。 这个时间与输入信号的频率和同步FF的频率有关。这个时间为MTBF。</p>
+<p>对于大多数同步应用，两级FF同步器已经足够移除所有亚稳态。</p>
+<h2 id="2-3-Three-flip-flop-synchronizer"><a href="#2-3-Three-flip-flop-synchronizer" class="headerlink" title="2.3 Three flip-flop synchronizer"></a>2.3 Three flip-flop synchronizer</h2><p>对于一些极其高速的应用，MTBF在两级同步器之间太短。因此可以添加第三级FF以增加MTBF到一个满意的时间范围。<br><img src="https://github.com/XuLixing/blog_images/raw/main/CDC/CDC_1/5.png" alt="三级同步器"></p>
 
                 
             </div>
@@ -539,7 +589,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xulixing.github.io/2021/04/13/Blog_Inro/">https://xulixing.github.io/2021/04/13/Blog_Inro/</a>
+                    <a href="https://xulixing.github.io/2021/05/29/CDC/CDC_1/">https://xulixing.github.io/2021/05/29/CDC/CDC_1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -620,9 +670,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2021/05/29/CDC/CDC_1/">
                     <div class="card-image">
@@ -640,9 +691,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -651,6 +702,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -661,13 +713,13 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/05/FSM_coding/Notes_FSM_coding/">
+                <a href="/2021/04/13/Blog_Inro/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Efficient FSM coding in verilog">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Introduction to My Blog">
                         
-                        <span class="card-title">Efficient FSM coding in verilog</span>
+                        <span class="card-title">Introduction to My Blog</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -678,27 +730,15 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/FSM-verilog/" class="post-category">
-                                    FSM_verilog
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            XuLixing
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/FSM/">
-                        <span class="chip bg-color">FSM</span>
-                    </a>
-                    
                 </div>
                 
             </div>
