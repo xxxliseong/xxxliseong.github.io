@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Von Neumann Model &amp; ISA, X‘s world">
+    <meta name="keywords" content="Microarchitecture Part 2, X‘s world">
     <meta name="description" content="Accumulation matters">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Von Neumann Model &amp; ISA | X‘s world</title>
+    <title>Microarchitecture Part 2 | X‘s world</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -354,12 +354,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Von Neumann Model &amp; ISA</h1>
+                    <h1 class="description center-align post-title">Microarchitecture Part 2</h1>
                 </div>
             </div>
         </div>
@@ -479,6 +479,10 @@
                                 <span class="chip bg-color">Computer architecture</span>
                             </a>
                         
+                            <a href="/tags/Microarchitecture/">
+                                <span class="chip bg-color">Microarchitecture</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -489,6 +493,10 @@
                         
                             <a href="/categories/Computer-architecture/" class="post-category">
                                 Computer architecture
+                            </a>
+                        
+                            <a href="/categories/Computer-architecture/Microarchitecture/" class="post-category">
+                                Microarchitecture
                             </a>
                         
                     </div>
@@ -523,161 +531,77 @@
             <div id="articleContent">
                 <p>Reference：</p>
 <ol>
-<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris-chapter6 </li>
-<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel, chapter4-5</li>
+<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
+<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
 </ol>
-<h3 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview:"></a>1. Overview:</h3><p>本节主要介绍经典的架构和指令集的概念。所有的程序最后都会通过编译器编译成一条条指令执行。指令就像是特定的单词用于告诉计算机需要做什么，指令集就像是计算机能听懂的词汇类型。需要主要的是：就算是基于同样的架构和同样的指令集，底层硬件的实现（微架构）也可以不同。 </p>
-<p>最经典的计算机架构：冯-诺伊曼 架构：</p>
-<p>Von Neumann Model: consisits of 5 parts:</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/Von%20Neumann%20Model.png" alt="Von Neumann Model"></p>
-<h4 id="1-1-Memory"><a href="#1-1-Memory" class="headerlink" title="1.1  Memory:"></a>1.1  Memory:</h4><ul>
-<li><p>Word-addressable memory:</p>
-</li>
-<li><p>Byte-addressable memory: (eg. a byte represents pixel)</p>
-</li>
-<li><p>MAR &amp; MDR 寄存器组</p>
-</li>
-<li><p>Temporary storage: Registers(fast)</p>
-<p>  Store intermediate results; </p>
-<p>  Typically, a register contains 1 word.</p>
-<p>  To Read</p>
-<p>  Step 1: Load the MAR with the address</p>
-<p>  Step 2: Data is placed in MDR</p>
-<p>  To Write</p>
-<p>  Step 1: Load the MAR with the address and the MDR with the data</p>
-<p>  Step 2: Activate Write Enable signal</p>
-</li>
+<h2 id="5-Singlecycle-Processor-单周期处理器"><a href="#5-Singlecycle-Processor-单周期处理器" class="headerlink" title="5. Singlecycle Processor 单周期处理器"></a>5. Singlecycle Processor 单周期处理器</h2><p>通过连接存储单元来建立组合逻辑电路的数据通路。控制通路（组合逻辑电路）可以决定控制信号。</p>
+<p>Overview: We begin constructing the datapath by connecting the state elements with combinational logic that can execute the various instructions. Control signals determine which specific instruction is carried out by the datapath at any given time.</p>
+<h3 id="5-1-Datapath-数据通路"><a href="#5-1-Datapath-数据通路" class="headerlink" title="5.1 Datapath 数据通路"></a>5.1 Datapath 数据通路</h3><h4 id="5-1-1-Step-1"><a href="#5-1-1-Step-1" class="headerlink" title="5.1.1 Step 1"></a>5.1.1 Step 1</h4><p>读指令：PC (Program counter) 寄存器包含需要处理的指令地址。</p>
+<p>The program counter (PC) register contains the address of the instruction to execute</p>
+<p>（灰色表示先前讨论过的state elements，黑色表示数据通路）</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/1.png" alt="PC"></p>
+<p>处理器的具体行为取决于具体的取出的指令，我们先考虑lw指令。</p>
+<p>The processor’s actions depend on the specific instruction that was fetched. First we will work out the datapath connections for the lw instruction.</p>
+<h4 id="5-1-2-Step-2"><a href="#5-1-2-Step-2" class="headerlink" title="5.1.2 Step 2"></a>5.1.2 Step 2</h4><p>对于lw指令，这一步需要做的是读base address 和 offset address。base地址对应指令中rs的部分，即 Instr25:21的部分。offset对应Instr15:0。</p>
+<p>For a lw instruction, the next step is to read the source register containing the base address &amp; offset address. This register is specified in the rs field of the instruction, Instr25:21. The offset is stored in the immediate field of the instruction, Instr15:0.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/2.png" alt="sign拓展"></p>
+<p>由于十六位的地址可能是正数或者负数，必须要通过符号拓展成32位。</p>
+<p>Because the 16-bit immedi- ate might be either positive or negative, it must be sign-extended to 32 bits</p>
+<p>符号位拓展就是简单得将MSB（符号位）在高位复制拓展。</p>
+<p>sign extension simply copies the sign bit (most significant bit) of a short input into all of the upper bits of the longer output.</p>
+<h4 id="5-1-3-Step-3"><a href="#5-1-3-Step-3" class="headerlink" title="5.1.3 Step 3"></a>5.1.3 Step 3</h4><p>-Combinational calculation 组合逻辑计算</p>
+<p>处理器需要将基地址（从寄存器中取）和偏移地址（拓展后）相加。两者通过一个三位ALU控制信号的控制下相加，产生ALUresult和zero信号，Zero 来表示结果是否为0。ALU结果送入数据存储器作为load指令的最终地址。</p>
+<p>The processor must add the base address to the offset to find the address to read from memory. The 3-bit <em>ALUControl</em> signal specifies the operation. The ALU generates a 32-bit <em>ALUResult</em> and a <em>Zero</em> flag, that indicates whether <em>ALUResult</em> is 0. ALUResult is sent to the data memory as the address for the load instruction</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/3.png" alt="组合逻辑电路"></p>
+<h4 id="5-1-4-Step-4"><a href="#5-1-4-Step-4" class="headerlink" title="5.1.4 Step 4"></a>5.1.4 Step 4</h4><ul>
+<li>Mem reading / Mem 读取</li>
 </ul>
-<h4 id="1-2-Processing-Unit"><a href="#1-2-Processing-Unit" class="headerlink" title="1.2 Processing Unit:"></a>1.2 Processing Unit:</h4><p>Arithmetic and logic unit (ALU)： ALU能处理的量化大小（size of quantity）通常被称为计算机的“字长“（word length），而量化的基本单位被称为一个字（word）。通常ALU周围会配置少量的存储器，以便它存放在最近生成的中间计算结果。通常是寄存器。</p>
-<h4 id="1-3-input-amp-output"><a href="#1-3-input-amp-output" class="headerlink" title="1.3  input &amp; output"></a>1.3  input &amp; output</h4><p>They are called peripherals.</p>
-<h4 id="1-4-Control-units"><a href="#1-4-Control-units" class="headerlink" title="1.4 Control units"></a>1.4 Control units</h4><p>It conducts the step-by-step process of executing (every instruction in) a program</p>
-<p>组成：IR(instruction register) &amp;  PC(program counter) &amp; IP(instruction pointer)</p>
-<h4 id="1-5-Two-Key-Properties-of-Von-Neumann-Model"><a href="#1-5-Two-Key-Properties-of-Von-Neumann-Model" class="headerlink" title="1.5 Two  Key Properties of Von Neumann Model:"></a>1.5 Two  Key Properties of Von Neumann Model:</h4><ul>
-<li><p>Stored program:</p>
-<ol>
-<li>Instructions stored in a linear memory array</li>
-<li>Memory is unified between instructions and data<br>The interpretation of a stored value depends on the control signals</li>
-</ol>
-</li>
-<li><p>Sequential instruction processing:</p>
-<ol>
-<li>One instruction processed (fetched, executed, completed) at a time</li>
-<li>Program counter (instruction pointer) identifies the current instruction</li>
-<li>Program counter is advanced sequentially except for control transfer instructions</li>
-</ol>
-</li>
+<p>ALU的结果会作为Data memory的地址，经过一个时钟节拍后数据输出到 ReadData 总线写入目标寄存器中。具体目标寄存器对应地址在指令的rt部分即 Instr20:16的部分。黑线表示的是地址/数据。</p>
+<p>The data is read from the data memory onto the ReadData bus, then written back to the destination register in the register file at the end of the cycle. The destination register for the lw instruction is specified in the rt field, Instr20:16.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/4.png" alt="Mem读取"></p>
+<h4 id="5-1-5-Step-5"><a href="#5-1-5-Step-5" class="headerlink" title="5.1.5 Step 5"></a>5.1.5 Step 5</h4><ul>
+<li>Write Back 写回</li>
 </ul>
-<h3 id="2-instructions-set"><a href="#2-instructions-set" class="headerlink" title="2. instructions set:"></a>2. instructions set:</h3><p><strong>An instruction the most basic unit of computer processing</strong></p>
-<ul>
-<li>Instructions are words in the language of a computer</li>
-<li>Instruction Set Architecture (ISA) is the vocabulary</li>
-</ul>
-<p>机器语言指：计算机能读懂的表达式（0s and 1s）</p>
-<p>汇编语言指：人嫩读懂的表达式</p>
-<h4 id="2-1-instructions-type"><a href="#2-1-instructions-type" class="headerlink" title="2.1 instructions type:"></a>2.1 instructions type:</h4><ul>
-<li><p>Operate instructions</p>
-<p>  Execute instructions in the ALU</p>
-</li>
-<li><p><strong>Data movement instructions</strong></p>
-<p>  Read from or write to memory</p>
-</li>
-<li><p><strong>Control flow instructions</strong>q</p>
-<p>  Change the sequence of execution</p>
-</li>
-</ul>
-<h4 id="2-3-Instructions-Cycles-Typical-six-steps"><a href="#2-3-Instructions-Cycles-Typical-six-steps" class="headerlink" title="2.3 Instructions Cycles (Typical six steps)"></a>2.3 Instructions Cycles (Typical six steps)</h4><p>cycles are repreated once previous one is done.</p>
+<p>RegWrite连接在使能信号，数据和地址和使能信号准备好后，在下一个周期CLK上升沿时候写入register中。上图蓝色部分。</p>
+<p>RegWrite is connected to the port 3 write enable input, WE3.The write takes place on the rising edge of the clock at the end of the cycle.</p>
+<p>-Determine address of next instruction for PC //取下一条指令的PC加法</p>
+<p>Instructions mem是byte accessable。MIPS的32位指令包含4个byte。因而取下一个指令时候需要将PC+。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/5.png" alt="PC加法"></p>
+<p>-Next, let us extend the datapath to also handle the sw instruction.接下来我们focus在sw(store word)指令的数据通路</p>
+<p>sw也是需要基地址+偏移来确定mem的地址。不同点在于sw是写入mem而不是读取mem。因而在ALU计算出mem地址后，写入mem的data也需要准备好。因而在取基地址时候，也同时完成了从寄存器取数据。寄存器对应的地址在Instr20:16。使能信号为MemWrite。</p>
+<p>the sw instruction reads a base address from port 1 of the register and sign-extends an immediate. The ALU adds the base address to the immediate to find the memory address. All of these func- tions are already supported by the datapath. The register is specified in the rt field, Instr20:16.  Enable signal is MemWrite.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/6.png" alt="地址写入"></p>
+<p>-Next, consider extending the datapath to handle the R-type instructions 接下来我们考虑拓展数据通路到能处理R型指令。</p>
+<p>加，减，或，比较。这些指令都是会用到从寄存器组中取数据并且在ALU中计算最后写回到寄存器组中。不同在于进行的是不同ALU操作。因此只需要添加不同的ALU硬件资源，使用不同ALU控制信号。</p>
+<p>Add, sub, and, or, and slt. All of these instructions read two registers from the register file, perform some ALU operation on them, and write the result back to a third register file. They differ only in the specific ALU operation. Hence, they can all be handled with the same hardware, using different ALUControl signals.</p>
+<p>增加MUX作为input的选择可以有效增加数据通路的处理能力。</p>
+<p>This principle of enhancing the datapath’s capabilities by adding a multiplexer to choose inputs from several possibilities is extremely useful</p>
+<p>如下，增加三个MUX来区分是lw&amp;sw还是R-type指令。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/7.png" alt="MUX&amp;WB"></p>
+<p>branch 跳转指令</p>
+<p>核心：增加一个MUX做选择，MUX的输入为正常变化的PC和branch后的PC，ALU返回是否需要跳转的选择信号。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/8.png" alt="地址偏移量相加获得新地址"></p>
+<h3 id="5-2-Control-path-控制通路"><a href="#5-2-Control-path-控制通路" class="headerlink" title="5.2 Control path 控制通路"></a>5.2 Control path 控制通路</h3><p>控制（译码）部分需要在取指完成之后，对指令opcode和funct（R-type的指令的opcode为0）进行译码以决定后面的数据如何执行。各个存储元件的使能信号，MUX的选通信号都要在译码控制单元的控制下执行。ALU使能的宽度（图中是三位）如果需要执行的指令集越多，ALU使能选通信号会更加复杂。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/9.png" alt="控制通路"></p>
+<p>对于每一个指令，控制信号的真值表可以列出：</p>
+<p>由于sw，beg不需要写回因而选通信号X表示dont care，方便组合逻辑电路的设计，使用*可以节省组合逻辑的面积和规模。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/10.png" alt="控制信号真值表"></p>
+<h3 id="5-3-Performance-evaluation-性能的考量"><a href="#5-3-Performance-evaluation-性能的考量" class="headerlink" title="5.3 Performance evaluation // 性能的考量"></a>5.3 Performance evaluation // 性能的考量</h3><p>一个执行周期只执行一个周期，因此CPI=1。关键路径需要考虑lw load word取指到写回整个流程。</p>
+<p>Each instruction in the single-cycle processor takes one clock cycle, so the CPI is 1. lw instruction provides the critical delay for accessing to the ALU, memory, and register file which are substantially slower than other operations.</p>
+<h3 id="5-4-Comments"><a href="#5-4-Comments" class="headerlink" title="5.4 Comments"></a>5.4 Comments</h3><p>单周期微控制器有着三个主要的缺点：</p>
+<p>The single-cycle processor has three primary weaknesses</p>
 <ol>
-<li><p><strong>FETCH</strong></p>
-<p> The FETCH phase obtains the instruction from memory and loads it into the instruction register.</p>
-<p> Completed description</p>
-<p> Step 1: Load the MAR with the contents of the PC, and<br> simultaneously increment the PC</p>
-<p> Step 2: Interrogate memory. This results the instruction to be<br> placed in the MDR</p>
-<p> Step 3: Load the IR with the contents of the MDR</p>
+<li><p>它要求的一个周期以维持最慢的一条指令lw而其他的质量都比它快。</p>
+<p> First, it requires a clock cycle long enough to support the slowest instruction (lw), even though most instructions are faster.</p>
 </li>
-<li><p><strong>DECODE</strong> </p>
-<p> The DECODE phase identifies the instruction.</p>
+<li><p>过程中用到了三个加法器：ALU中和PC中两个，加法器在面积上昂贵，尤其是对于高速加法器。</p>
+<p> Second, it requires three adders (one in the ALU and two for the PC logic); adders are relatively expensive circuits, especially if they must be fast.</p>
 </li>
-<li><p><strong>EVALUATE ADDRESS</strong></p>
-<p> The EVALUATE ADDRESS phase computes the address of the memory location that is needed to process the instruction. 计算基地址+偏移量</p>
-</li>
-<li><p><strong>FETCH OPERANDS</strong></p>
-<p> The FETCH OPERANDS phase obtains the source operands needed to process the instruction.</p>
-<p> 过程与读写memory的步骤一致。</p>
-</li>
-<li><p><strong>EXECUTE</strong></p>
-<p> The EXECUTE phase executes the instruction.</p>
-</li>
-<li><p><strong>STORE RESULT</strong></p>
-<p> The STORE RESULT phase writes to the designated destination</p>
+<li><p>它将指令存储器和数据存储器分离开。</p>
+<p> Third, it has sepa- rate instruction and data memories, which may not be realistic. Most computers have a single large memory that holds both instructions and data and that can be read and written.</p>
 </li>
 </ol>
-<p>Once STORE RESULT is completed, a new instruction cycle starts (with the FETCH phase)</p>
-<h3 id="3-instruction-set-architcture-ISA"><a href="#3-instruction-set-architcture-ISA" class="headerlink" title="3 instruction set architcture (ISA)"></a>3 instruction set architcture (ISA)</h3><h4 id="3-0-Overview"><a href="#3-0-Overview" class="headerlink" title="3.0 Overview"></a>3.0 Overview</h4><p>An instruction refers to opeator and opearting values.</p>
-<p>An instruction set refers to opcodes data types and addressing modes.</p>
-<ol>
-<li><p>Opcode操作码：可以分为运算，数据搬移和控制三种指令。</p>
-</li>
-<li><p>Data type数据类型：ISA是怎么理解这些表达信息。</p>
-<p> LC-3只支持第二类补码整数；MIPS支持第二类补码整数，无符号整数，浮点数。</p>
-<p> <strong>Note：data type tradeoffs</strong></p>
-<p> A. Benefit of having higer-level data type: easy for programming</p>
-<p> B. Disadvantage: more efforts at compiler design (semantic gap would be larger)</p>
-</li>
-<li><p>Addressing mode寻址模式：确定一个操作符指定数的位置。</p>
-<p> 操作数的地址无非存在于三个位置：指令的某部分，寄存器中，内存中。</p>
-<p> A.Immediate or literal (constant)</p>
-<ol>
-<li>The operand is in some bits of the instruction</li>
-</ol>
-<p> B. Register</p>
-<ol start="2">
-<li>The operand is in one of R0 to R7 registers</li>
-</ol>
-<p> C. Three of them are memory addressing modes</p>
-<ol start="3">
-<li>PC-relative</li>
-<li>Indirect</li>
-<li>Base+offset</li>
-</ol>
-</li>
-</ol>
-<p>In addition, MIPS has pseudo-direct addressing (for j and jal), but does not have indirect addressing.</p>
-<h4 id="3-1-Opeartion-instructions-format-Case-of-MIPS"><a href="#3-1-Opeartion-instructions-format-Case-of-MIPS" class="headerlink" title="3.1 Opeartion instructions format:  Case of MIPS"></a>3.1 Opeartion instructions format:  Case of MIPS</h4><p>MIPS使用32位的指令，出于简洁的指令和复杂功能的折中，MIPS定义三种指令类型。更少的指令类型可以让可重复性（regularity）更高，因此硬件更加简单。（个人理解类似于：coding时，考虑到的branch更少，硬件资源更少）。各类指令的定义也是去指完成后译码的基础。</p>
-<ol>
-<li><p>R-type:  Register-type 使用到三个寄存器</p>
-<p> 32位的指令分为六个部分：opcode操作符，rs源寄存器，rt第二级源寄存器，rd目标寄存器，shamt(移位)，funct（函数）每个部分都有大概5到6位bit。<br> <img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/R-tyoe.png" alt="R-type"><br> 所有R-type的指令的opcode都是0。funct是32(100000)表示ADD，34表示sub。</p>
-<p> 具体函数需要查询MIPS函数附录。</p>
-<p> op: Operation of the instruction (opcode)<br> rs: First register source operand<br> rt: Second register source operand<br> rd: Register destination operand</p>
-<p> shamt: Shift amount<br> funct: Function field (selects specific variant of opcode)</p>
-</li>
-<li><p>I-type:  Immdeiate-type： I-type指令使用到两个寄存器操作数和一个立即数操作数。</p>
-<p> imm表示16位立即数。这个部分的操作只决定于opcode的内容。与R型不同，rs和imm总是作为源操作数，rt则是作为目标操作数（addi &amp; lw）或者源操作数（sw）。</p>
-</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/I-type.png" alt="I-type"></p>
-<p>几个例子：</p>
-<p> <img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/example.png" alt="examples"></p>
-<p> Note：当16位的立即数加在一个寄存器 所对应的32为数据上如何操作：</p>
-<p> 如果是正数，则高16位全部补0；如果是负数，则高16位全部补1。</p>
-<pre><code>原理：sign  extension 符号为拓展，拓展最高位（MSB）不影响原来的数值。
-</code></pre>
-<ol start="3">
-<li>J-type: jump-type：26位的地址操作数addr，6位opcode。</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/J-type.png" alt="J-type"></p>
-<h4 id="3-2-ISA-instruction-set-architecture"><a href="#3-2-ISA-instruction-set-architecture" class="headerlink" title="3.2 ISA (instruction set architecture)"></a>3.2 ISA (instruction set architecture)</h4><p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/ISA.png" alt="ISA"></p>
-<p>ISA是硬件和软件的桥梁。trade-off 在硬件-软件的复杂度。</p>
-<p>如果定义复杂的ISA（IS format中的opcodes长度变长，功能复杂）因此硬件设计的复杂度增加，软件设计会更加容易。</p>
-<p>（ISA的另一种理解，编译器需要做什么：需要知道地址长度，需要知道寄存器组，操作数指令等）</p>
-<h3 id="4-Memory-Map-amp-starting-a-program"><a href="#4-Memory-Map-amp-starting-a-program" class="headerlink" title="4 Memory Map &amp; starting a program"></a>4 Memory Map &amp; starting a program</h3><h4 id="4-1-memory-map"><a href="#4-1-memory-map" class="headerlink" title="4.1 memory map"></a>4.1 memory map</h4><p>MIPS架构把32位的地址空间分成 text segment, global data segment, dynamic data segment, and reserved segments.</p>
-<ol>
-<li>text segment: 存机器语言程序。MIPS可以存256MB的code。</li>
-<li>global data segment：存全局变量。全局变量在程序启动时就被预先定义，MIPS中预留64KB的量用于存储全局变量。全局变量用 $gp作为全局指针来访问数据，指针地址会初始化在10008000的位置。</li>
-<li>dynamic data segment：存堆栈内容。这个位置的内容在程序执行过程动态的分配和释放。这个存储容量最大的一个部分约2GB。这个部分用于存储寄存器的值，定义的局部变量。</li>
-<li>reserved segment：被操作系统所使用，部分内容被用于中断和memory-map I/O。</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/memory%20map.png" alt="memory map"></p>
-<h4 id="4-1-Translating-and-Starting-a-Program"><a href="#4-1-Translating-and-Starting-a-Program" class="headerlink" title="4.1 Translating and Starting a Program"></a>4.1 Translating and Starting a Program</h4><p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/compiler%20and%20linker.png" alt="compiler and linker"></p>
+<h2 id="6-Multicycle-Processor-多周期微处理器"><a href="#6-Multicycle-Processor-多周期微处理器" class="headerlink" title="6. Multicycle Processor 多周期微处理器"></a>6. Multicycle Processor 多周期微处理器</h2><p>多周期处理解决上述的问题通过把指令拆成几个步骤。不同的指令有不同数量的步骤，复杂的指令步骤更多，因而需要更多时间完成。</p>
+<p>The multicycle processor addresses these weaknesses by breaking an instruction into multiple shorter steps. Different instructions use different numbers of steps, so simpler instructions can complete faster than more complex ones.</p>
 
                 
             </div>
@@ -704,7 +628,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xulixing.github.io/2021/06/07/Computer%20architecture/Von%20Neumann%20Model%20&%20ISA/">https://xulixing.github.io/2021/06/07/Computer%20architecture/Von%20Neumann%20Model%20&%20ISA/</a>
+                    <a href="https://xulixing.github.io/2021/06/07/Computer%20architecture/Microarchitecture%20Part%202/">https://xulixing.github.io/2021/06/07/Computer%20architecture/Microarchitecture%20Part%202/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -744,6 +668,10 @@
                             
                                 <a href="/tags/Computer-architecture/">
                                     <span class="chip bg-color">Computer architecture</span>
+                                </a>
+                            
+                                <a href="/tags/Microarchitecture/">
+                                    <span class="chip bg-color">Microarchitecture</span>
                                 </a>
                             
                         </div>
@@ -793,13 +721,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2021/06/07/Computer%20architecture/Microarchitecture%20Part%203/">
+                <a href="/2021/06/07/Computer%20architecture/Microarchitecture%20Part%201/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Microarchitecture Part 3">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Microarchitecture Part 1">
                         
-                        <span class="card-title">Microarchitecture Part 3</span>
+                        <span class="card-title">Microarchitecture Part 1</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -850,13 +778,13 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/05/29/CDC/CDC_1/">
+                <a href="/2021/06/07/Computer%20architecture/Microarchitecture%20Part%203/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Clock Domain Crossing (CDC) Part 1">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Microarchitecture Part 3">
                         
-                        <span class="card-title">Clock Domain Crossing (CDC) Part 1</span>
+                        <span class="card-title">Microarchitecture Part 3</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -867,18 +795,18 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-07
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/VLSI/" class="post-category">
-                                    VLSI
+                            <a href="/categories/Computer-architecture/" class="post-category">
+                                    Computer architecture
                                 </a>
                             
-                            <a href="/categories/VLSI/CDC/" class="post-category">
-                                    CDC
+                            <a href="/categories/Computer-architecture/Microarchitecture/" class="post-category">
+                                    Microarchitecture
                                 </a>
                             
                             
@@ -888,12 +816,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/VLSI/">
-                        <span class="chip bg-color">VLSI</span>
+                    <a href="/tags/Computer-architecture/">
+                        <span class="chip bg-color">Computer architecture</span>
                     </a>
                     
-                    <a href="/tags/CDC/">
-                        <span class="chip bg-color">CDC</span>
+                    <a href="/tags/Microarchitecture/">
+                        <span class="chip bg-color">Microarchitecture</span>
                     </a>
                     
                 </div>
