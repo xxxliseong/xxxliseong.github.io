@@ -11,6 +11,174 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Von Neumann Model &amp; ISA</title>
+    <url>/2021/06/07/Computer%20architecture/Von%20Neumann%20Model%20&amp;%20ISA/</url>
+    <content><![CDATA[<p>Reference：</p>
+<ol>
+<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris-chapter6 </li>
+<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel, chapter4-5</li>
+</ol>
+<h3 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview:"></a>1. Overview:</h3><p>本节主要介绍经典的架构和指令集的概念。所有的程序最后都会通过编译器编译成一条条指令执行。指令就像是特定的单词用于告诉计算机需要做什么，指令集就像是计算机能听懂的词汇类型。需要主要的是：就算是基于同样的架构和同样的指令集，底层硬件的实现（微架构）也可以不同。 </p>
+<p>最经典的计算机架构：冯-诺伊曼 架构：</p>
+<p>Von Neumann Model: consisits of 5 parts:</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/Von%20Neumann%20Model.png" alt="Von Neumann Model"></p>
+<h4 id="1-1-Memory"><a href="#1-1-Memory" class="headerlink" title="1.1  Memory:"></a>1.1  Memory:</h4><ul>
+<li><p>Word-addressable memory:</p>
+</li>
+<li><p>Byte-addressable memory: (eg. a byte represents pixel)</p>
+</li>
+<li><p>MAR &amp; MDR 寄存器组</p>
+</li>
+<li><p>Temporary storage: Registers(fast)</p>
+<p>  Store intermediate results; </p>
+<p>  Typically, a register contains 1 word.</p>
+<p>  To Read</p>
+<p>  Step 1: Load the MAR with the address</p>
+<p>  Step 2: Data is placed in MDR</p>
+<p>  To Write</p>
+<p>  Step 1: Load the MAR with the address and the MDR with the data</p>
+<p>  Step 2: Activate Write Enable signal</p>
+</li>
+</ul>
+<h4 id="1-2-Processing-Unit"><a href="#1-2-Processing-Unit" class="headerlink" title="1.2 Processing Unit:"></a>1.2 Processing Unit:</h4><p>Arithmetic and logic unit (ALU)： ALU能处理的量化大小（size of quantity）通常被称为计算机的“字长“（word length），而量化的基本单位被称为一个字（word）。通常ALU周围会配置少量的存储器，以便它存放在最近生成的中间计算结果。通常是寄存器。</p>
+<h4 id="1-3-input-amp-output"><a href="#1-3-input-amp-output" class="headerlink" title="1.3  input &amp; output"></a>1.3  input &amp; output</h4><p>They are called peripherals.</p>
+<h4 id="1-4-Control-units"><a href="#1-4-Control-units" class="headerlink" title="1.4 Control units"></a>1.4 Control units</h4><p>It conducts the step-by-step process of executing (every instruction in) a program</p>
+<p>组成：IR(instruction register) &amp;  PC(program counter) &amp; IP(instruction pointer)</p>
+<h4 id="1-5-Two-Key-Properties-of-Von-Neumann-Model"><a href="#1-5-Two-Key-Properties-of-Von-Neumann-Model" class="headerlink" title="1.5 Two  Key Properties of Von Neumann Model:"></a>1.5 Two  Key Properties of Von Neumann Model:</h4><ul>
+<li><p>Stored program:</p>
+<ol>
+<li>Instructions stored in a linear memory array</li>
+<li>Memory is unified between instructions and data<br>The interpretation of a stored value depends on the control signals</li>
+</ol>
+</li>
+<li><p>Sequential instruction processing:</p>
+<ol>
+<li>One instruction processed (fetched, executed, completed) at a time</li>
+<li>Program counter (instruction pointer) identifies the current instruction</li>
+<li>Program counter is advanced sequentially except for control transfer instructions</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-instructions-set"><a href="#2-instructions-set" class="headerlink" title="2. instructions set:"></a>2. instructions set:</h3><p><strong>An instruction the most basic unit of computer processing</strong></p>
+<ul>
+<li>Instructions are words in the language of a computer</li>
+<li>Instruction Set Architecture (ISA) is the vocabulary</li>
+</ul>
+<p>机器语言指：计算机能读懂的表达式（0s and 1s）</p>
+<p>汇编语言指：人嫩读懂的表达式</p>
+<h4 id="2-1-instructions-type"><a href="#2-1-instructions-type" class="headerlink" title="2.1 instructions type:"></a>2.1 instructions type:</h4><ul>
+<li><p>Operate instructions</p>
+<p>  Execute instructions in the ALU</p>
+</li>
+<li><p><strong>Data movement instructions</strong></p>
+<p>  Read from or write to memory</p>
+</li>
+<li><p><strong>Control flow instructions</strong>q</p>
+<p>  Change the sequence of execution</p>
+</li>
+</ul>
+<h4 id="2-3-Instructions-Cycles-Typical-six-steps"><a href="#2-3-Instructions-Cycles-Typical-six-steps" class="headerlink" title="2.3 Instructions Cycles (Typical six steps)"></a>2.3 Instructions Cycles (Typical six steps)</h4><p>cycles are repreated once previous one is done.</p>
+<ol>
+<li><p><strong>FETCH</strong></p>
+<p> The FETCH phase obtains the instruction from memory and loads it into the instruction register.</p>
+<p> Completed description</p>
+<p> Step 1: Load the MAR with the contents of the PC, and<br> simultaneously increment the PC</p>
+<p> Step 2: Interrogate memory. This results the instruction to be<br> placed in the MDR</p>
+<p> Step 3: Load the IR with the contents of the MDR</p>
+</li>
+<li><p><strong>DECODE</strong> </p>
+<p> The DECODE phase identifies the instruction.</p>
+</li>
+<li><p><strong>EVALUATE ADDRESS</strong></p>
+<p> The EVALUATE ADDRESS phase computes the address of the memory location that is needed to process the instruction. 计算基地址+偏移量</p>
+</li>
+<li><p><strong>FETCH OPERANDS</strong></p>
+<p> The FETCH OPERANDS phase obtains the source operands needed to process the instruction.</p>
+<p> 过程与读写memory的步骤一致。</p>
+</li>
+<li><p><strong>EXECUTE</strong></p>
+<p> The EXECUTE phase executes the instruction.</p>
+</li>
+<li><p><strong>STORE RESULT</strong></p>
+<p> The STORE RESULT phase writes to the designated destination</p>
+</li>
+</ol>
+<p>Once STORE RESULT is completed, a new instruction cycle starts (with the FETCH phase)</p>
+<h3 id="3-instruction-set-architcture-ISA"><a href="#3-instruction-set-architcture-ISA" class="headerlink" title="3 instruction set architcture (ISA)"></a>3 instruction set architcture (ISA)</h3><h4 id="3-0-Overview"><a href="#3-0-Overview" class="headerlink" title="3.0 Overview"></a>3.0 Overview</h4><p>An instruction refers to opeator and opearting values.</p>
+<p>An instruction set refers to opcodes data types and addressing modes.</p>
+<ol>
+<li><p>Opcode操作码：可以分为运算，数据搬移和控制三种指令。</p>
+</li>
+<li><p>Data type数据类型：ISA是怎么理解这些表达信息。</p>
+<p> LC-3只支持第二类补码整数；MIPS支持第二类补码整数，无符号整数，浮点数。</p>
+<p> <strong>Note：data type tradeoffs</strong></p>
+<p> A. Benefit of having higer-level data type: easy for programming</p>
+<p> B. Disadvantage: more efforts at compiler design (semantic gap would be larger)</p>
+</li>
+<li><p>Addressing mode寻址模式：确定一个操作符指定数的位置。</p>
+<p> 操作数的地址无非存在于三个位置：指令的某部分，寄存器中，内存中。</p>
+<p> A.Immediate or literal (constant)</p>
+<ol>
+<li>The operand is in some bits of the instruction</li>
+</ol>
+<p> B. Register</p>
+<ol start="2">
+<li>The operand is in one of R0 to R7 registers</li>
+</ol>
+<p> C. Three of them are memory addressing modes</p>
+<ol start="3">
+<li>PC-relative</li>
+<li>Indirect</li>
+<li>Base+offset</li>
+</ol>
+</li>
+</ol>
+<p>In addition, MIPS has pseudo-direct addressing (for j and jal), but does not have indirect addressing.</p>
+<h4 id="3-1-Opeartion-instructions-format-Case-of-MIPS"><a href="#3-1-Opeartion-instructions-format-Case-of-MIPS" class="headerlink" title="3.1 Opeartion instructions format:  Case of MIPS"></a>3.1 Opeartion instructions format:  Case of MIPS</h4><p>MIPS使用32位的指令，出于简洁的指令和复杂功能的折中，MIPS定义三种指令类型。更少的指令类型可以让可重复性（regularity）更高，因此硬件更加简单。（个人理解类似于：coding时，考虑到的branch更少，硬件资源更少）。各类指令的定义也是去指完成后译码的基础。</p>
+<ol>
+<li><p>R-type:  Register-type 使用到三个寄存器</p>
+<p> 32位的指令分为六个部分：opcode操作符，rs源寄存器，rt第二级源寄存器，rd目标寄存器，shamt(移位)，funct（函数）每个部分都有大概5到6位bit。<br> <img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/R-tyoe.png" alt="R-type"><br> 所有R-type的指令的opcode都是0。funct是32(100000)表示ADD，34表示sub。</p>
+<p> 具体函数需要查询MIPS函数附录。</p>
+<p> op: Operation of the instruction (opcode)<br> rs: First register source operand<br> rt: Second register source operand<br> rd: Register destination operand</p>
+<p> shamt: Shift amount<br> funct: Function field (selects specific variant of opcode)</p>
+</li>
+<li><p>I-type:  Immdeiate-type： I-type指令使用到两个寄存器操作数和一个立即数操作数。</p>
+<p> imm表示16位立即数。这个部分的操作只决定于opcode的内容。与R型不同，rs和imm总是作为源操作数，rt则是作为目标操作数（addi &amp; lw）或者源操作数（sw）。</p>
+</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/I-type.png" alt="I-type"></p>
+<p>几个例子：</p>
+<p> <img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/example.png" alt="examples"></p>
+<p> Note：当16位的立即数加在一个寄存器 所对应的32为数据上如何操作：</p>
+<p> 如果是正数，则高16位全部补0；如果是负数，则高16位全部补1。</p>
+<pre><code>原理：sign  extension 符号为拓展，拓展最高位（MSB）不影响原来的数值。
+</code></pre>
+<ol start="3">
+<li>J-type: jump-type：26位的地址操作数addr，6位opcode。</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/J-type.png" alt="J-type"></p>
+<h4 id="3-2-ISA-instruction-set-architecture"><a href="#3-2-ISA-instruction-set-architecture" class="headerlink" title="3.2 ISA (instruction set architecture)"></a>3.2 ISA (instruction set architecture)</h4><p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/ISA.png" alt="ISA"></p>
+<p>ISA是硬件和软件的桥梁。trade-off 在硬件-软件的复杂度。</p>
+<p>如果定义复杂的ISA（IS format中的opcodes长度变长，功能复杂）因此硬件设计的复杂度增加，软件设计会更加容易。</p>
+<p>（ISA的另一种理解，编译器需要做什么：需要知道地址长度，需要知道寄存器组，操作数指令等）</p>
+<h3 id="4-Memory-Map-amp-starting-a-program"><a href="#4-Memory-Map-amp-starting-a-program" class="headerlink" title="4 Memory Map &amp; starting a program"></a>4 Memory Map &amp; starting a program</h3><h4 id="4-1-memory-map"><a href="#4-1-memory-map" class="headerlink" title="4.1 memory map"></a>4.1 memory map</h4><p>MIPS架构把32位的地址空间分成 text segment, global data segment, dynamic data segment, and reserved segments.</p>
+<ol>
+<li>text segment: 存机器语言程序。MIPS可以存256MB的code。</li>
+<li>global data segment：存全局变量。全局变量在程序启动时就被预先定义，MIPS中预留64KB的量用于存储全局变量。全局变量用 $gp作为全局指针来访问数据，指针地址会初始化在10008000的位置。</li>
+<li>dynamic data segment：存堆栈内容。这个位置的内容在程序执行过程动态的分配和释放。这个存储容量最大的一个部分约2GB。这个部分用于存储寄存器的值，定义的局部变量。</li>
+<li>reserved segment：被操作系统所使用，部分内容被用于中断和memory-map I/O。</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/memory%20map.png" alt="memory map"></p>
+<h4 id="4-1-Translating-and-Starting-a-Program"><a href="#4-1-Translating-and-Starting-a-Program" class="headerlink" title="4.1 Translating and Starting a Program"></a>4.1 Translating and Starting a Program</h4><p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Von%20Neumann%20Model%20%26%20ISA/compiler%20and%20linker.png" alt="compiler and linker"></p>
+]]></content>
+      <categories>
+        <category>Computer architecture</category>
+      </categories>
+      <tags>
+        <tag>Computer architecture</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Clock Domain Crossing (CDC) Part 1</title>
     <url>/2021/05/29/CDC/CDC_1/</url>
     <content><![CDATA[<p>Reference：</p>
@@ -33,10 +201,10 @@
 <li>tr = 分辨时间（时钟沿开始）// resolution time (start from clk edge)</li>
 <li>𝜏,𝑇0 = 触发器参数 // parameters releated to FF</li>
 <li>𝑓 = 采样时钟频率 // sampling frequency</li>
-<li>a = 异步事件触发频率 <a href="//asynchronous">//</a> asynchronized events activated frequency</li>
+<li>a = 异步事件触发频率 // synchronized events activated frequency</li>
 </ul>
 <p>对于一个典型的 0.25µm 工艺的 ASIC 库中的一个触发器，我们取如下的参数：tr = 2.3ns, τ = 0.31ns, T0 = 9.6as, f=100MHZ, a = 10MHZ, MTBF = <strong>2.01 days</strong></p>
-<h4 id="1-4-Approaches-to-reduce-metastability-减少亚稳态的方法"><a href="#1-4-Approaches-to-reduce-metastability-减少亚稳态的方法" class="headerlink" title="1.4 Approaches to reduce metastability 减少亚稳态的方法"></a>1.4 Approaches to reduce metastability 减少亚稳态的方法</h4><p>减少亚稳态的方法有以下几种</p>
+<h4 id="1-4-Approaches-to-reduce-metastability"><a href="#1-4-Approaches-to-reduce-metastability" class="headerlink" title="1.4 Approaches to reduce metastability"></a>1.4 Approaches to reduce metastability</h4><p>从MTBF的角度，减少亚稳态的方法有以下几种</p>
 <ol>
 <li><p>使用同步器：也就是我们常用的2级或者多级FF打拍的方法;同步器后面会专门论述；</p>
 </li>
