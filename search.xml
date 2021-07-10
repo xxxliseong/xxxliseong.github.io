@@ -58,137 +58,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Microarchitecture Part 2</title>
-    <url>/2021/06/07/Computer%20architecture/Microarchitecture%20Part%202/</url>
-    <content><![CDATA[<p>Reference：</p>
-<ol>
-<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
-<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
-</ol>
-<h2 id="5-Singlecycle-Processor-单周期处理器"><a href="#5-Singlecycle-Processor-单周期处理器" class="headerlink" title="5. Singlecycle Processor 单周期处理器"></a>5. Singlecycle Processor 单周期处理器</h2><p>通过连接存储单元来建立组合逻辑电路的数据通路。控制通路（组合逻辑电路）可以决定控制信号。</p>
-<p>Overview: We begin constructing the datapath by connecting the state elements with combinational logic that can execute the various instructions. Control signals determine which specific instruction is carried out by the datapath at any given time.</p>
-<h3 id="5-1-Datapath-数据通路"><a href="#5-1-Datapath-数据通路" class="headerlink" title="5.1 Datapath 数据通路"></a>5.1 Datapath 数据通路</h3><h4 id="5-1-1-Step-1"><a href="#5-1-1-Step-1" class="headerlink" title="5.1.1 Step 1"></a>5.1.1 Step 1</h4><p>读指令：PC (Program counter) 寄存器包含需要处理的指令地址。</p>
-<p>The program counter (PC) register contains the address of the instruction to execute</p>
-<p>（灰色表示先前讨论过的state elements，黑色表示数据通路）</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/1.png" alt="PC"></p>
-<p>处理器的具体行为取决于具体的取出的指令，我们先考虑lw指令。</p>
-<p>The processor’s actions depend on the specific instruction that was fetched. First we will work out the datapath connections for the lw instruction.</p>
-<h4 id="5-1-2-Step-2"><a href="#5-1-2-Step-2" class="headerlink" title="5.1.2 Step 2"></a>5.1.2 Step 2</h4><p>对于lw指令，这一步需要做的是读base address 和 offset address。base地址对应指令中rs的部分，即 Instr25:21的部分。offset对应Instr15:0。</p>
-<p>For a lw instruction, the next step is to read the source register containing the base address &amp; offset address. This register is specified in the rs field of the instruction, Instr25:21. The offset is stored in the immediate field of the instruction, Instr15:0.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/2.png" alt="sign拓展"></p>
-<p>由于十六位的地址可能是正数或者负数，必须要通过符号拓展成32位。</p>
-<p>Because the 16-bit immedi- ate might be either positive or negative, it must be sign-extended to 32 bits</p>
-<p>符号位拓展就是简单得将MSB（符号位）在高位复制拓展。</p>
-<p>sign extension simply copies the sign bit (most significant bit) of a short input into all of the upper bits of the longer output.</p>
-<h4 id="5-1-3-Step-3"><a href="#5-1-3-Step-3" class="headerlink" title="5.1.3 Step 3"></a>5.1.3 Step 3</h4><p>-Combinational calculation 组合逻辑计算</p>
-<p>处理器需要将基地址（从寄存器中取）和偏移地址（拓展后）相加。两者通过一个三位ALU控制信号的控制下相加，产生ALUresult和zero信号，Zero 来表示结果是否为0。ALU结果送入数据存储器作为load指令的最终地址。</p>
-<p>The processor must add the base address to the offset to find the address to read from memory. The 3-bit <em>ALUControl</em> signal specifies the operation. The ALU generates a 32-bit <em>ALUResult</em> and a <em>Zero</em> flag, that indicates whether <em>ALUResult</em> is 0. ALUResult is sent to the data memory as the address for the load instruction</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/3.png" alt="组合逻辑电路"></p>
-<h4 id="5-1-4-Step-4"><a href="#5-1-4-Step-4" class="headerlink" title="5.1.4 Step 4"></a>5.1.4 Step 4</h4><ul>
-<li>Mem reading / Mem 读取</li>
-</ul>
-<p>ALU的结果会作为Data memory的地址，经过一个时钟节拍后数据输出到 ReadData 总线写入目标寄存器中。具体目标寄存器对应地址在指令的rt部分即 Instr20:16的部分。黑线表示的是地址/数据。</p>
-<p>The data is read from the data memory onto the ReadData bus, then written back to the destination register in the register file at the end of the cycle. The destination register for the lw instruction is specified in the rt field, Instr20:16.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/4.png" alt="Mem读取"></p>
-<h4 id="5-1-5-Step-5"><a href="#5-1-5-Step-5" class="headerlink" title="5.1.5 Step 5"></a>5.1.5 Step 5</h4><ul>
-<li>Write Back 写回</li>
-</ul>
-<p>RegWrite连接在使能信号，数据和地址和使能信号准备好后，在下一个周期CLK上升沿时候写入register中。上图蓝色部分。</p>
-<p>RegWrite is connected to the port 3 write enable input, WE3.The write takes place on the rising edge of the clock at the end of the cycle.</p>
-<p>-Determine address of next instruction for PC //取下一条指令的PC加法</p>
-<p>Instructions mem是byte accessable。MIPS的32位指令包含4个byte。因而取下一个指令时候需要将PC+。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/5.png" alt="PC加法"></p>
-<p>-Next, let us extend the datapath to also handle the sw instruction.接下来我们focus在sw(store word)指令的数据通路</p>
-<p>sw也是需要基地址+偏移来确定mem的地址。不同点在于sw是写入mem而不是读取mem。因而在ALU计算出mem地址后，写入mem的data也需要准备好。因而在取基地址时候，也同时完成了从寄存器取数据。寄存器对应的地址在Instr20:16。使能信号为MemWrite。</p>
-<p>the sw instruction reads a base address from port 1 of the register and sign-extends an immediate. The ALU adds the base address to the immediate to find the memory address. All of these func- tions are already supported by the datapath. The register is specified in the rt field, Instr20:16.  Enable signal is MemWrite.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/6.png" alt="地址写入"></p>
-<p>-Next, consider extending the datapath to handle the R-type instructions 接下来我们考虑拓展数据通路到能处理R型指令。</p>
-<p>加，减，或，比较。这些指令都是会用到从寄存器组中取数据并且在ALU中计算最后写回到寄存器组中。不同在于进行的是不同ALU操作。因此只需要添加不同的ALU硬件资源，使用不同ALU控制信号。</p>
-<p>Add, sub, and, or, and slt. All of these instructions read two registers from the register file, perform some ALU operation on them, and write the result back to a third register file. They differ only in the specific ALU operation. Hence, they can all be handled with the same hardware, using different ALUControl signals.</p>
-<p>增加MUX作为input的选择可以有效增加数据通路的处理能力。</p>
-<p>This principle of enhancing the datapath’s capabilities by adding a multiplexer to choose inputs from several possibilities is extremely useful</p>
-<p>如下，增加三个MUX来区分是lw&amp;sw还是R-type指令。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/7.png" alt="MUX&amp;WB"></p>
-<p>branch 跳转指令</p>
-<p>核心：增加一个MUX做选择，MUX的输入为正常变化的PC和branch后的PC，ALU返回是否需要跳转的选择信号。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/8.png" alt="地址偏移量相加获得新地址"></p>
-<h3 id="5-2-Control-path-控制通路"><a href="#5-2-Control-path-控制通路" class="headerlink" title="5.2 Control path 控制通路"></a>5.2 Control path 控制通路</h3><p>控制（译码）部分需要在取指完成之后，对指令opcode和funct（R-type的指令的opcode为0）进行译码以决定后面的数据如何执行。各个存储元件的使能信号，MUX的选通信号都要在译码控制单元的控制下执行。ALU使能的宽度（图中是三位）如果需要执行的指令集越多，ALU使能选通信号会更加复杂。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/9.png" alt="控制通路"></p>
-<p>对于每一个指令，控制信号的真值表可以列出：</p>
-<p>由于sw，beg不需要写回因而选通信号X表示dont care，方便组合逻辑电路的设计，使用*可以节省组合逻辑的面积和规模。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/10.png" alt="控制信号真值表"></p>
-<h3 id="5-3-Performance-evaluation-性能的考量"><a href="#5-3-Performance-evaluation-性能的考量" class="headerlink" title="5.3 Performance evaluation // 性能的考量"></a>5.3 Performance evaluation // 性能的考量</h3><p>一个执行周期只执行一个周期，因此CPI=1。关键路径需要考虑lw load word取指到写回整个流程。</p>
-<p>Each instruction in the single-cycle processor takes one clock cycle, so the CPI is 1. lw instruction provides the critical delay for accessing to the ALU, memory, and register file which are substantially slower than other operations.</p>
-<h3 id="5-4-Comments"><a href="#5-4-Comments" class="headerlink" title="5.4 Comments"></a>5.4 Comments</h3><p>单周期微控制器有着三个主要的缺点：</p>
-<p>The single-cycle processor has three primary weaknesses</p>
-<ol>
-<li><p>它要求的一个周期以维持最慢的一条指令lw而其他的质量都比它快。</p>
-<p> First, it requires a clock cycle long enough to support the slowest instruction (lw), even though most instructions are faster.</p>
-</li>
-<li><p>过程中用到了三个加法器：ALU中和PC中两个，加法器在面积上昂贵，尤其是对于高速加法器。</p>
-<p> Second, it requires three adders (one in the ALU and two for the PC logic); adders are relatively expensive circuits, especially if they must be fast.</p>
-</li>
-<li><p>它将指令存储器和数据存储器分离开。</p>
-<p> Third, it has sepa- rate instruction and data memories, which may not be realistic. Most computers have a single large memory that holds both instructions and data and that can be read and written.</p>
-</li>
-</ol>
-<h2 id="6-Multicycle-Processor-多周期微处理器"><a href="#6-Multicycle-Processor-多周期微处理器" class="headerlink" title="6. Multicycle Processor 多周期微处理器"></a>6. Multicycle Processor 多周期微处理器</h2><p>多周期处理解决上述的问题通过把指令拆成几个步骤。不同的指令有不同数量的步骤，复杂的指令步骤更多，因而需要更多时间完成。</p>
-<p>The multicycle processor addresses these weaknesses by breaking an instruction into multiple shorter steps. Different instructions use different numbers of steps, so simpler instructions can complete faster than more complex ones.</p>
-]]></content>
-      <categories>
-        <category>Computer architecture</category>
-        <category>Microarchitecture</category>
-      </categories>
-      <tags>
-        <tag>Computer architecture</tag>
-        <tag>Microarchitecture</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Microarchitecture Part 3</title>
-    <url>/2021/06/07/Computer%20architecture/Microarchitecture%20Part%203/</url>
-    <content><![CDATA[<p>Reference：</p>
-<ol>
-<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
-<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
-</ol>
-<h2 id="7-Pipeline-Processor-流水线处理器"><a href="#7-Pipeline-Processor-流水线处理器" class="headerlink" title="7. Pipeline Processor 流水线处理器"></a>7. Pipeline Processor 流水线处理器</h2><p>流水线处理器可以通过分割单周期处理成五个部分。因此最高可以有五条指令一起执行。流水线可以有效地提高吞吐量。</p>
-<p>We design a pipelined processor by subdividing the single-cycle processor into five pipeline stages. Thus, five instructions can execute simultaneously, one in each stage.</p>
-<p>流水线从时间的角度充分利用了硬件资源。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/1.png" alt="流水线时间角度上硬件资源"></p>
-<h3 id="7-1-Datapath-数据通路"><a href="#7-1-Datapath-数据通路" class="headerlink" title="7.1 Datapath 数据通路"></a>7.1 Datapath 数据通路</h3><p>读写内存和寄存器组和使用ALU通常是处理的最大delay的部分。五级流水线的每一级都涵盖了一部分这些高延迟部分。具体得，我们可以分成取指IF，译码DE，运算EX，读写内存MEM，写回WB五个部分。</p>
-<p>Reading and writing the memory and register file and using the ALU typically constitute the biggest delays in the processor. We choose five pipeline stages so that each stage involves exactly one of these slow steps. Specifically, we call the five stages Fetch(IF), Decode(DE), Execute(EX), Memory(MEM), and Writeback(WB).</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/2.png" alt="错误5-stage"></p>
-<p>简单得增加几级reg在组合逻辑电路和读写存储单元之间会导致一些问题，上图便有一处错误！对于一些指令数据/地址需要提前到达，会有时序上的问题</p>
-<p>One of the subtle but critical issues in pipelining is that all signals associated with a particular instruction must advance through the pipeline in unison</p>
-<p>错误在于寄存器组的写逻辑上。寄存器在流水线中是在DE中读取数据，WB中回写数据。然而在回写的地址在DE准备好，而不是WB。</p>
-<p>The error is in the register file write logic, The register file is peculiar because it is read in the Decode stage and written in the Writeback stage. And the correct address is already covered by other instructions when it comes to writeback stage.</p>
-<p>这个错误可以简单通过下图修改，将正确的地址一起传递到WB再写回，因此这个地址和WB回写的数据是逻辑上同步的。</p>
-<p>The WriteReg signal is now pipelined along through the Memory and Writeback stages, so it remains in sync with the rest of the instruction. WriteRegW and ResultW are fed back together to the register file in the Writeback stage.</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/3.png" alt="正确5-stage"></p>
-<p>事实上，流水线的设计关键难点在于处理hazards，处理指令执行的顺序。这个部分会在下面单独讨论。</p>
-<p>A central challenge in pipelined systems is handling hazards that occur when the results of one instruction are needed by a subsequent instruction before the former instruction has completed. This section would be discussed sepearately later.</p>
-<h3 id="7-2-Pipelined-Control-流水线控制"><a href="#7-2-Pipelined-Control-流水线控制" class="headerlink" title="7.2 Pipelined Control 流水线控制"></a>7.2 Pipelined Control 流水线控制</h3><p>通过取指后的opcode和funct译码控制存储的使能信号和MUX的选通信号。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/4.png" alt="正确5-stage"></p>
-<h3 id="7-3-Hazard"><a href="#7-3-Hazard" class="headerlink" title="7.3 Hazard"></a>7.3 Hazard</h3><p>在流水线系统中，多个指令在时间上同时被执行。当一条指令的的执行依赖于另一条指令完成的结果，则hazard发生。</p>
-<p>When one instruction is dependent on the results of another that has not yet completed, a hazard occurs.</p>
-<p>RAW(Read after write) hazard：下图表示hazard发生流水线写入寄存器组，如果接下来的两条指令读取寄存器时</p>
-<p>RAW(Read after write) hazard：The diagram shows that hazards may occur in this pipeline when an instruction writes a register and either of the two subsequent instructions read that register.<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/5.png" alt="hazard"></p>
-<p>通常来说如果遇到RAW hazard 最直白的解决方法就是流水线停下来等到hazard解决。仔细观察上述指令，我们可以发现：Add在EX时候在ALU已经完成了计算，在MEM级不需要任何操作。空等了一个周期才WB。可以通过提前向前传递ALU的结果来提前WB，减少流水线放慢的效率。</p>
-<p>On closer inspection, however, observe that the sum from the add instruction is computed by the ALU in cycle 3 and is not strictly needed by the and instruction until the ALU uses it in cycle 4. In principle, we should be able to forward the result from one instruction to the next to resolve the RAW hazard without slowing down the pipeline.</p>
-<p>Hazards 可以分成data hazard 和 control hazard。data hazard 发生在指令尝试读取一个寄存器，但该寄存器还未被写回时。control hazard 发生在当跳转指令还没决定下一条该跳转到那一条指令时候，取指已经发生。</p>
-<p>Hazards are classified as data hazards or control hazards. A data hazard occurs when an instruction tries to read a register that has not yet been written back by a previous instruction. A control hazard occurs when the decision of what instruction to fetch next has not been made by the time the fetch takes place.</p>
-<p>A    Data Hazard</p>
-<p>B)    Control Hazard</p>
-<p>C)    Branch Hazard</p>
-]]></content>
-      <categories>
-        <category>Computer architecture</category>
-        <category>Microarchitecture</category>
-      </categories>
-      <tags>
-        <tag>Computer architecture</tag>
-        <tag>Microarchitecture</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Von Neumann Model &amp; ISA</title>
     <url>/2021/06/07/Computer%20architecture/Von%20Neumann%20Model%20&amp;%20ISA/</url>
     <content><![CDATA[<p>Reference：</p>
@@ -354,6 +223,137 @@
       </categories>
       <tags>
         <tag>Computer architecture</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Microarchitecture Part 3</title>
+    <url>/2021/06/07/Computer%20architecture/Microarchitecture%20Part%203/</url>
+    <content><![CDATA[<p>Reference：</p>
+<ol>
+<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
+<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
+</ol>
+<h2 id="7-Pipeline-Processor-流水线处理器"><a href="#7-Pipeline-Processor-流水线处理器" class="headerlink" title="7. Pipeline Processor 流水线处理器"></a>7. Pipeline Processor 流水线处理器</h2><p>流水线处理器可以通过分割单周期处理成五个部分。因此最高可以有五条指令一起执行。流水线可以有效地提高吞吐量。</p>
+<p>We design a pipelined processor by subdividing the single-cycle processor into five pipeline stages. Thus, five instructions can execute simultaneously, one in each stage.</p>
+<p>流水线从时间的角度充分利用了硬件资源。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/1.png" alt="流水线时间角度上硬件资源"></p>
+<h3 id="7-1-Datapath-数据通路"><a href="#7-1-Datapath-数据通路" class="headerlink" title="7.1 Datapath 数据通路"></a>7.1 Datapath 数据通路</h3><p>读写内存和寄存器组和使用ALU通常是处理的最大delay的部分。五级流水线的每一级都涵盖了一部分这些高延迟部分。具体得，我们可以分成取指IF，译码DE，运算EX，读写内存MEM，写回WB五个部分。</p>
+<p>Reading and writing the memory and register file and using the ALU typically constitute the biggest delays in the processor. We choose five pipeline stages so that each stage involves exactly one of these slow steps. Specifically, we call the five stages Fetch(IF), Decode(DE), Execute(EX), Memory(MEM), and Writeback(WB).</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/2.png" alt="错误5-stage"></p>
+<p>简单得增加几级reg在组合逻辑电路和读写存储单元之间会导致一些问题，上图便有一处错误！对于一些指令数据/地址需要提前到达，会有时序上的问题</p>
+<p>One of the subtle but critical issues in pipelining is that all signals associated with a particular instruction must advance through the pipeline in unison</p>
+<p>错误在于寄存器组的写逻辑上。寄存器在流水线中是在DE中读取数据，WB中回写数据。然而在回写的地址在DE准备好，而不是WB。</p>
+<p>The error is in the register file write logic, The register file is peculiar because it is read in the Decode stage and written in the Writeback stage. And the correct address is already covered by other instructions when it comes to writeback stage.</p>
+<p>这个错误可以简单通过下图修改，将正确的地址一起传递到WB再写回，因此这个地址和WB回写的数据是逻辑上同步的。</p>
+<p>The WriteReg signal is now pipelined along through the Memory and Writeback stages, so it remains in sync with the rest of the instruction. WriteRegW and ResultW are fed back together to the register file in the Writeback stage.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/3.png" alt="正确5-stage"></p>
+<p>事实上，流水线的设计关键难点在于处理hazards，处理指令执行的顺序。这个部分会在下面单独讨论。</p>
+<p>A central challenge in pipelined systems is handling hazards that occur when the results of one instruction are needed by a subsequent instruction before the former instruction has completed. This section would be discussed sepearately later.</p>
+<h3 id="7-2-Pipelined-Control-流水线控制"><a href="#7-2-Pipelined-Control-流水线控制" class="headerlink" title="7.2 Pipelined Control 流水线控制"></a>7.2 Pipelined Control 流水线控制</h3><p>通过取指后的opcode和funct译码控制存储的使能信号和MUX的选通信号。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/4.png" alt="正确5-stage"></p>
+<h3 id="7-3-Hazard"><a href="#7-3-Hazard" class="headerlink" title="7.3 Hazard"></a>7.3 Hazard</h3><p>在流水线系统中，多个指令在时间上同时被执行。当一条指令的的执行依赖于另一条指令完成的结果，则hazard发生。</p>
+<p>When one instruction is dependent on the results of another that has not yet completed, a hazard occurs.</p>
+<p>RAW(Read after write) hazard：下图表示hazard发生流水线写入寄存器组，如果接下来的两条指令读取寄存器时</p>
+<p>RAW(Read after write) hazard：The diagram shows that hazards may occur in this pipeline when an instruction writes a register and either of the two subsequent instructions read that register.<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%203/5.png" alt="hazard"></p>
+<p>通常来说如果遇到RAW hazard 最直白的解决方法就是流水线停下来等到hazard解决。仔细观察上述指令，我们可以发现：Add在EX时候在ALU已经完成了计算，在MEM级不需要任何操作。空等了一个周期才WB。可以通过提前向前传递ALU的结果来提前WB，减少流水线放慢的效率。</p>
+<p>On closer inspection, however, observe that the sum from the add instruction is computed by the ALU in cycle 3 and is not strictly needed by the and instruction until the ALU uses it in cycle 4. In principle, we should be able to forward the result from one instruction to the next to resolve the RAW hazard without slowing down the pipeline.</p>
+<p>Hazards 可以分成data hazard 和 control hazard。data hazard 发生在指令尝试读取一个寄存器，但该寄存器还未被写回时。control hazard 发生在当跳转指令还没决定下一条该跳转到那一条指令时候，取指已经发生。</p>
+<p>Hazards are classified as data hazards or control hazards. A data hazard occurs when an instruction tries to read a register that has not yet been written back by a previous instruction. A control hazard occurs when the decision of what instruction to fetch next has not been made by the time the fetch takes place.</p>
+<p>A    Data Hazard</p>
+<p>B)    Control Hazard</p>
+<p>C)    Branch Hazard</p>
+]]></content>
+      <categories>
+        <category>Computer architecture</category>
+        <category>Microarchitecture</category>
+      </categories>
+      <tags>
+        <tag>Computer architecture</tag>
+        <tag>Microarchitecture</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Microarchitecture Part 2</title>
+    <url>/2021/06/07/Computer%20architecture/Microarchitecture%20Part%202/</url>
+    <content><![CDATA[<p>Reference：</p>
+<ol>
+<li><em>Digital Design and Computer Architecture,</em> by David Harris, Sarah Harris</li>
+<li><em>Introduction to Computing Systems</em>, by Yale N.Patt, Sanjay J. Patel</li>
+</ol>
+<h2 id="5-Singlecycle-Processor-单周期处理器"><a href="#5-Singlecycle-Processor-单周期处理器" class="headerlink" title="5. Singlecycle Processor 单周期处理器"></a>5. Singlecycle Processor 单周期处理器</h2><p>通过连接存储单元来建立组合逻辑电路的数据通路。控制通路（组合逻辑电路）可以决定控制信号。</p>
+<p>Overview: We begin constructing the datapath by connecting the state elements with combinational logic that can execute the various instructions. Control signals determine which specific instruction is carried out by the datapath at any given time.</p>
+<h3 id="5-1-Datapath-数据通路"><a href="#5-1-Datapath-数据通路" class="headerlink" title="5.1 Datapath 数据通路"></a>5.1 Datapath 数据通路</h3><h4 id="5-1-1-Step-1"><a href="#5-1-1-Step-1" class="headerlink" title="5.1.1 Step 1"></a>5.1.1 Step 1</h4><p>读指令：PC (Program counter) 寄存器包含需要处理的指令地址。</p>
+<p>The program counter (PC) register contains the address of the instruction to execute</p>
+<p>（灰色表示先前讨论过的state elements，黑色表示数据通路）</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/1.png" alt="PC"></p>
+<p>处理器的具体行为取决于具体的取出的指令，我们先考虑lw指令。</p>
+<p>The processor’s actions depend on the specific instruction that was fetched. First we will work out the datapath connections for the lw instruction.</p>
+<h4 id="5-1-2-Step-2"><a href="#5-1-2-Step-2" class="headerlink" title="5.1.2 Step 2"></a>5.1.2 Step 2</h4><p>对于lw指令，这一步需要做的是读base address 和 offset address。base地址对应指令中rs的部分，即 Instr25:21的部分。offset对应Instr15:0。</p>
+<p>For a lw instruction, the next step is to read the source register containing the base address &amp; offset address. This register is specified in the rs field of the instruction, Instr25:21. The offset is stored in the immediate field of the instruction, Instr15:0.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/2.png" alt="sign拓展"></p>
+<p>由于十六位的地址可能是正数或者负数，必须要通过符号拓展成32位。</p>
+<p>Because the 16-bit immedi- ate might be either positive or negative, it must be sign-extended to 32 bits</p>
+<p>符号位拓展就是简单得将MSB（符号位）在高位复制拓展。</p>
+<p>sign extension simply copies the sign bit (most significant bit) of a short input into all of the upper bits of the longer output.</p>
+<h4 id="5-1-3-Step-3"><a href="#5-1-3-Step-3" class="headerlink" title="5.1.3 Step 3"></a>5.1.3 Step 3</h4><p>-Combinational calculation 组合逻辑计算</p>
+<p>处理器需要将基地址（从寄存器中取）和偏移地址（拓展后）相加。两者通过一个三位ALU控制信号的控制下相加，产生ALUresult和zero信号，Zero 来表示结果是否为0。ALU结果送入数据存储器作为load指令的最终地址。</p>
+<p>The processor must add the base address to the offset to find the address to read from memory. The 3-bit <em>ALUControl</em> signal specifies the operation. The ALU generates a 32-bit <em>ALUResult</em> and a <em>Zero</em> flag, that indicates whether <em>ALUResult</em> is 0. ALUResult is sent to the data memory as the address for the load instruction</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/3.png" alt="组合逻辑电路"></p>
+<h4 id="5-1-4-Step-4"><a href="#5-1-4-Step-4" class="headerlink" title="5.1.4 Step 4"></a>5.1.4 Step 4</h4><ul>
+<li>Mem reading / Mem 读取</li>
+</ul>
+<p>ALU的结果会作为Data memory的地址，经过一个时钟节拍后数据输出到 ReadData 总线写入目标寄存器中。具体目标寄存器对应地址在指令的rt部分即 Instr20:16的部分。黑线表示的是地址/数据。</p>
+<p>The data is read from the data memory onto the ReadData bus, then written back to the destination register in the register file at the end of the cycle. The destination register for the lw instruction is specified in the rt field, Instr20:16.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/4.png" alt="Mem读取"></p>
+<h4 id="5-1-5-Step-5"><a href="#5-1-5-Step-5" class="headerlink" title="5.1.5 Step 5"></a>5.1.5 Step 5</h4><ul>
+<li>Write Back 写回</li>
+</ul>
+<p>RegWrite连接在使能信号，数据和地址和使能信号准备好后，在下一个周期CLK上升沿时候写入register中。上图蓝色部分。</p>
+<p>RegWrite is connected to the port 3 write enable input, WE3.The write takes place on the rising edge of the clock at the end of the cycle.</p>
+<p>-Determine address of next instruction for PC //取下一条指令的PC加法</p>
+<p>Instructions mem是byte accessable。MIPS的32位指令包含4个byte。因而取下一个指令时候需要将PC+。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/5.png" alt="PC加法"></p>
+<p>-Next, let us extend the datapath to also handle the sw instruction.接下来我们focus在sw(store word)指令的数据通路</p>
+<p>sw也是需要基地址+偏移来确定mem的地址。不同点在于sw是写入mem而不是读取mem。因而在ALU计算出mem地址后，写入mem的data也需要准备好。因而在取基地址时候，也同时完成了从寄存器取数据。寄存器对应的地址在Instr20:16。使能信号为MemWrite。</p>
+<p>the sw instruction reads a base address from port 1 of the register and sign-extends an immediate. The ALU adds the base address to the immediate to find the memory address. All of these func- tions are already supported by the datapath. The register is specified in the rt field, Instr20:16.  Enable signal is MemWrite.</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/6.png" alt="地址写入"></p>
+<p>-Next, consider extending the datapath to handle the R-type instructions 接下来我们考虑拓展数据通路到能处理R型指令。</p>
+<p>加，减，或，比较。这些指令都是会用到从寄存器组中取数据并且在ALU中计算最后写回到寄存器组中。不同在于进行的是不同ALU操作。因此只需要添加不同的ALU硬件资源，使用不同ALU控制信号。</p>
+<p>Add, sub, and, or, and slt. All of these instructions read two registers from the register file, perform some ALU operation on them, and write the result back to a third register file. They differ only in the specific ALU operation. Hence, they can all be handled with the same hardware, using different ALUControl signals.</p>
+<p>增加MUX作为input的选择可以有效增加数据通路的处理能力。</p>
+<p>This principle of enhancing the datapath’s capabilities by adding a multiplexer to choose inputs from several possibilities is extremely useful</p>
+<p>如下，增加三个MUX来区分是lw&amp;sw还是R-type指令。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/7.png" alt="MUX&amp;WB"></p>
+<p>branch 跳转指令</p>
+<p>核心：增加一个MUX做选择，MUX的输入为正常变化的PC和branch后的PC，ALU返回是否需要跳转的选择信号。<br><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/8.png" alt="地址偏移量相加获得新地址"></p>
+<h3 id="5-2-Control-path-控制通路"><a href="#5-2-Control-path-控制通路" class="headerlink" title="5.2 Control path 控制通路"></a>5.2 Control path 控制通路</h3><p>控制（译码）部分需要在取指完成之后，对指令opcode和funct（R-type的指令的opcode为0）进行译码以决定后面的数据如何执行。各个存储元件的使能信号，MUX的选通信号都要在译码控制单元的控制下执行。ALU使能的宽度（图中是三位）如果需要执行的指令集越多，ALU使能选通信号会更加复杂。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/9.png" alt="控制通路"></p>
+<p>对于每一个指令，控制信号的真值表可以列出：</p>
+<p>由于sw，beg不需要写回因而选通信号X表示dont care，方便组合逻辑电路的设计，使用*可以节省组合逻辑的面积和规模。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/Computer%20architecture/Microarchitecture%20Part%202/10.png" alt="控制信号真值表"></p>
+<h3 id="5-3-Performance-evaluation-性能的考量"><a href="#5-3-Performance-evaluation-性能的考量" class="headerlink" title="5.3 Performance evaluation // 性能的考量"></a>5.3 Performance evaluation // 性能的考量</h3><p>一个执行周期只执行一个周期，因此CPI=1。关键路径需要考虑lw load word取指到写回整个流程。</p>
+<p>Each instruction in the single-cycle processor takes one clock cycle, so the CPI is 1. lw instruction provides the critical delay for accessing to the ALU, memory, and register file which are substantially slower than other operations.</p>
+<h3 id="5-4-Comments"><a href="#5-4-Comments" class="headerlink" title="5.4 Comments"></a>5.4 Comments</h3><p>单周期微控制器有着三个主要的缺点：</p>
+<p>The single-cycle processor has three primary weaknesses</p>
+<ol>
+<li><p>它要求的一个周期以维持最慢的一条指令lw而其他的质量都比它快。</p>
+<p> First, it requires a clock cycle long enough to support the slowest instruction (lw), even though most instructions are faster.</p>
+</li>
+<li><p>过程中用到了三个加法器：ALU中和PC中两个，加法器在面积上昂贵，尤其是对于高速加法器。</p>
+<p> Second, it requires three adders (one in the ALU and two for the PC logic); adders are relatively expensive circuits, especially if they must be fast.</p>
+</li>
+<li><p>它将指令存储器和数据存储器分离开。</p>
+<p> Third, it has sepa- rate instruction and data memories, which may not be realistic. Most computers have a single large memory that holds both instructions and data and that can be read and written.</p>
+</li>
+</ol>
+<h2 id="6-Multicycle-Processor-多周期微处理器"><a href="#6-Multicycle-Processor-多周期微处理器" class="headerlink" title="6. Multicycle Processor 多周期微处理器"></a>6. Multicycle Processor 多周期微处理器</h2><p>多周期处理解决上述的问题通过把指令拆成几个步骤。不同的指令有不同数量的步骤，复杂的指令步骤更多，因而需要更多时间完成。</p>
+<p>The multicycle processor addresses these weaknesses by breaking an instruction into multiple shorter steps. Different instructions use different numbers of steps, so simpler instructions can complete faster than more complex ones.</p>
+]]></content>
+      <categories>
+        <category>Computer architecture</category>
+        <category>Microarchitecture</category>
+      </categories>
+      <tags>
+        <tag>Computer architecture</tag>
+        <tag>Microarchitecture</tag>
       </tags>
   </entry>
   <entry>
@@ -549,177 +549,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SV_1.1 Data Type</title>
-    <url>/2021/04/02/System_Verilog/SV_1.1%20Data%20Type/</url>
-    <content><![CDATA[<p>Source from :</p>
-<ol>
-<li><p>《芯片验证漫游指南》- Page 108-111</p>
-</li>
-<li><p>《System Verilog验证》- Chapter 2</p>
-</li>
-</ol>
-<h2 id="1-数据类型-内建数据类型："><a href="#1-数据类型-内建数据类型：" class="headerlink" title="1. 数据类型-内建数据类型："></a>1. 数据类型-内建数据类型：</h2><h3 id="1-1-logic-类型"><a href="#1-1-logic-类型" class="headerlink" title="1.1 logic 类型"></a>1.1 logic 类型</h3><p>SV中引入一个新的数据类型logic（还有net &amp; wire）</p>
-<p>SV作为侧重于验证的语言，并不关切logic对应的逻辑应该被综合为寄存器还是线网，因为logic被使用的场景如果是验证环境，呢么它只会作为单纯的变量进行赋值操作，而这些变量也只属于软件环境构建。</p>
-<p>原因：方便验证人员节省考虑是线网还是寄存器变量的时间和精力。</p>
-<p>Note：</p>
-<ul>
-<li>logic 声明的变量可以被连续赋值，门单位和模块所驱动</li>
-<li>使用net类型的地方均可以使用logic，但是要求logic不能有通过多个结构性的驱动（如双向总线建模），此时需要用net类型。</li>
-</ul>
-<p>Note:</p>
-<ul>
-<li><p>可以将所有类型（reg&amp;wire）都定义成logic，在多个驱动的地方会发生编译错误（编译器期待为wire类型）</p>
-</li>
-<li><p>logic 是四值逻辑（0，1，X，Z）</p>
-</li>
-</ul>
-<h3 id="1-2-双状态数据类型"><a href="#1-2-双状态数据类型" class="headerlink" title="1.2 双状态数据类型"></a>1.2 双状态数据类型</h3><p>引入二状态数据类型（0 or 1）的原因：</p>
-<ol>
-<li>软硬scope区分：</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/1.png" alt="Figure 1.二值逻辑"></p>
-<ol start="2">
-<li>仿真器的内存使用减少，提高仿真器的精度。</li>
-</ol>
-<p>四值逻辑类型，二值逻辑类型变量划分</p>
-<ul>
-<li><p>四值：integer（32位）, logic, reg, net-type(wire)</p>
-</li>
-<li><p>二值：byte (类比C的char，8位), shortint（16位）, int（32位）, longint（64位）, bit (1 位)</p>
-</li>
-</ul>
-<p>有符号类型，无符号类型变量划分</p>
-<ul>
-<li><p>有符号类型：byte，shortint，int，longint，integer</p>
-</li>
-<li><p>无符号类型：bit, logic, reg, net-type(wire &amp; tri)</p>
-</li>
-</ul>
-<p>Case：</p>
-<ol>
-<li>不同数据类型的变量之间的赋值：</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/2.png"></p>
-<p>ans：128，128，-128</p>
-<ol start="2">
-<li>不同位宽的数据转换 是 补0还是补1：</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/3.png"></p>
-<p>ans：有符号数转换，先拓展了一位符号位。<code>h180。           无符号数转化，拓展补0。 </code>h080。</p>
-<p>细节：在双状态变量连接DUT，尤其被测设计输出产生X or Z时候，这些值会被转换成0或者1，而测试代码可能永远检测不到X or Z。使用（$isunkown）操作符可以检查在任意位出现X还是Z时候，返回1。</p>
-<p>数据转换：编码时一定要注意操作符左右两侧的符号类型是否一致，如果不一致，应该首先将其转换为同一类型再转换。</p>
-<ul>
-<li>静态转换<br>需要转换的表达式前加上单引号即可。编译时候检查。</li>
-<li>动态转换</li>
-</ul>
-<p>$cast(tgt,src)。 仿真时候检查。</p>
-<p>静态转化或者动态转换都需要操作符或者系统函数的介入，称为显式转换。</p>
-<p>下面介绍隐式转换：</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/4.png" alt="Figure 4.隐式转换"></p>
-<p>四值逻辑转换成二值逻辑。（<strong>X只会变成0</strong>）：ans：111x，110</p>
-<p>在操作不同变量时，除去变量的数值：需要考虑变量的以下性质：</p>
-<ul>
-<li>逻辑数值类型</li>
-<li>符号类型</li>
-<li>矢量位宽</li>
-</ul>
-<h2 id="2-定宽数组"><a href="#2-定宽数组" class="headerlink" title="2. 定宽数组"></a>2. 定宽数组</h2><h3 id="2-1-数组声明-amp-初始化："><a href="#2-1-数组声明-amp-初始化：" class="headerlink" title="2.1 数组声明&amp;初始化："></a>2.1 数组声明&amp;初始化：</h3><pre><code>int a [16] 
-int a [0:15]
-int array [8][4] ; // 创建一个8行4列的矩阵
-array [7][3] = 1;  // 设置最后一个元素
-</code></pre>
-<p>Note：</p>
-<ul>
-<li><p>当你的程序试图读取一个超越定义范围的地址中读取数据，SV则会返回<strong>数组元素类型</strong>的缺省值。对于四状态类型的数组如logic，返回的是X；对于双状态类型例如int or bit 则返回0。</p>
-</li>
-<li><p>线网在没有驱动的时候输出是Z</p>
-</li>
-</ul>
-<p>Note: </p>
-<p>数组声明放在数组名字右边。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/5.png" alt="Figure 5. 数组初始化"></p>
-<p>Note: </p>
-<ol>
-<li><p><code>&#123;&#125; 赋值；Name = </code>{0, 1, 2, 3};</p>
-</li>
-<li><p>N {1} : 重复符号</p>
-</li>
-</ol>
-<h3 id="2-2-存储空间考量（合并与非合并）"><a href="#2-2-存储空间考量（合并与非合并）" class="headerlink" title="2.2 存储空间考量（合并与非合并）"></a>2.2 存储空间考量（合并与非合并）</h3><p>SV仿真器在存放数组元素时候时，使用32bit（4 byte=1 word）的字边界。因此byte，shortint，int都是存在一个字。longint放在两个字。</p>
-<ul>
-<li><p>合并：</p>
-<p>  bit [3][7:0] b_pack; // 维度声明放在了变量名左边，占用1个word</p>
-</li>
-<li><p>非合并：</p>
-<p>  bit [7:0] b_unpack [3] // 如下，占用3个word.</p>
-</li>
-</ul>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/6.png" alt="Figure 6.非合并space"></p>
-<p>exercise</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/7.png" alt="Figure 7."></p>
-<p>ans: logic 是4值逻辑，软件上需要两位来存储。</p>
-<p>第一种是合并存储：3<em>8</em>2/32=1.5  需要两个word</p>
-<p>第二种是非合并存储：每一个word 足够存储一个数值，需要三个word。</p>
-<h3 id="2-3-基本数组操作"><a href="#2-3-基本数组操作" class="headerlink" title="2.3 基本数组操作"></a>2.3 基本数组操作</h3><h4 id="2-3-1-for和foreach循环"><a href="#2-3-1-for和foreach循环" class="headerlink" title="2.3.1 for和foreach循环"></a>2.3.1 for和foreach循环</h4><pre><code>$size(Array Name); 返回数组的宽度
-</code></pre>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/8.png" alt="Figure 8. Foreach使用范例"></p>
-<p>foreach 赋值多维数组的的语法，不是 [i][j]，而是[i,j]。</p>
-<pre><code>foreach (md[i,j])
-$display (&quot;md[%0d][%0d]=%0d&quot;, i , j, md[i][j]);
-</code></pre>
-<h4 id="2-3-2-赋值与比较"><a href="#2-3-2-赋值与比较" class="headerlink" title="2.3.2 赋值与比较"></a>2.3.2 赋值与比较</h4><p>赋值可以直接采用 = 传递</p>
-<p>比较可以直接采用 == 进行两个数组的比较，不需要用for比较每个元素</p>
-<p>还可以进行数组片段比较：</p>
-<pre><code>$display(&quot;src[1:4] %s dst[1:4]&quot;, (src[1:4] == dst[1:4)? &quot;==&quot; : &quot;!=&quot;);
-</code></pre>
-<h3 id="2-4-合并数组与非合并数组"><a href="#2-4-合并数组与非合并数组" class="headerlink" title="2.4 合并数组与非合并数组"></a>2.4 合并数组与非合并数组</h3><p>合并数组的声明：必须是[msb:lsb] 不能是[size]</p>
-<p>使用合并数组后，可以单独访问数组中的一部分。</p>
-<p>关于合并数组的选择：</p>
-<ul>
-<li><p>需要以Byte或者word为单位进行对存储单位进行重复读写的需求</p>
-</li>
-<li><p>当需要等待数组的值的变化（敏感列表）必须使用合并数组。</p>
-</li>
-</ul>
-<h2 id="3-动态数组"><a href="#3-动态数组" class="headerlink" title="3. 动态数组"></a>3. 动态数组</h2><p>数组的大小可以灵活调整宽度，可在仿真时灵活调节数组的大小即存储量。可以开辟新的存储空间。</p>
-<p>Dyn数组的各种操作，赋值，拓展，删除。</p>
-<p>int dyn[]</p>
-<p>dyn= new [宽度]</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/9.png" alt="Figure 9. 动态数组使用"></p>
-<p>可以用一个常量数组给动态数组赋值。</p>
-<p>int 的默认值是0， integer的默认值是1。</p>
-<h2 id="4-队列"><a href="#4-队列" class="headerlink" title="4. 队列"></a>4. 队列</h2><p>结合了链表和数组；可以在任何一个地方添加，删除元素并且可以通过索引的方式实现对任一元素的访问。</p>
-<p>优点：执行插入元素这种操作时，使用队列比使用动态数组带来的性能损失少（动态数组需要开辟新的存储空间，并复制原有的数组的数据）</p>
-<p>队列的声明：</p>
-<ol>
-<li><p>Name[$]={0,1} // 不需要在前面加“ ` ”</p>
-</li>
-<li><p>name.insert(index, 内容) //在队列的某一位前插入一位或者一个队列</p>
-</li>
-<li><p>name.delete(index) //删除队列某一位数据</p>
-</li>
-</ol>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/10.png" alt="Figure 10.队列使用"></p>
-<pre><code> push_back() and pop_front() 的结合实现一个FIFO的用法
-</code></pre>
-<p>Note: </p>
-<pre><code>q.size()         //查找q的队列长度, 
-[$:2]: [0:2]         //使用$可以表示最大值或者最小值：
-[2:$]: [2:最大值]
-j =q[$]  //队列的最高位赋给j
-</code></pre>
-<h2 id="5-关联数组"><a href="#5-关联数组" class="headerlink" title="5. 关联数组"></a>5. 关联数组</h2><p>如果需要一个超大容量的数组（模拟存储器），若利用动态数组建立，一旦创建时就被固定下来，对于超大容量的数组则是浪费资源。</p>
-<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/11.png" alt="Figure 11.关联数组使用"></p>
-<h2 id="6-结构体"><a href="#6-结构体" class="headerlink" title="6. 结构体"></a>6. 结构体</h2><p>verilog中无数据结构，SV可以使用struct语句创建结构，跟C语言相似。</p>
-]]></content>
-      <categories>
-        <category>SV</category>
-      </categories>
-      <tags>
-        <tag>SV</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Verilog Ch1&amp;2</title>
     <url>/2021/04/02/Verilog/Verilog%20Ch1&amp;2/</url>
     <content><![CDATA[<p>In this chapter, we would focus on fundamentals and core concepts of Verilog HDL. 在这一章中，主要介绍一些概念和Verlog HDL的基础知识。</p>
@@ -896,6 +725,177 @@ j =q[$]  //队列的最高位赋给j
       </categories>
       <tags>
         <tag>verilog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SV_1.1 Data Type</title>
+    <url>/2021/04/02/System_Verilog/SV_1.1%20Data%20Type/</url>
+    <content><![CDATA[<p>Source from :</p>
+<ol>
+<li><p>《芯片验证漫游指南》- Page 108-111</p>
+</li>
+<li><p>《System Verilog验证》- Chapter 2</p>
+</li>
+</ol>
+<h2 id="1-数据类型-内建数据类型："><a href="#1-数据类型-内建数据类型：" class="headerlink" title="1. 数据类型-内建数据类型："></a>1. 数据类型-内建数据类型：</h2><h3 id="1-1-logic-类型"><a href="#1-1-logic-类型" class="headerlink" title="1.1 logic 类型"></a>1.1 logic 类型</h3><p>SV中引入一个新的数据类型logic（还有net &amp; wire）</p>
+<p>SV作为侧重于验证的语言，并不关切logic对应的逻辑应该被综合为寄存器还是线网，因为logic被使用的场景如果是验证环境，呢么它只会作为单纯的变量进行赋值操作，而这些变量也只属于软件环境构建。</p>
+<p>原因：方便验证人员节省考虑是线网还是寄存器变量的时间和精力。</p>
+<p>Note：</p>
+<ul>
+<li>logic 声明的变量可以被连续赋值，门单位和模块所驱动</li>
+<li>使用net类型的地方均可以使用logic，但是要求logic不能有通过多个结构性的驱动（如双向总线建模），此时需要用net类型。</li>
+</ul>
+<p>Note:</p>
+<ul>
+<li><p>可以将所有类型（reg&amp;wire）都定义成logic，在多个驱动的地方会发生编译错误（编译器期待为wire类型）</p>
+</li>
+<li><p>logic 是四值逻辑（0，1，X，Z）</p>
+</li>
+</ul>
+<h3 id="1-2-双状态数据类型"><a href="#1-2-双状态数据类型" class="headerlink" title="1.2 双状态数据类型"></a>1.2 双状态数据类型</h3><p>引入二状态数据类型（0 or 1）的原因：</p>
+<ol>
+<li>软硬scope区分：</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/1.png" alt="Figure 1.二值逻辑"></p>
+<ol start="2">
+<li>仿真器的内存使用减少，提高仿真器的精度。</li>
+</ol>
+<p>四值逻辑类型，二值逻辑类型变量划分</p>
+<ul>
+<li><p>四值：integer（32位）, logic, reg, net-type(wire)</p>
+</li>
+<li><p>二值：byte (类比C的char，8位), shortint（16位）, int（32位）, longint（64位）, bit (1 位)</p>
+</li>
+</ul>
+<p>有符号类型，无符号类型变量划分</p>
+<ul>
+<li><p>有符号类型：byte，shortint，int，longint，integer</p>
+</li>
+<li><p>无符号类型：bit, logic, reg, net-type(wire &amp; tri)</p>
+</li>
+</ul>
+<p>Case：</p>
+<ol>
+<li>不同数据类型的变量之间的赋值：</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/2.png"></p>
+<p>ans：128，128，-128</p>
+<ol start="2">
+<li>不同位宽的数据转换 是 补0还是补1：</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/3.png"></p>
+<p>ans：有符号数转换，先拓展了一位符号位。<code>h180。           无符号数转化，拓展补0。 </code>h080。</p>
+<p>细节：在双状态变量连接DUT，尤其被测设计输出产生X or Z时候，这些值会被转换成0或者1，而测试代码可能永远检测不到X or Z。使用（$isunkown）操作符可以检查在任意位出现X还是Z时候，返回1。</p>
+<p>数据转换：编码时一定要注意操作符左右两侧的符号类型是否一致，如果不一致，应该首先将其转换为同一类型再转换。</p>
+<ul>
+<li>静态转换<br>需要转换的表达式前加上单引号即可。编译时候检查。</li>
+<li>动态转换</li>
+</ul>
+<p>$cast(tgt,src)。 仿真时候检查。</p>
+<p>静态转化或者动态转换都需要操作符或者系统函数的介入，称为显式转换。</p>
+<p>下面介绍隐式转换：</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/4.png" alt="Figure 4.隐式转换"></p>
+<p>四值逻辑转换成二值逻辑。（<strong>X只会变成0</strong>）：ans：111x，110</p>
+<p>在操作不同变量时，除去变量的数值：需要考虑变量的以下性质：</p>
+<ul>
+<li>逻辑数值类型</li>
+<li>符号类型</li>
+<li>矢量位宽</li>
+</ul>
+<h2 id="2-定宽数组"><a href="#2-定宽数组" class="headerlink" title="2. 定宽数组"></a>2. 定宽数组</h2><h3 id="2-1-数组声明-amp-初始化："><a href="#2-1-数组声明-amp-初始化：" class="headerlink" title="2.1 数组声明&amp;初始化："></a>2.1 数组声明&amp;初始化：</h3><pre><code>int a [16] 
+int a [0:15]
+int array [8][4] ; // 创建一个8行4列的矩阵
+array [7][3] = 1;  // 设置最后一个元素
+</code></pre>
+<p>Note：</p>
+<ul>
+<li><p>当你的程序试图读取一个超越定义范围的地址中读取数据，SV则会返回<strong>数组元素类型</strong>的缺省值。对于四状态类型的数组如logic，返回的是X；对于双状态类型例如int or bit 则返回0。</p>
+</li>
+<li><p>线网在没有驱动的时候输出是Z</p>
+</li>
+</ul>
+<p>Note: </p>
+<p>数组声明放在数组名字右边。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/5.png" alt="Figure 5. 数组初始化"></p>
+<p>Note: </p>
+<ol>
+<li><p><code>&#123;&#125; 赋值；Name = </code>{0, 1, 2, 3};</p>
+</li>
+<li><p>N {1} : 重复符号</p>
+</li>
+</ol>
+<h3 id="2-2-存储空间考量（合并与非合并）"><a href="#2-2-存储空间考量（合并与非合并）" class="headerlink" title="2.2 存储空间考量（合并与非合并）"></a>2.2 存储空间考量（合并与非合并）</h3><p>SV仿真器在存放数组元素时候时，使用32bit（4 byte=1 word）的字边界。因此byte，shortint，int都是存在一个字。longint放在两个字。</p>
+<ul>
+<li><p>合并：</p>
+<p>  bit [3][7:0] b_pack; // 维度声明放在了变量名左边，占用1个word</p>
+</li>
+<li><p>非合并：</p>
+<p>  bit [7:0] b_unpack [3] // 如下，占用3个word.</p>
+</li>
+</ul>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/6.png" alt="Figure 6.非合并space"></p>
+<p>exercise</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/7.png" alt="Figure 7."></p>
+<p>ans: logic 是4值逻辑，软件上需要两位来存储。</p>
+<p>第一种是合并存储：3<em>8</em>2/32=1.5  需要两个word</p>
+<p>第二种是非合并存储：每一个word 足够存储一个数值，需要三个word。</p>
+<h3 id="2-3-基本数组操作"><a href="#2-3-基本数组操作" class="headerlink" title="2.3 基本数组操作"></a>2.3 基本数组操作</h3><h4 id="2-3-1-for和foreach循环"><a href="#2-3-1-for和foreach循环" class="headerlink" title="2.3.1 for和foreach循环"></a>2.3.1 for和foreach循环</h4><pre><code>$size(Array Name); 返回数组的宽度
+</code></pre>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/8.png" alt="Figure 8. Foreach使用范例"></p>
+<p>foreach 赋值多维数组的的语法，不是 [i][j]，而是[i,j]。</p>
+<pre><code>foreach (md[i,j])
+$display (&quot;md[%0d][%0d]=%0d&quot;, i , j, md[i][j]);
+</code></pre>
+<h4 id="2-3-2-赋值与比较"><a href="#2-3-2-赋值与比较" class="headerlink" title="2.3.2 赋值与比较"></a>2.3.2 赋值与比较</h4><p>赋值可以直接采用 = 传递</p>
+<p>比较可以直接采用 == 进行两个数组的比较，不需要用for比较每个元素</p>
+<p>还可以进行数组片段比较：</p>
+<pre><code>$display(&quot;src[1:4] %s dst[1:4]&quot;, (src[1:4] == dst[1:4)? &quot;==&quot; : &quot;!=&quot;);
+</code></pre>
+<h3 id="2-4-合并数组与非合并数组"><a href="#2-4-合并数组与非合并数组" class="headerlink" title="2.4 合并数组与非合并数组"></a>2.4 合并数组与非合并数组</h3><p>合并数组的声明：必须是[msb:lsb] 不能是[size]</p>
+<p>使用合并数组后，可以单独访问数组中的一部分。</p>
+<p>关于合并数组的选择：</p>
+<ul>
+<li><p>需要以Byte或者word为单位进行对存储单位进行重复读写的需求</p>
+</li>
+<li><p>当需要等待数组的值的变化（敏感列表）必须使用合并数组。</p>
+</li>
+</ul>
+<h2 id="3-动态数组"><a href="#3-动态数组" class="headerlink" title="3. 动态数组"></a>3. 动态数组</h2><p>数组的大小可以灵活调整宽度，可在仿真时灵活调节数组的大小即存储量。可以开辟新的存储空间。</p>
+<p>Dyn数组的各种操作，赋值，拓展，删除。</p>
+<p>int dyn[]</p>
+<p>dyn= new [宽度]</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/9.png" alt="Figure 9. 动态数组使用"></p>
+<p>可以用一个常量数组给动态数组赋值。</p>
+<p>int 的默认值是0， integer的默认值是1。</p>
+<h2 id="4-队列"><a href="#4-队列" class="headerlink" title="4. 队列"></a>4. 队列</h2><p>结合了链表和数组；可以在任何一个地方添加，删除元素并且可以通过索引的方式实现对任一元素的访问。</p>
+<p>优点：执行插入元素这种操作时，使用队列比使用动态数组带来的性能损失少（动态数组需要开辟新的存储空间，并复制原有的数组的数据）</p>
+<p>队列的声明：</p>
+<ol>
+<li><p>Name[$]={0,1} // 不需要在前面加“ ` ”</p>
+</li>
+<li><p>name.insert(index, 内容) //在队列的某一位前插入一位或者一个队列</p>
+</li>
+<li><p>name.delete(index) //删除队列某一位数据</p>
+</li>
+</ol>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/10.png" alt="Figure 10.队列使用"></p>
+<pre><code> push_back() and pop_front() 的结合实现一个FIFO的用法
+</code></pre>
+<p>Note: </p>
+<pre><code>q.size()         //查找q的队列长度, 
+[$:2]: [0:2]         //使用$可以表示最大值或者最小值：
+[2:$]: [2:最大值]
+j =q[$]  //队列的最高位赋给j
+</code></pre>
+<h2 id="5-关联数组"><a href="#5-关联数组" class="headerlink" title="5. 关联数组"></a>5. 关联数组</h2><p>如果需要一个超大容量的数组（模拟存储器），若利用动态数组建立，一旦创建时就被固定下来，对于超大容量的数组则是浪费资源。</p>
+<p><img src="https://github.com/XuLixing/blog_images/raw/main/SV/1.1_data_type/11.png" alt="Figure 11.关联数组使用"></p>
+<h2 id="6-结构体"><a href="#6-结构体" class="headerlink" title="6. 结构体"></a>6. 结构体</h2><p>verilog中无数据结构，SV可以使用struct语句创建结构，跟C语言相似。</p>
+]]></content>
+      <categories>
+        <category>SV</category>
+      </categories>
+      <tags>
+        <tag>SV</tag>
       </tags>
   </entry>
   <entry>
